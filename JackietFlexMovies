@@ -1,0 +1,624 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+<title>JackietFlex Movies</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display",sans-serif;
+}
+
+body{
+    background:#090914;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* APPLE STYLE BACKGROUND */
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at top left,#ff4fd8 0%,transparent 25%),
+    radial-gradient(circle at bottom right,#7b61ff 0%,transparent 25%),
+    linear-gradient(145deg,#0a0a14,#141428,#090914);
+    z-index:-3;
+}
+
+/* BLUR LIGHTS */
+
+.glow{
+    position:fixed;
+    width:250px;
+    height:250px;
+    border-radius:50%;
+    filter:blur(120px);
+    opacity:.35;
+    z-index:-2;
+}
+
+.glow1{
+    background:#ff4fd8;
+    top:-50px;
+    left:-50px;
+}
+
+.glow2{
+    background:#7b61ff;
+    bottom:-50px;
+    right:-50px;
+}
+
+/* APP */
+
+.app{
+    max-width:430px;
+    margin:auto;
+    min-height:100vh;
+    padding:22px;
+}
+
+/* HEADER */
+
+.header{
+    text-align:center;
+    margin-top:25px;
+}
+
+.logo{
+    width:95px;
+    height:95px;
+    margin:auto;
+    border-radius:30px;
+    background:linear-gradient(135deg,#ff4fd8,#7b61ff);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:42px;
+    box-shadow:0 15px 40px rgba(123,97,255,.45);
+}
+
+.header h1{
+    margin-top:18px;
+    font-size:38px;
+    font-weight:700;
+}
+
+.header span{
+    background:linear-gradient(90deg,#ff4fd8,#9f7bff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.header p{
+    margin-top:10px;
+    color:#d6d6e8;
+    line-height:1.6;
+    font-size:15px;
+}
+
+/* FEATURED MOVIE */
+
+.hero-card{
+    margin-top:28px;
+    border-radius:32px;
+    overflow:hidden;
+    position:relative;
+    height:240px;
+    box-shadow:0 15px 35px rgba(0,0,0,.4);
+}
+
+.hero-card img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(to top,rgba(0,0,0,.8),transparent);
+    display:flex;
+    align-items:flex-end;
+    padding:22px;
+}
+
+.overlay h2{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.overlay p{
+    color:#ddd;
+    font-size:14px;
+    line-height:1.5;
+}
+
+/* BUTTONS */
+
+.buttons{
+    margin-top:25px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+}
+
+.btn{
+    padding:18px;
+    border:none;
+    border-radius:22px;
+    font-size:16px;
+    font-weight:700;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.btn:hover{
+    transform:translateY(-2px);
+}
+
+.signup{
+    background:linear-gradient(135deg,#ff4fd8,#7b61ff);
+    color:white;
+}
+
+.login{
+    background:rgba(255,255,255,.08);
+    color:white;
+    border:1px solid rgba(255,255,255,.1);
+    backdrop-filter:blur(10px);
+}
+
+.subscribe{
+    background:white;
+    color:#111111;
+}
+
+/* SECTION */
+
+.section-title{
+    margin-top:35px;
+    margin-bottom:18px;
+    font-size:24px;
+    font-weight:700;
+}
+
+/* TRENDING MOVIES */
+
+.movies-scroll{
+    display:flex;
+    gap:16px;
+    overflow-x:auto;
+    scroll-behavior:smooth;
+    padding-bottom:10px;
+}
+
+.movies-scroll::-webkit-scrollbar{
+    display:none;
+}
+
+.movie-box{
+    min-width:170px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:28px;
+    overflow:hidden;
+    backdrop-filter:blur(20px);
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+    transition:.3s;
+}
+
+.movie-box:hover{
+    transform:scale(1.03);
+}
+
+.movie-box img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.movie-content{
+    padding:15px;
+}
+
+.movie-content h3{
+    font-size:18px;
+    margin-bottom:8px;
+}
+
+.movie-content p{
+    color:#d4d4e4;
+    font-size:13px;
+    line-height:1.5;
+}
+
+/* TAG */
+
+.tag{
+    display:inline-block;
+    margin-top:10px;
+    padding:7px 12px;
+    border-radius:50px;
+    background:rgba(255,255,255,.12);
+    font-size:12px;
+}
+
+/* POPUPS */
+
+.popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.65);
+    backdrop-filter:blur(10px);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+    padding:20px;
+}
+
+.popup-box{
+    width:100%;
+    max-width:360px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.1);
+    backdrop-filter:blur(20px);
+    border-radius:32px;
+    padding:30px;
+    animation:popup .3s ease;
+}
+
+@keyframes popup{
+    from{
+        transform:scale(.8);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+.popup-box h2{
+    text-align:center;
+    margin-bottom:20px;
+    font-size:28px;
+    background:linear-gradient(90deg,#ff4fd8,#7b61ff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+.popup-box input{
+    width:100%;
+    padding:15px;
+    margin-bottom:15px;
+    border:none;
+    outline:none;
+    border-radius:16px;
+    background:rgba(255,255,255,.1);
+    color:white;
+    font-size:15px;
+}
+
+.popup-box input::placeholder{
+    color:#ddd;
+}
+
+.popup-btn{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:16px;
+    background:linear-gradient(135deg,#ff4fd8,#7b61ff);
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:5px;
+}
+
+.close-btn{
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:16px;
+    background:white;
+    color:#111;
+    font-weight:bold;
+    margin-top:12px;
+    cursor:pointer;
+}
+
+/* QR */
+
+.qr-box{
+    text-align:center;
+}
+
+.qr-box img{
+    width:220px;
+    height:220px;
+    background:white;
+    padding:10px;
+    border-radius:20px;
+    margin:15px auto;
+}
+
+.price{
+    font-size:30px;
+    font-weight:700;
+    color:#ff77e9;
+    margin-top:10px;
+}
+
+.small{
+    color:#ddd;
+    margin-top:8px;
+    line-height:1.5;
+    font-size:14px;
+}
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+    color:#aaa;
+    font-size:13px;
+    margin-top:40px;
+    padding-bottom:25px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="glow glow1"></div>
+<div class="glow glow2"></div>
+
+<div class="app">
+
+    <!-- HEADER -->
+
+    <div class="header">
+
+        <div class="logo">🎬</div>
+
+        <h1><span>Jackie in Flex</span> </h1>
+
+        <p>
+            Stream trending movies and premium entertainment
+            with a classy Apple iPhone inspired design.
+        </p>
+
+    </div>
+
+    <!-- FEATURED -->
+
+    <div class="hero-card">
+
+        <img src="https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?q=80&w=1200&auto=format&fit=crop" alt="Movie">
+
+        <div class="overlay">
+
+            <div>
+                <h2>Future World</h2>
+                <p>Watch the newest blockbuster movies in Ultra HD.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- BUTTONS -->
+
+    <div class="buttons">
+
+        <button class="btn signup" onclick="openPopup('signupPopup')">
+            Create Account
+        </button>
+
+        <button class="btn login" onclick="openPopup('loginPopup')">
+            Login
+        </button>
+
+        <button class="btn subscribe" onclick="openPopup('subscribePopup')">
+            Subscribe ₱69.00/ Month
+        </button>
+
+    </div>
+
+    <!-- TRENDING -->
+
+    <h2 class="section-title">🔥 Trending Movies</h2>
+
+    <div class="movies-scroll">
+
+        <!-- MOVIE 1 -->
+
+        <div class="movie-box">
+
+            <img src="C:\Users\Jackie 2\OneDrive\Documents\JS\25fb1756-a6df-43d3-adce-35f91216a094.jpg" alt="Movie">
+
+            <div class="movie-content">
+
+                <h3>Sample Movie 1</h3>
+
+                <p>
+                   Walang forever sa mundo ng sinehan, pero dito sa JackietFlex Movies, may forever na pelikula para sa'yo.
+                </p>
+
+                <div class="tag">Trending</div>
+
+            </div>
+
+        </div>
+
+        <!-- MOVIE 2 -->
+
+        <div class="movie-box">
+
+            <img src="C:\Users\Jackie 2\OneDrive\Documents\JS\2205a911-d17f-45f3-9099-7d580ccbc24e.jpg"alt="Movie">
+
+            <div class="movie-content">
+
+                <h3>Dark Horizon</h3>
+
+                <p>
+                    Explore mysterious galaxies and cinematic adventures.
+                </p>
+
+                <div class="tag">New Release</div>
+
+            </div>
+
+        </div>
+
+        <!-- MOVIE 3 -->
+
+        <div class="movie-box">
+
+            <img src="C:\Users\Jackie 2\OneDrive\Documents\JS\4733ebab-466a-4a96-89e6-80769e41d2c0.jpg" alt="Movie">
+
+            <div class="movie-content">
+
+                <h3>Velocity</h3>
+
+                <p>
+                    High-speed racing heartbeats and adrenaline-pumping action.
+                </p>
+
+                <div class="tag">4K HD</div>
+
+            </div>
+
+        </div>
+
+        <!-- MOVIE 4 -->
+
+        <div class="movie-box">
+
+            <img src="https://images.unsplash.com/photo-1440404653325-ab127d49abc1?q=80&w=900&auto=format&fit=crop" alt="Movie">
+
+            <div class="movie-content">
+
+                <h3>Moonlight</h3>
+
+                <p>
+                    A stylish romantic drama with stunning cinematography.
+                </p>
+
+                <div class="tag">Popular</div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+
+    <div class="footer">
+        © 2026 JackietFlex Movies • Apple Style Streaming App
+    </div>
+
+</div>
+
+<!-- SIGNUP POPUP -->
+
+<div class="popup" id="signupPopup">
+
+    <div class="popup-box">
+
+        <h2>Create Account</h2>
+
+        <input type="text" placeholder="Full Name">
+        <input type="email" placeholder="Email Address">
+        <input type="password" placeholder="Password">
+
+        <button class="popup-btn">Sign Up</button>
+
+        <button class="close-btn" onclick="closePopup('signupPopup')">
+            Close
+        </button>
+
+    </div>
+
+</div>
+
+<!-- LOGIN POPUP -->
+
+<div class="popup" id="loginPopup">
+
+    <div class="popup-box">
+
+        <h2>Login</h2>
+
+        <input type="email" placeholder="Email Address">
+        <input type="password" placeholder="Password">
+
+        <button class="popup-btn">Login Now</button>
+
+        <button class="close-btn" onclick="closePopup('loginPopup')">
+            Close
+        </button>
+
+    </div>
+
+</div>
+
+<!-- SUBSCRIBE POPUP -->
+
+<div class="popup" id="subscribePopup">
+
+    <div class="popup-box qr-box">
+
+        <h2>Premium Subscription</h2>
+
+        <div class="price">₱69 / Month</div>
+
+        <p class="small">
+            Scan the QR code using GCash, Maya,
+            or any banking app.
+        </p>
+
+        <img src="https://i.pinimg.com/736x/ee/c9/9a/eec99a787e8b61a0549fb033269167aa.jpg" alt="QR">
+
+        <button class="popup-btn">
+            Scan to Complete
+        </button>
+
+        <button class="close-btn" onclick="closePopup('subscribePopup')">
+            Close
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+function openPopup(id){
+    document.getElementById(id).style.display = "flex";
+}
+
+function closePopup(id){
+    document.getElementById(id).style.display = "none";
+}
+
+</script>
+
+</body>
+
+</html>

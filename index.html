@@ -396,29 +396,215 @@ body::before{
 
         <h1><span>Jackie in Flex</span> </h1>
 
-        <p>
-            Stream trending movies, blockbuster hits, and premium entertainment for FREE on your first month. Enjoy unlimited access to action, romance, comedy, horror, anime, K-drama, documentaries, and more — all in one place, anytime and anywhere.
+        <section class="hero">
+  <div class="overlay"></div>
 
- Watch the latest trending titles, exclusive series, and fan-favorite classics in high quality with smooth streaming experience across all your devices. New movies and episodes added regularly so you’ll always have something exciting to watch.
+  <div class="hero-content">
+    <span class="badge">✨ Free First Month Access</span>
 
+    <h1>
+      Stream Trending Movies & Premium Entertainment
+    </h1>
 
-            
-<h2> 
-✔ Free first month access
-    
-✔ All genres available
-    
-✔ HD & smooth streaming
-    
-✔ Watch anytime, anywhere
-    
-✔ Exclusive and trending content
-    
-✔ Mobile, tablet & smart TV compatible
-    <h2>
-        </p>
+    <p class="subtitle">
+      Watch blockbuster hits, anime, K-drama, horror, romance, comedy,
+      documentaries, and exclusive series in stunning HD quality —
+      anytime, anywhere.
+    </p>
 
+    <div class="buttons">
+      <a href="#" class="btn-primary">Start Watching Free</a>
+      <a href="#" class="btn-secondary">Browse Titles</a>
     </div>
+
+    <div class="features">
+      <div class="feature">🎬 All Genres Available</div>
+      <div class="feature">📺 HD Smooth Streaming</div>
+      <div class="feature">📱 Mobile & Smart TV Ready</div>
+      <div class="feature">🔥 Exclusive Trending Content</div>
+    </div>
+  </div>
+</section>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display",
+  "Segoe UI", sans-serif;
+}
+
+body{
+  background:#000;
+}
+
+/* HERO SECTION */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:40px;
+  overflow:hidden;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(0,0,0,0.9),
+      rgba(20,0,30,0.85),
+      rgba(70,0,120,0.65)
+    ),
+    url('https://images.unsplash.com/photo-1524985069026-dd778a71c7b4?q=80&w=1600&auto=format&fit=crop')
+    center/cover no-repeat;
+}
+
+/* BLUR OVERLAY */
+.overlay{
+  position:absolute;
+  inset:0;
+  backdrop-filter: blur(2px);
+  background:linear-gradient(
+    to bottom,
+    rgba(0,0,0,0.2),
+    rgba(0,0,0,0.7)
+  );
+}
+
+/* CONTENT */
+.hero-content{
+  position:relative;
+  z-index:2;
+  max-width:900px;
+  text-align:center;
+  color:white;
+}
+
+/* BADGE */
+.badge{
+  display:inline-block;
+  padding:10px 18px;
+  border-radius:999px;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.2);
+  color:#ffb6ff;
+  font-size:14px;
+  margin-bottom:25px;
+  backdrop-filter: blur(12px);
+}
+
+/* TITLE */
+.hero h1{
+  font-size:clamp(42px, 7vw, 78px);
+  line-height:1.05;
+  font-weight:700;
+  margin-bottom:25px;
+
+  background:linear-gradient(to right, #ffffff, #ff8cf9, #a855f7);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* DESCRIPTION */
+.subtitle{
+  font-size:18px;
+  line-height:1.8;
+  color:rgba(255,255,255,0.8);
+  max-width:760px;
+  margin:auto;
+  margin-bottom:40px;
+}
+
+/* BUTTONS */
+.buttons{
+  display:flex;
+  gap:18px;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-bottom:50px;
+}
+
+.btn-primary,
+.btn-secondary{
+  text-decoration:none;
+  padding:16px 28px;
+  border-radius:18px;
+  font-weight:600;
+  transition:0.3s ease;
+}
+
+.btn-primary{
+  background:linear-gradient(135deg,#ff4fd8,#8b5cf6);
+  color:white;
+  box-shadow:
+    0 10px 30px rgba(168,85,247,0.45);
+}
+
+.btn-primary:hover{
+  transform:translateY(-3px) scale(1.02);
+  box-shadow:
+    0 14px 40px rgba(255,79,216,0.5);
+}
+
+.btn-secondary{
+  border:1px solid rgba(255,255,255,0.2);
+  background:rgba(255,255,255,0.06);
+  color:white;
+  backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover{
+  background:rgba(255,255,255,0.12);
+  transform:translateY(-3px);
+}
+
+/* FEATURES */
+.features{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:18px;
+}
+
+.feature{
+  padding:18px;
+  border-radius:22px;
+  background:rgba(255,255,255,0.06);
+  border:1px solid rgba(255,255,255,0.08);
+  color:#f3f3f3;
+  backdrop-filter: blur(14px);
+
+  transition:0.3s ease;
+}
+
+.feature:hover{
+  transform:translateY(-5px);
+  background:rgba(255,255,255,0.1);
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  .hero{
+    padding:25px;
+  }
+
+  .subtitle{
+    font-size:16px;
+  }
+
+  .buttons{
+    flex-direction:column;
+    align-items:center;
+  }
+
+  .btn-primary,
+  .btn-secondary{
+    width:100%;
+    max-width:320px;
+    text-align:center;
+  }
+}
+</style>
 
     <!-- FEATURED -->
 
@@ -485,7 +671,7 @@ body::before{
 
         <div class="movie-box">
 
-            <img src="4733ebab-466a-4a96-89e6-80769e41d2c0.jpg">
+            <img src="2205a911-d17f-45f3-9099-7d580ccbc24e.jpg">
 
             <div class="movie-content">
 
@@ -546,7 +732,7 @@ body::before{
     <!-- FOOTER -->
 
     <div class="footer">
-        © 2026 JackietFlex Movies • Apple Style Streaming App
+        ©2026 JackietFlex Movies • #1 Streaming App - WorldWide
     </div>
 
 </div>

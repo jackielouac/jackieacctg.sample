@@ -54,6 +54,8 @@ body::before{
     backdrop-filter:blur(18px);
     border-right:1px solid rgba(255,255,255,.08);
     padding:25px;
+    overflow-y:auto;
+    max-height:100vh;
 }
 
 .logo{
@@ -382,6 +384,15 @@ table td{
     cursor:pointer;
 }
 
+.print-btn{
+    border:none;
+    padding:10px 14px;
+    border-radius:10px;
+    background:linear-gradient(135deg,#1d4ed8,#14b8a6);
+    color:white;
+    cursor:pointer;
+}
+
 /* MOBILE */
 
 @media(max-width:900px){
@@ -446,12 +457,25 @@ table td{
         <div class="menu">
 
             <button>📊 Dashboard</button>
-            <button onclick="openPopup('invoicePopup')">🧾 Create Invoice</button>
-            <button onclick="openPopup('receiptPopup')">💵 Collection Receipt</button>
-            <button>📁 Customer Ledger</button>
-            <button>📈 Sales Report</button>
+
+            <button onclick="openPopup('invoicePopup')">
+                🧾 Create Invoice
+            </button>
+
+            <button onclick="openPopup('receiptPopup')">
+                💵 Collection Receipt
+            </button>
+
+            <button onclick="generateSalesReport()">
+                📈 Sales Report
+            </button>
+
+            <button onclick="printStatement()">
+                📄 Print Statement
+            </button>
+
             <button>📉 Receivable Report</button>
-            <button>🏦 Collection Report</button>
+
             <button>⚙ Settings</button>
 
         </div>
@@ -481,22 +505,22 @@ table td{
 
             <div class="card">
                 <h3>Total Sales</h3>
-                <div class="value green">₱1,250,000</div>
+                <div class="value green" id="totalSales">₱0</div>
             </div>
 
             <div class="card">
                 <h3>Collected</h3>
-                <div class="value blue">₱980,000</div>
+                <div class="value blue" id="collected">₱0</div>
             </div>
 
             <div class="card">
                 <h3>Receivables</h3>
-                <div class="value orange">₱270,000</div>
+                <div class="value orange" id="receivables">₱0</div>
             </div>
 
             <div class="card">
                 <h3>Overdue</h3>
-                <div class="value red">₱52,000</div>
+                <div class="value red">₱0</div>
             </div>
 
         </div>
@@ -519,12 +543,18 @@ table td{
 
             </button>
 
-            <button class="secondary">
+            <button class="secondary"
+            onclick="generateSalesReport()">
+
                 Generate Sales Report
+
             </button>
 
-            <button class="secondary">
+            <button class="secondary"
+            onclick="printStatement()">
+
                 Print Statement
+
             </button>
 
         </div>
@@ -539,45 +569,17 @@ table td{
 
             <table>
 
-                <tr>
-                    <th>Invoice No.</th>
-                    <th>Customer</th>
-                    <th>Amount</th>
-                    <th>Status</th>
-                </tr>
+                <tbody id="transactionTable">
 
-                <tr>
-                    <td>INV-1001</td>
-                    <td>ABC Trading</td>
-                    <td>₱120,000</td>
-                    <td>
-                        <span class="status paid">
-                            PAID
-                        </span>
-                    </td>
-                </tr>
+                    <tr>
+                        <th>Invoice No.</th>
+                        <th>Customer</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
 
-                <tr>
-                    <td>INV-1002</td>
-                    <td>Prime Solutions</td>
-                    <td>₱85,000</td>
-                    <td>
-                        <span class="status pending">
-                            PENDING
-                        </span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td>INV-1003</td>
-                    <td>Metro Supply</td>
-                    <td>₱64,000</td>
-                    <td>
-                        <span class="status paid">
-                            PAID
-                        </span>
-                    </td>
-                </tr>
+                </tbody>
 
             </table>
 
@@ -595,17 +597,17 @@ table td{
 
         <h2>Create Invoice</h2>
 
-        <input type="text" placeholder="Customer Name">
-        <input type="text" placeholder="Invoice Number">
-        <input type="date">
+        <input type="text" id="invCustomer" placeholder="Customer Name">
+        <input type="text" id="invNumber" placeholder="Invoice Number">
+        <input type="date" id="invDate">
 
-        <textarea placeholder="Invoice Details"></textarea>
+        <textarea id="invDetails" placeholder="Invoice Details"></textarea>
 
-        <input type="number" placeholder="Amount">
+        <input type="number" id="invAmount" placeholder="Amount">
 
         <div class="popup-buttons">
 
-            <button class="primary">
+            <button class="primary" onclick="saveInvoice()">
                 Save Invoice
             </button>
 
@@ -630,22 +632,22 @@ table td{
 
         <h2>Collection Receipt</h2>
 
-        <input type="text" placeholder="Customer Name">
-        <input type="text" placeholder="Receipt Number">
-        <input type="number" placeholder="Collected Amount">
+        <input type="text" id="recCustomer" placeholder="Customer Name">
+        <input type="text" id="recNumber" placeholder="Receipt Number">
+        <input type="number" id="recAmount" placeholder="Collected Amount">
 
-        <select>
+        <select id="recMethod">
             <option>GCash</option>
             <option>Bank Transfer</option>
             <option>Cash</option>
             <option>Cheque</option>
         </select>
 
-        <textarea placeholder="Remarks"></textarea>
+        <textarea id="recRemarks" placeholder="Remarks"></textarea>
 
         <div class="popup-buttons">
 
-            <button class="primary">
+            <button class="primary" onclick="saveReceipt()">
                 Save Receipt
             </button>
 
@@ -663,6 +665,9 @@ table td{
 </div>
 
 <script>
+
+let invoices = [];
+let receipts = [];
 
 /* LOGIN */
 
@@ -693,14 +698,376 @@ function closePopup(id){
     document.getElementById(id).style.display = "none";
 }
 
-/* CLOSE OUTSIDE */
+/* SAVE INVOICE */
+
+function saveInvoice(){
+
+    let customer = document.getElementById("invCustomer").value;
+    let number = document.getElementById("invNumber").value;
+    let date = document.getElementById("invDate").value;
+    let details = document.getElementById("invDetails").value;
+    let amount = document.getElementById("invAmount").value;
+
+    if(customer === "" || number === "" || amount === ""){
+
+        alert("Please complete invoice details");
+        return;
+
+    }
+
+    let invoice = {
+
+        customer,
+        number,
+        date,
+        details,
+        amount,
+        status:"PENDING"
+
+    };
+
+    invoices.push(invoice);
+
+    renderInvoices();
+    updateCards();
+
+    closePopup("invoicePopup");
+
+    alert("Invoice Saved Successfully");
+
+}
+
+/* SAVE RECEIPT */
+
+function saveReceipt(){
+
+    let customer = document.getElementById("recCustomer").value;
+    let number = document.getElementById("recNumber").value;
+    let amount = document.getElementById("recAmount").value;
+    let method = document.getElementById("recMethod").value;
+    let remarks = document.getElementById("recRemarks").value;
+
+    receipts.push({
+
+        customer,
+        number,
+        amount,
+        method,
+        remarks
+
+    });
+
+    updateCards();
+
+    closePopup("receiptPopup");
+
+    alert("Receipt Saved Successfully");
+
+}
+
+/* RENDER TABLE */
+
+function renderInvoices(){
+
+    let table = document.getElementById("transactionTable");
+
+    table.innerHTML = `
+
+        <tr>
+            <th>Invoice No.</th>
+            <th>Customer</th>
+            <th>Amount</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+    `;
+
+    invoices.forEach((inv,index)=>{
+
+        table.innerHTML += `
+
+        <tr>
+
+            <td>${inv.number}</td>
+
+            <td>${inv.customer}</td>
+
+            <td>
+                ₱${Number(inv.amount).toLocaleString()}
+            </td>
+
+            <td>
+
+                <span class="status pending">
+                    ${inv.status}
+                </span>
+
+            </td>
+
+            <td>
+
+                <button class="print-btn"
+                onclick="printInvoice(${index})">
+
+                    Print
+
+                </button>
+
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+}
+
+/* UPDATE CARDS */
+
+function updateCards(){
+
+    let totalSales = 0;
+    let totalCollected = 0;
+
+    invoices.forEach(inv=>{
+        totalSales += Number(inv.amount);
+    });
+
+    receipts.forEach(rec=>{
+        totalCollected += Number(rec.amount);
+    });
+
+    let receivable = totalSales - totalCollected;
+
+    document.getElementById("totalSales").innerHTML =
+        "₱" + totalSales.toLocaleString();
+
+    document.getElementById("collected").innerHTML =
+        "₱" + totalCollected.toLocaleString();
+
+    document.getElementById("receivables").innerHTML =
+        "₱" + receivable.toLocaleString();
+
+}
+
+/* PRINT INVOICE */
+
+function printInvoice(index){
+
+    let inv = invoices[index];
+
+    let win = window.open("","","width=900,height=700");
+
+    win.document.write(`
+
+    <html>
+
+    <head>
+
+        <title>Sales Invoice</title>
+
+        <style>
+
+            body{
+                font-family:Arial;
+                padding:40px;
+            }
+
+            h1{
+                color:#1d4ed8;
+            }
+
+            .box{
+                border:1px solid #ccc;
+                border-radius:14px;
+                padding:25px;
+            }
+
+            button{
+                padding:12px 18px;
+                border:none;
+                background:#1d4ed8;
+                color:white;
+                border-radius:10px;
+                cursor:pointer;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <h1>Sales Invoice</h1>
+
+        <div class="box">
+
+            <p><b>Invoice No:</b> ${inv.number}</p>
+
+            <p><b>Customer:</b> ${inv.customer}</p>
+
+            <p><b>Date:</b> ${inv.date}</p>
+
+            <p><b>Details:</b> ${inv.details}</p>
+
+            <p>
+                <b>Amount:</b>
+                ₱${Number(inv.amount).toLocaleString()}
+            </p>
+
+        </div>
+
+        <br>
+
+        <button onclick="window.print()">
+            Print Invoice
+        </button>
+
+    </body>
+
+    </html>
+
+    `);
+
+}
+
+/* SALES REPORT */
+
+function generateSalesReport(){
+
+    let total = 0;
+
+    invoices.forEach(inv=>{
+        total += Number(inv.amount);
+    });
+
+    alert(
+
+        "SALES REPORT\n\n" +
+
+        "Total Invoices: " + invoices.length +
+
+        "\nTotal Sales: ₱" + total.toLocaleString()
+
+    );
+
+}
+
+/* PRINT STATEMENT */
+
+function printStatement(){
+
+    let win = window.open("","","width=1000,height=700");
+
+    let html = `
+
+    <html>
+
+    <head>
+
+        <title>Statement Report</title>
+
+        <style>
+
+            body{
+                font-family:Arial;
+                padding:40px;
+            }
+
+            table{
+                width:100%;
+                border-collapse:collapse;
+            }
+
+            th,td{
+                border:1px solid #ccc;
+                padding:12px;
+                text-align:left;
+            }
+
+            h1{
+                margin-bottom:20px;
+            }
+
+            button{
+                padding:12px 18px;
+                border:none;
+                background:#1d4ed8;
+                color:white;
+                border-radius:10px;
+                cursor:pointer;
+            }
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <h1>Customer Statement Report</h1>
+
+        <table>
+
+            <tr>
+                <th>Invoice No.</th>
+                <th>Customer</th>
+                <th>Amount</th>
+            </tr>
+
+    `;
+
+    invoices.forEach(inv=>{
+
+        html += `
+
+        <tr>
+
+            <td>${inv.number}</td>
+
+            <td>${inv.customer}</td>
+
+            <td>
+                ₱${Number(inv.amount).toLocaleString()}
+            </td>
+
+        </tr>
+
+        `;
+
+    });
+
+    html += `
+
+        </table>
+
+        <br>
+
+        <button onclick="window.print()">
+            Print Statement
+        </button>
+
+    </body>
+
+    </html>
+
+    `;
+
+    win.document.write(html);
+
+}
+
+/* CLOSE POPUP OUTSIDE */
 
 window.onclick = function(e){
 
     document.querySelectorAll(".popup").forEach(function(popup){
 
         if(e.target === popup){
+
             popup.style.display = "none";
+
         }
 
     });

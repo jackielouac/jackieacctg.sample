@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Quelou ERP, AJ Accounting System </title>
+<title>Quelou ERP - AJ Accounting System</title>
+
+<!-- PDF LIBRARY -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
 
@@ -34,7 +38,7 @@ body::before{
 }
 
 .app{
-    display:flex;
+    display:none;
     min-height:100vh;
 }
 
@@ -44,6 +48,7 @@ body::before{
     backdrop-filter:blur(20px);
     padding:25px;
     border-right:1px solid rgba(255,255,255,.08);
+    overflow-y:auto;
 }
 
 .logo{
@@ -133,7 +138,6 @@ body::before{
     background:rgba(255,255,255,.06);
     border-radius:25px;
     padding:24px;
-    margin-bottom:25px;
 }
 
 table{
@@ -164,7 +168,7 @@ table td{
 
 .popup-box{
     width:95%;
-    max-width:900px;
+    max-width:1000px;
     background:#111827;
     padding:30px;
     border-radius:24px;
@@ -245,15 +249,6 @@ table td{
     color:white;
     font-size:16px;
     font-weight:700;
-    cursor:pointer;
-}
-
-.print-btn{
-    border:none;
-    padding:10px 14px;
-    border-radius:10px;
-    background:linear-gradient(135deg,#1d4ed8,#14b8a6);
-    color:white;
     cursor:pointer;
 }
 
@@ -352,7 +347,11 @@ table td{
         <div class="menu">
 
             <button onclick="openPopup('customerPopup')">
-                👥 Customer Masterfile
+                👥 Customer Maintenance
+            </button>
+
+            <button onclick="openPopup('supplierPopup')">
+                🏭 Supplier Maintenance
             </button>
 
             <button onclick="openPopup('invoicePopup')">
@@ -363,28 +362,72 @@ table td{
                 💵 Collection Receipt
             </button>
 
+            <button onclick="openPopup('purchasePopup')">
+                📦 Purchase Order
+            </button>
+
+            <button onclick="openPopup('disbursementPopup')">
+                💸 Cash Disbursement
+            </button>
+
+            <button onclick="openProcessFlow()">
+                🔄 Process Flow
+            </button>
+
+            <button onclick="openReceivableModule()">
+                📂 Receivable Ledger
+            </button>
+
+            <button onclick="openPayablesLedger()">
+                📁 Payables Ledger
+            </button>
+
+            <button onclick="openPaidModule()">
+                💳 Paid Invoice Archive
+            </button>
+
+            <button onclick="openCustomerLedger()">
+                📒 Customer Ledger
+            </button>
+
+            <button onclick="openAgingReport()">
+                📅 Aging Report
+            </button>
+
             <button onclick="generateSalesReport()">
                 📊 Sales Report
             </button>
 
-            <button onclick="generateAISummary()">
-                🤖 AI Insights
+            <button onclick="openPurchaseReport()">
+                🛒 Purchase Report
             </button>
 
-            <button onclick="viewPaidInvoices()">
-                ✅ Paid Invoices
+            <button onclick="openDisbursementReport()">
+                💰 Disbursement Report
             </button>
 
-            <button onclick="viewPendingInvoices()">
-                ⏳ Pending Invoices
+            <button onclick="openAICenter()">
+                🧠 AI Center
             </button>
 
-            <button onclick="topCustomers()">
-                👑 Top Customers
+            <button onclick="downloadPDF()">
+                📄 Export PDF
+            </button>
+
+            <button onclick="downloadExcel()">
+                📊 Export Excel
+            </button>
+
+            <button onclick="openAuditTrail()">
+                🛡️ Audit Trail
             </button>
 
             <button onclick="exportData()">
                 💾 Backup Data
+            </button>
+
+            <button onclick="logout()">
+                🚪 Logout
             </button>
 
             <button onclick="clearAllData()">
@@ -403,12 +446,10 @@ table td{
 
             <div>
 
-                <h1>
-                    Accounting Dashboard
-                </h1>
+                <h1>Accounting Dashboard</h1>
 
                 <p style="color:#b7bfd2;">
-                    Smart Billing & Collection
+                    Smart ERP Monitoring
                 </p>
 
             </div>
@@ -430,7 +471,7 @@ table td{
             </div>
 
             <div class="card">
-                <h3>Collections</h3>
+                <h3>Total Collection</h3>
                 <div class="value blue" id="totalCollected">₱0</div>
             </div>
 
@@ -458,18 +499,6 @@ table td{
 
                 <tbody id="transactionTable">
 
-                    <tr>
-
-                        <th>Invoice #</th>
-                        <th>Customer</th>
-                        <th>Amount</th>
-                        <th>Status</th>
-                        <th>Receipt #</th>
-                        <th>Preview</th>
-                        <th>Entry</th>
-
-                    </tr>
-
                 </tbody>
 
             </table>
@@ -486,7 +515,7 @@ table td{
 
     <div class="popup-box">
 
-        <h2>Customer Masterfile</h2>
+        <h2>Customer Maintenance</h2>
 
         <input type="text"
         id="custName"
@@ -522,96 +551,6 @@ table td{
 
 </div>
 
-<!-- INVOICE -->
-
-<div class="popup" id="invoicePopup">
-
-    <div class="popup-box">
-
-        <h2>Create Invoice</h2>
-
-        <select id="invCustomer"></select>
-
-        <input type="text"
-        id="invNumber"
-        placeholder="Invoice Number">
-
-        <input type="date"
-        id="invDate">
-
-        <textarea id="invDetails"
-        placeholder="Invoice Details"></textarea>
-
-        <input type="number"
-        id="invAmount"
-        placeholder="Amount">
-
-        <div class="popup-buttons">
-
-            <button class="primary"
-            onclick="saveInvoice()">
-                Save Invoice
-            </button>
-
-            <button class="secondary"
-            onclick="closePopup('invoicePopup')">
-                Close
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
-<!-- RECEIPT -->
-
-<div class="popup" id="receiptPopup">
-
-    <div class="popup-box">
-
-        <h2>Collection Receipt</h2>
-
-        <select id="receiptInvoiceSelect"
-        onchange="loadInvoiceToReceipt()"></select>
-
-        <input type="text"
-        id="recCustomer"
-        placeholder="Customer Name">
-
-        <input type="text"
-        id="recInvoiceNumber"
-        placeholder="Invoice Number">
-
-        <input type="text"
-        id="recNumber"
-        placeholder="Receipt Number">
-
-        <input type="number"
-        id="recAmount"
-        placeholder="Amount">
-
-        <textarea id="recRemarks"
-        placeholder="Remarks"></textarea>
-
-        <div class="popup-buttons">
-
-            <button class="primary"
-            onclick="saveReceipt()">
-                Save Receipt
-            </button>
-
-            <button class="secondary"
-            onclick="closePopup('receiptPopup')">
-                Close
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
 <!-- REPORT POPUP -->
 
 <div class="popup" id="reportPopup">
@@ -619,17 +558,12 @@ table td{
     <div class="popup-box">
 
         <h2 style="margin-bottom:20px;">
-            Sales Report
+            ERP Report Viewer
         </h2>
 
         <div id="reportContent"></div>
 
         <div class="popup-buttons">
-
-            <button class="primary"
-            onclick="printReport()">
-                Print
-            </button>
 
             <button class="secondary"
             onclick="closePopup('reportPopup')">
@@ -642,34 +576,11 @@ table td{
 
 </div>
 
-<!-- ENTRY POPUP -->
-
-<div class="popup" id="entryPopup">
-
-    <div class="popup-box">
-
-        <h2>
-            AI Suggested Accounting Entry
-        </h2>
-
-        <div id="entryContent"></div>
-
-        <div class="popup-buttons">
-
-            <button class="secondary"
-            onclick="closePopup('entryPopup')">
-                Close
-            </button>
-
-        </div>
-
-    </div>
-
-</div>
-
 <script>
 
+/* ========================= */
 /* DATABASE */
+/* ========================= */
 
 let users =
 JSON.parse(localStorage.getItem("users")) || [
@@ -684,13 +595,27 @@ JSON.parse(localStorage.getItem("users")) || [
 let customers =
 JSON.parse(localStorage.getItem("customers")) || [];
 
+let suppliers =
+JSON.parse(localStorage.getItem("suppliers")) || [];
+
 let invoices =
 JSON.parse(localStorage.getItem("invoices")) || [];
 
 let receipts =
 JSON.parse(localStorage.getItem("receipts")) || [];
 
+let purchases =
+JSON.parse(localStorage.getItem("purchases")) || [];
+
+let disbursements =
+JSON.parse(localStorage.getItem("disbursements")) || [];
+
+let auditLogs =
+JSON.parse(localStorage.getItem("auditLogs")) || [];
+
+/* ========================= */
 /* LOGIN */
+/* ========================= */
 
 function login(){
 
@@ -713,12 +638,11 @@ function login(){
         document.getElementById("loginScreen")
         .style.display = "none";
 
+        document.querySelector(".app")
+        .style.display = "flex";
+
         document.getElementById("currentUser")
         .innerHTML = found.username;
-
-        loadCustomers();
-
-        loadInvoiceSelections();
 
         renderInvoices();
 
@@ -732,7 +656,36 @@ function login(){
 
 }
 
-/* POPUPS */
+/* ========================= */
+/* LOGOUT */
+/* ========================= */
+
+function logout(){
+
+    let confirmLogout =
+    confirm("Logout Session?");
+
+    if(confirmLogout){
+
+        document.querySelector(".app")
+        .style.display = "none";
+
+        document.getElementById("loginScreen")
+        .style.display = "flex";
+
+        document.getElementById("username")
+        .value = "";
+
+        document.getElementById("password")
+        .value = "";
+
+    }
+
+}
+
+/* ========================= */
+/* POPUP */
+/* ========================= */
 
 function openPopup(id){
 
@@ -748,7 +701,29 @@ function closePopup(id){
 
 }
 
+/* ========================= */
+/* AUDIT */
+/* ========================= */
+
+function addAudit(action){
+
+    auditLogs.push({
+
+        action,
+        date:new Date().toLocaleString()
+
+    });
+
+    localStorage.setItem(
+        "auditLogs",
+        JSON.stringify(auditLogs)
+    );
+
+}
+
+/* ========================= */
 /* SAVE CUSTOMER */
+/* ========================= */
 
 function saveCustomer(){
 
@@ -775,7 +750,9 @@ function saveCustomer(){
         JSON.stringify(customers)
     );
 
-    loadCustomers();
+    addAudit(
+        "Customer Created : " + customer.name
+    );
 
     updateCards();
 
@@ -785,268 +762,9 @@ function saveCustomer(){
 
 }
 
-/* LOAD CUSTOMERS */
-
-function loadCustomers(){
-
-    let select =
-    document.getElementById("invCustomer");
-
-    select.innerHTML = "";
-
-    customers.forEach(c=>{
-
-        select.innerHTML += `
-
-        <option value="${c.name}">
-            ${c.name}
-        </option>
-
-        `;
-
-    });
-
-}
-
-/* SAVE INVOICE */
-
-function saveInvoice(){
-
-    let invoice = {
-
-        customer:
-        document.getElementById("invCustomer").value,
-
-        number:
-        document.getElementById("invNumber").value,
-
-        date:
-        document.getElementById("invDate").value,
-
-        details:
-        document.getElementById("invDetails").value,
-
-        amount:
-        document.getElementById("invAmount").value,
-
-        status:"PENDING"
-
-    };
-
-    invoices.push(invoice);
-
-    localStorage.setItem(
-        "invoices",
-        JSON.stringify(invoices)
-    );
-
-    renderInvoices();
-
-    loadInvoiceSelections();
-
-    updateCards();
-
-    closePopup("invoicePopup");
-
-    alert("Invoice Saved");
-
-}
-
-/* LOAD INVOICE */
-
-function loadInvoiceSelections(){
-
-    let select =
-    document.getElementById("receiptInvoiceSelect");
-
-    select.innerHTML = `
-
-    <option value="">
-        Select Invoice
-    </option>
-
-    `;
-
-    invoices.forEach((inv,index)=>{
-
-        select.innerHTML += `
-
-        <option value="${index}">
-            ${inv.number} - ${inv.customer}
-        </option>
-
-        `;
-
-    });
-
-}
-
-/* AUTO LOAD */
-
-function loadInvoiceToReceipt(){
-
-    let index =
-    document.getElementById("receiptInvoiceSelect")
-    .value;
-
-    let inv = invoices[index];
-
-    if(inv){
-
-        document.getElementById("recCustomer")
-        .value = inv.customer;
-
-        document.getElementById("recInvoiceNumber")
-        .value = inv.number;
-
-        document.getElementById("recAmount")
-        .value = inv.amount;
-
-    }
-
-}
-
-/* SAVE RECEIPT */
-
-function saveReceipt(){
-
-    let receipt = {
-
-        customer:
-        document.getElementById("recCustomer").value,
-
-        invoice:
-        document.getElementById("recInvoiceNumber").value,
-
-        number:
-        document.getElementById("recNumber").value,
-
-        amount:
-        document.getElementById("recAmount").value,
-
-        remarks:
-        document.getElementById("recRemarks").value
-
-    };
-
-    receipts.push(receipt);
-
-    invoices.forEach(inv=>{
-
-        if(inv.number === receipt.invoice){
-
-            inv.status = "PAID";
-
-        }
-
-    });
-
-    localStorage.setItem(
-        "receipts",
-        JSON.stringify(receipts)
-    );
-
-    localStorage.setItem(
-        "invoices",
-        JSON.stringify(invoices)
-    );
-
-    renderInvoices();
-
-    updateCards();
-
-    closePopup("receiptPopup");
-
-    alert("Receipt Saved");
-
-}
-
-/* RENDER TABLE */
-
-function renderInvoices(){
-
-    let table =
-    document.getElementById("transactionTable");
-
-    table.innerHTML = `
-
-    <tr>
-
-        <th>Invoice #</th>
-        <th>Customer</th>
-        <th>Amount</th>
-        <th>Status</th>
-        <th>Receipt #</th>
-        <th>Preview</th>
-        <th>Entry</th>
-
-    </tr>
-
-    `;
-
-    invoices.forEach((inv,index)=>{
-
-        let receipt =
-        receipts.find(r=>r.invoice === inv.number);
-
-        table.innerHTML += `
-
-        <tr>
-
-            <td>${inv.number}</td>
-
-            <td>${inv.customer}</td>
-
-            <td>
-                ₱${Number(inv.amount)
-                .toLocaleString()}
-            </td>
-
-            <td>
-
-                <span class="${
-                    inv.status === "PAID"
-                    ? "status-paid"
-                    : "status-pending"
-                }">
-
-                    ${inv.status}
-
-                </span>
-
-            </td>
-
-            <td>
-                ${receipt ? receipt.number : "-"}
-            </td>
-
-            <td>
-
-                <button class="print-btn"
-                onclick="previewInvoice(${index})">
-                    Preview
-                </button>
-
-            </td>
-
-            <td>
-
-                <button class="print-btn"
-                onclick="viewAccountingEntry(${index})">
-                    Entry
-                </button>
-
-            </td>
-
-        </tr>
-
-        `;
-
-    });
-
-}
-
+/* ========================= */
 /* DASHBOARD */
+/* ========================= */
 
 function updateCards(){
 
@@ -1084,21 +802,23 @@ function updateCards(){
 
 }
 
-/* SALES REPORT */
+/* ========================= */
+/* RENDER TABLE */
+/* ========================= */
 
-function generateSalesReport(){
+function renderInvoices(){
 
-    let html = `
+    let table =
+    document.getElementById("transactionTable");
 
-    <table>
+    table.innerHTML = `
 
     <tr>
 
-        <th>Invoice #</th>
+        <th>Invoice</th>
         <th>Customer</th>
         <th>Amount</th>
         <th>Status</th>
-        <th>Receipt #</th>
 
     </tr>
 
@@ -1106,10 +826,7 @@ function generateSalesReport(){
 
     invoices.forEach(inv=>{
 
-        let receipt =
-        receipts.find(r=>r.invoice === inv.number);
-
-        html += `
+        table.innerHTML += `
 
         <tr>
 
@@ -1124,8 +841,86 @@ function generateSalesReport(){
 
             <td>${inv.status}</td>
 
+        </tr>
+
+        `;
+
+    });
+
+}
+
+/* ========================= */
+/* PROCESS FLOW */
+/* ========================= */
+
+function openProcessFlow(){
+
+    let html = `
+
+    <div class="ai-box">
+
+        <h2>ERP Process Flow</h2>
+
+        <br>
+
+        👥 Customer
+        ➜ 🧾 Invoice
+        ➜ 💵 Receipt
+        ➜ 💳 Collection
+
+        <hr style="margin:25px 0;">
+
+        🏭 Supplier
+        ➜ 📦 Purchase
+        ➜ 💸 Disbursement
+        ➜ 🏦 Payables
+
+    </div>
+
+    `;
+
+    document.getElementById("reportContent")
+    .innerHTML = html;
+
+    openPopup("reportPopup");
+
+}
+
+/* ========================= */
+/* REPORTS */
+/* ========================= */
+
+function generateSalesReport(){
+
+    let html = `
+
+    <h2>Sales Report</h2>
+
+    <table>
+
+    <tr>
+
+        <th>Invoice</th>
+        <th>Customer</th>
+        <th>Amount</th>
+
+    </tr>
+
+    `;
+
+    invoices.forEach(inv=>{
+
+        html += `
+
+        <tr>
+
+            <td>${inv.number}</td>
+
+            <td>${inv.customer}</td>
+
             <td>
-                ${receipt ? receipt.number : "-"}
+                ₱${Number(inv.amount)
+                .toLocaleString()}
             </td>
 
         </tr>
@@ -1143,290 +938,230 @@ function generateSalesReport(){
 
 }
 
-/* PRINT */
-
-function printReport(){
-
-    let content =
-    document.getElementById("reportContent")
-    .innerHTML;
-
-    let win =
-    window.open("","","width=1000,height=800");
-
-    win.document.write(`
-
-    <html>
-
-    <body style="font-family:Arial;padding:30px;">
-
-    <h1>Sales Report</h1>
-
-    ${content}
-
-    <br>
-
-    <button onclick="window.print()">
-        Print
-    </button>
-
-    </body>
-
-    </html>
-
-    `);
-
-}
-
-/* AI INSIGHTS */
-
-function generateAISummary(){
-
-    let sales = 0;
-    let paid = 0;
-    let pending = 0;
-
-    invoices.forEach(inv=>{
-
-        sales += Number(inv.amount);
-
-        if(inv.status === "PAID"){
-
-            paid += Number(inv.amount);
-
-        }else{
-
-            pending += Number(inv.amount);
-
-        }
-
-    });
-
-    let rate =
-    sales > 0
-    ? ((paid/sales)*100).toFixed(2)
-    : 0;
-
-    let msg = `
-
-🤖 AI BUSINESS INSIGHTS
-
-📈 TOTAL SALES:
-₱${sales.toLocaleString()}
-
-💰 TOTAL COLLECTION:
-₱${paid.toLocaleString()}
-
-🧾 RECEIVABLES:
-₱${pending.toLocaleString()}
-
-📊 COLLECTION RATE:
-${rate}%
-
-🧠 AI SUGGESTIONS:
-
-`;
-
-    if(pending > 0){
-
-        msg += `
-• Follow up unpaid invoices
-• Improve collection monitoring
-• Send reminders weekly
-`;
-
-    }else{
-
-        msg += `
-• Excellent collection performance
-• Increase monthly target
-• Expand customer accounts
-`;
-
-    }
-
-    alert(msg);
-
-}
-
-/* FILTERS */
-
-function viewPaidInvoices(){
-
-    let paid =
-    invoices.filter(i=>i.status==="PAID");
-
-    alert(
-        "Paid Invoices : " +
-        paid.length
-    );
-
-}
-
-function viewPendingInvoices(){
-
-    let pending =
-    invoices.filter(i=>i.status==="PENDING");
-
-    alert(
-        "Pending Invoices : " +
-        pending.length
-    );
-
-}
-
-/* TOP CUSTOMER */
-
-function topCustomers(){
-
-    let totals = {};
-
-    invoices.forEach(inv=>{
-
-        if(!totals[inv.customer]){
-
-            totals[inv.customer] = 0;
-
-        }
-
-        totals[inv.customer] +=
-        Number(inv.amount);
-
-    });
-
-    let text =
-    "👑 TOP CUSTOMERS\n\n";
-
-    for(let c in totals){
-
-        text += `
-${c} :
-₱${totals[c].toLocaleString()}
-`;
-
-    }
-
-    alert(text);
-
-}
-
-/* PREVIEW */
-
-function previewInvoice(index){
-
-    let inv = invoices[index];
-
-    let win =
-    window.open("","","width=900,height=800");
-
-    win.document.write(`
-
-    <html>
-
-    <body style="font-family:Arial;padding:30px;">
-
-    <h1>AJ ACCOUNTING</h1>
-
-    <h2>BILLING STATEMENT</h2>
-
-    <hr>
-
-    <p><b>Customer:</b> ${inv.customer}</p>
-
-    <p><b>Invoice #:</b> ${inv.number}</p>
-
-    <p><b>Date:</b> ${inv.date}</p>
-
-    <p><b>Details:</b> ${inv.details}</p>
-
-    <h2>
-        TOTAL :
-        ₱${Number(inv.amount).toLocaleString()}
-    </h2>
-
-    <button onclick="window.print()">
-        Print
-    </button>
-
-    </body>
-
-    </html>
-
-    `);
-
-}
-
-/* ACCOUNTING ENTRY */
-
-function viewAccountingEntry(index){
-
-    let inv = invoices[index];
-
-    let paid =
-    inv.status === "PAID";
+/* ========================= */
+/* AI CENTER */
+/* ========================= */
+
+function openAICenter(){
 
     let html = `
 
     <div class="ai-box">
 
-    <h3>AI Suggested Journal Entry</h3>
+        <h2>AI Center</h2>
 
-    <br>
+        <br>
 
-    Debit :
-    Accounts Receivable
-    ₱${Number(inv.amount)
-    .toLocaleString()}
+        <button class="primary"
+        onclick="generateAISummary()">
 
-    <br><br>
+            AI Insights
 
-    Credit :
-    Sales Revenue
-    ₱${Number(inv.amount)
-    .toLocaleString()}
+        </button>
+
+    </div>
 
     `;
 
-    if(paid){
-
-        html += `
-
-        <br><br>
-
-        Debit :
-        Cash in Bank
-        ₱${Number(inv.amount)
-        .toLocaleString()}
-
-        <br><br>
-
-        Credit :
-        Accounts Receivable
-        ₱${Number(inv.amount)
-        .toLocaleString()}
-
-        `;
-
-    }
-
-    html += `</div>`;
-
-    document.getElementById("entryContent")
+    document.getElementById("reportContent")
     .innerHTML = html;
 
-    openPopup("entryPopup");
+    openPopup("reportPopup");
 
 }
 
-/* EXPORT */
+function generateAISummary(){
+
+    let sales = 0;
+
+    invoices.forEach(inv=>{
+
+        sales += Number(inv.amount);
+
+    });
+
+    let html = `
+
+    <div class="ai-box">
+
+        <h2>AI Business Insights</h2>
+
+        <br>
+
+        Total Sales:
+
+        <h1 style="color:#4ade80;">
+
+            ₱${sales.toLocaleString()}
+
+        </h1>
+
+        <br>
+
+        AI Suggestions:
+
+        <ul>
+
+            <li>
+                Follow up pending invoices
+            </li>
+
+            <li>
+                Increase monthly targets
+            </li>
+
+            <li>
+                Expand customer base
+            </li>
+
+        </ul>
+
+    </div>
+
+    `;
+
+    document.getElementById("reportContent")
+    .innerHTML = html;
+
+}
+
+/* ========================= */
+/* PDF */
+/* ========================= */
+
+function downloadPDF(){
+
+    const { jsPDF } = window.jspdf;
+
+    let doc = new jsPDF();
+
+    doc.text(
+
+        document.getElementById("reportContent")
+        .innerText,
+
+        10,
+
+        10
+
+    );
+
+    doc.save("ERP_REPORT.pdf");
+
+}
+
+/* ========================= */
+/* EXCEL */
+/* ========================= */
+
+function downloadExcel(){
+
+    let rows = [
+
+        ["Invoice","Customer","Amount"]
+
+    ];
+
+    invoices.forEach(inv=>{
+
+        rows.push([
+
+            inv.number,
+            inv.customer,
+            inv.amount
+
+        ]);
+
+    });
+
+    let csvContent =
+
+    "data:text/csv;charset=utf-8," +
+
+    rows.map(r=>r.join(","))
+    .join("\n");
+
+    let encodedUri =
+    encodeURI(csvContent);
+
+    let link =
+    document.createElement("a");
+
+    link.setAttribute(
+        "href",
+        encodedUri
+    );
+
+    link.setAttribute(
+        "download",
+        "sales_report.csv"
+    );
+
+    document.body.appendChild(link);
+
+    link.click();
+
+}
+
+/* ========================= */
+/* AUDIT */
+/* ========================= */
+
+function openAuditTrail(){
+
+    let html = `
+
+    <table>
+
+    <tr>
+
+        <th>Date</th>
+        <th>Action</th>
+
+    </tr>
+
+    `;
+
+    auditLogs.forEach(log=>{
+
+        html += `
+
+        <tr>
+
+            <td>${log.date}</td>
+
+            <td>${log.action}</td>
+
+        </tr>
+
+        `;
+
+    });
+
+    html += `</table>`;
+
+    document.getElementById("reportContent")
+    .innerHTML = html;
+
+    openPopup("reportPopup");
+
+}
+
+/* ========================= */
+/* BACKUP */
+/* ========================= */
 
 function exportData(){
 
     let data = {
 
         customers,
+        suppliers,
         invoices,
-        receipts
+        receipts,
+        purchases,
+        disbursements,
+        auditLogs
 
     };
 
@@ -1448,20 +1183,20 @@ function exportData(){
     URL.createObjectURL(blob);
 
     a.download =
-    "AJ_ACCOUNTING_BACKUP.json";
+    "ERP_BACKUP.json";
 
     a.click();
 
 }
 
+/* ========================= */
 /* RESET */
+/* ========================= */
 
 function clearAllData(){
 
     let confirmReset =
-    confirm(
-        "Delete ALL records?"
-    );
+    confirm("Delete ALL records?");
 
     if(confirmReset){
 
@@ -1473,7 +1208,9 @@ function clearAllData(){
 
 }
 
+/* ========================= */
 /* CLOSE POPUP */
+/* ========================= */
 
 window.onclick = function(e){
 

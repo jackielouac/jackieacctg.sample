@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
 <title>Quelou ERP - AJ Accounting</title>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
 <style>
 
@@ -24,8 +22,6 @@ body{
     overflow-x:hidden;
 }
 
-/* BACKGROUND */
-
 body::before{
     content:"";
     position:fixed;
@@ -37,8 +33,6 @@ body::before{
     z-index:-5;
 }
 
-/* APP */
-
 .app{
     max-width:1400px;
     margin:auto;
@@ -46,16 +40,12 @@ body::before{
     min-height:100vh;
 }
 
-/* SIDEBAR */
-
 .sidebar{
     width:270px;
     background:rgba(255,255,255,.05);
     backdrop-filter:blur(18px);
     border-right:1px solid rgba(255,255,255,.08);
     padding:25px;
-    overflow-y:auto;
-    max-height:100vh;
 }
 
 .logo{
@@ -75,16 +65,6 @@ body::before{
     justify-content:center;
     font-size:26px;
     font-weight:700;
-}
-
-.logo h1{
-    font-size:22px;
-}
-
-.logo p{
-    color:#b9c0d4;
-    font-size:13px;
-    margin-top:2px;
 }
 
 .menu{
@@ -110,14 +90,10 @@ body::before{
     transform:translateX(5px);
 }
 
-/* MAIN */
-
 .main{
     flex:1;
     padding:25px;
 }
-
-/* HEADER */
 
 .topbar{
     display:flex;
@@ -126,22 +102,11 @@ body::before{
     margin-bottom:30px;
 }
 
-.topbar h2{
-    font-size:30px;
-}
-
-.topbar p{
-    color:#b7bfd2;
-    margin-top:5px;
-}
-
 .profile{
     background:rgba(255,255,255,.06);
     padding:12px 18px;
     border-radius:16px;
 }
-
-/* CARDS */
 
 .cards{
     display:grid;
@@ -155,12 +120,6 @@ body::before{
     border:1px solid rgba(255,255,255,.08);
     border-radius:26px;
     padding:24px;
-    backdrop-filter:blur(18px);
-    transition:.3s;
-}
-
-.card:hover{
-    transform:translateY(-5px);
 }
 
 .card h3{
@@ -174,23 +133,10 @@ body::before{
     font-weight:800;
 }
 
-.green{
-    color:#4ade80;
-}
-
-.orange{
-    color:#fbbf24;
-}
-
-.red{
-    color:#f87171;
-}
-
-.blue{
-    color:#60a5fa;
-}
-
-/* BUTTONS */
+.green{ color:#4ade80; }
+.orange{ color:#fbbf24; }
+.red{ color:#f87171; }
+.blue{ color:#60a5fa; }
 
 .actions{
     display:flex;
@@ -206,7 +152,6 @@ body::before{
     font-size:15px;
     font-weight:700;
     cursor:pointer;
-    transition:.3s;
 }
 
 .primary{
@@ -219,23 +164,11 @@ body::before{
     color:white;
 }
 
-.actions button:hover{
-    transform:scale(1.04);
-}
-
-/* TABLE */
-
 .table-box{
     background:rgba(255,255,255,.06);
     border-radius:26px;
     padding:24px;
-    border:1px solid rgba(255,255,255,.08);
     overflow:auto;
-}
-
-.table-title{
-    font-size:24px;
-    margin-bottom:20px;
 }
 
 table{
@@ -247,13 +180,11 @@ table th{
     background:rgba(255,255,255,.08);
     padding:16px;
     text-align:left;
-    font-size:14px;
 }
 
 table td{
     padding:16px;
     border-bottom:1px solid rgba(255,255,255,.06);
-    color:#d9dfed;
 }
 
 .status{
@@ -263,17 +194,10 @@ table td{
     font-weight:700;
 }
 
-.paid{
-    background:#14532d;
-    color:#86efac;
-}
-
 .pending{
     background:#78350f;
     color:#fde68a;
 }
-
-/* POPUPS */
 
 .popup{
     position:fixed;
@@ -291,11 +215,6 @@ table td{
     background:#111827;
     border-radius:28px;
     padding:30px;
-    border:1px solid rgba(255,255,255,.08);
-}
-
-.popup-box h2{
-    margin-bottom:20px;
 }
 
 .popup-box input,
@@ -304,16 +223,10 @@ table td{
     width:100%;
     padding:15px;
     border:none;
-    outline:none;
     border-radius:16px;
     background:rgba(255,255,255,.08);
     color:white;
     margin-bottom:15px;
-}
-
-.popup-box textarea{
-    min-height:120px;
-    resize:none;
 }
 
 .popup-buttons{
@@ -329,8 +242,6 @@ table td{
     font-weight:700;
     cursor:pointer;
 }
-
-/* LOGIN */
 
 .login-screen{
     position:fixed;
@@ -348,18 +259,6 @@ table td{
     background:rgba(255,255,255,.06);
     border-radius:30px;
     padding:35px;
-    backdrop-filter:blur(20px);
-    border:1px solid rgba(255,255,255,.08);
-}
-
-.login-box h1{
-    font-size:34px;
-    margin-bottom:10px;
-}
-
-.login-box p{
-    color:#c7d0e4;
-    margin-bottom:25px;
 }
 
 .login-box input{
@@ -392,8 +291,6 @@ table td{
     color:white;
     cursor:pointer;
 }
-
-/* MOBILE */
 
 @media(max-width:900px){
 
@@ -433,7 +330,7 @@ table td{
 
 </div>
 
-<!-- MAIN APP -->
+<!-- MAIN -->
 
 <div class="app">
 
@@ -443,9 +340,7 @@ table td{
 
         <div class="logo">
 
-            <div class="logo-icon">
-                AJ
-            </div>
+            <div class="logo-icon">AJ</div>
 
             <div>
                 <h1>Quelou ERP</h1>
@@ -457,6 +352,10 @@ table td{
         <div class="menu">
 
             <button>📊 Dashboard</button>
+
+            <button onclick="openPopup('customerPopup')">
+                👥 Customer Maintenance
+            </button>
 
             <button onclick="openPopup('invoicePopup')">
                 🧾 Create Invoice
@@ -474,15 +373,11 @@ table td{
                 📄 Print Statement
             </button>
 
-            <button>📉 Receivable Report</button>
-
-            <button>⚙ Settings</button>
-
         </div>
 
     </div>
 
-    <!-- MAIN -->
+    <!-- MAIN CONTENT -->
 
     <div class="main">
 
@@ -490,7 +385,7 @@ table td{
 
             <div>
                 <h2>Accounting Dashboard</h2>
-                <p>Monitor invoices, collections and receivables</p>
+                <p>Monitor invoices and collections</p>
             </div>
 
             <div class="profile">
@@ -519,8 +414,8 @@ table td{
             </div>
 
             <div class="card">
-                <h3>Overdue</h3>
-                <div class="value red">₱0</div>
+                <h3>Total Customers</h3>
+                <div class="value red" id="totalCustomers">0</div>
             </div>
 
         </div>
@@ -546,14 +441,7 @@ table td{
             <button class="secondary"
             onclick="generateSalesReport()">
 
-                Generate Sales Report
-
-            </button>
-
-            <button class="secondary"
-            onclick="printStatement()">
-
-                Print Statement
+                Generate Report
 
             </button>
 
@@ -563,25 +451,69 @@ table td{
 
         <div class="table-box">
 
-            <div class="table-title">
+            <h2 style="margin-bottom:20px;">
                 Recent Transactions
-            </div>
+            </h2>
 
             <table>
 
                 <tbody id="transactionTable">
 
                     <tr>
+
                         <th>Invoice No.</th>
                         <th>Customer</th>
                         <th>Amount</th>
                         <th>Status</th>
                         <th>Action</th>
+
                     </tr>
 
                 </tbody>
 
             </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- CUSTOMER POPUP -->
+
+<div class="popup" id="customerPopup">
+
+    <div class="popup-box">
+
+        <h2>Customer Maintenance</h2>
+
+        <input type="text" id="custName"
+        placeholder="Customer Name">
+
+        <input type="text" id="custAddress"
+        placeholder="Address">
+
+        <input type="text" id="custTIN"
+        placeholder="TIN">
+
+        <input type="text" id="custContact"
+        placeholder="Contact Number">
+
+        <div class="popup-buttons">
+
+            <button class="primary"
+            onclick="saveCustomer()">
+
+                Save
+
+            </button>
+
+            <button class="secondary"
+            onclick="closePopup('customerPopup')">
+
+                Close
+
+            </button>
 
         </div>
 
@@ -597,18 +529,26 @@ table td{
 
         <h2>Create Invoice</h2>
 
-        <input type="text" id="invCustomer" placeholder="Customer Name">
-        <input type="text" id="invNumber" placeholder="Invoice Number">
+        <select id="invCustomer"></select>
+
+        <input type="text" id="invNumber"
+        placeholder="Invoice Number">
+
         <input type="date" id="invDate">
 
-        <textarea id="invDetails" placeholder="Invoice Details"></textarea>
+        <textarea id="invDetails"
+        placeholder="Invoice Details"></textarea>
 
-        <input type="number" id="invAmount" placeholder="Amount">
+        <input type="number" id="invAmount"
+        placeholder="Amount">
 
         <div class="popup-buttons">
 
-            <button class="primary" onclick="saveInvoice()">
+            <button class="primary"
+            onclick="saveInvoice()">
+
                 Save Invoice
+
             </button>
 
             <button class="secondary"
@@ -632,23 +572,34 @@ table td{
 
         <h2>Collection Receipt</h2>
 
-        <input type="text" id="recCustomer" placeholder="Customer Name">
-        <input type="text" id="recNumber" placeholder="Receipt Number">
-        <input type="number" id="recAmount" placeholder="Collected Amount">
+        <input type="text" id="recCustomer"
+        placeholder="Customer Name">
+
+        <input type="text" id="recNumber"
+        placeholder="Receipt Number">
+
+        <input type="number" id="recAmount"
+        placeholder="Collected Amount">
 
         <select id="recMethod">
+
             <option>GCash</option>
             <option>Bank Transfer</option>
             <option>Cash</option>
             <option>Cheque</option>
+
         </select>
 
-        <textarea id="recRemarks" placeholder="Remarks"></textarea>
+        <textarea id="recRemarks"
+        placeholder="Remarks"></textarea>
 
         <div class="popup-buttons">
 
-            <button class="primary" onclick="saveReceipt()">
+            <button class="primary"
+            onclick="saveReceipt()">
+
                 Save Receipt
+
             </button>
 
             <button class="secondary"
@@ -666,6 +617,7 @@ table td{
 
 <script>
 
+let customers = [];
 let invoices = [];
 let receipts = [];
 
@@ -673,12 +625,16 @@ let receipts = [];
 
 function login(){
 
-    let user = document.getElementById("username").value;
-    let pass = document.getElementById("password").value;
+    let user =
+    document.getElementById("username").value;
+
+    let pass =
+    document.getElementById("password").value;
 
     if(user === "jackie-gelic" && pass === "1028"){
 
-        document.getElementById("loginScreen").style.display = "none";
+        document.getElementById(
+        "loginScreen").style.display = "none";
 
     }else{
 
@@ -688,34 +644,112 @@ function login(){
 
 }
 
-/* POPUPS */
+/* POPUP */
 
 function openPopup(id){
-    document.getElementById(id).style.display = "flex";
+
+    document.getElementById(id)
+    .style.display = "flex";
+
 }
 
 function closePopup(id){
-    document.getElementById(id).style.display = "none";
+
+    document.getElementById(id)
+    .style.display = "none";
+
+}
+
+/* CUSTOMER */
+
+function saveCustomer(){
+
+    let name =
+    document.getElementById("custName").value;
+
+    let address =
+    document.getElementById("custAddress").value;
+
+    let tin =
+    document.getElementById("custTIN").value;
+
+    let contact =
+    document.getElementById("custContact").value;
+
+    if(name === ""){
+
+        alert("Customer name required");
+        return;
+
+    }
+
+    customers.push({
+
+        name,
+        address,
+        tin,
+        contact
+
+    });
+
+    loadCustomers();
+
+    updateCards();
+
+    closePopup("customerPopup");
+
+    alert("Customer Saved");
+
+}
+
+function loadCustomers(){
+
+    let select =
+    document.getElementById("invCustomer");
+
+    select.innerHTML = "";
+
+    customers.forEach(c=>{
+
+        select.innerHTML += `
+
+        <option value="${c.name}">
+            ${c.name}
+        </option>
+
+        `;
+
+    });
+
 }
 
 /* SAVE INVOICE */
 
 function saveInvoice(){
 
-    let customer = document.getElementById("invCustomer").value;
-    let number = document.getElementById("invNumber").value;
-    let date = document.getElementById("invDate").value;
-    let details = document.getElementById("invDetails").value;
-    let amount = document.getElementById("invAmount").value;
+    let customer =
+    document.getElementById("invCustomer").value;
 
-    if(customer === "" || number === "" || amount === ""){
+    let number =
+    document.getElementById("invNumber").value;
 
-        alert("Please complete invoice details");
+    let date =
+    document.getElementById("invDate").value;
+
+    let details =
+    document.getElementById("invDetails").value;
+
+    let amount =
+    document.getElementById("invAmount").value;
+
+    if(customer === "" || amount === ""){
+
+        alert("Complete invoice details");
         return;
 
     }
 
-    let invoice = {
+    invoices.push({
 
         customer,
         number,
@@ -724,16 +758,15 @@ function saveInvoice(){
         amount,
         status:"PENDING"
 
-    };
-
-    invoices.push(invoice);
+    });
 
     renderInvoices();
+
     updateCards();
 
     closePopup("invoicePopup");
 
-    alert("Invoice Saved Successfully");
+    alert("Invoice Saved");
 
 }
 
@@ -741,11 +774,20 @@ function saveInvoice(){
 
 function saveReceipt(){
 
-    let customer = document.getElementById("recCustomer").value;
-    let number = document.getElementById("recNumber").value;
-    let amount = document.getElementById("recAmount").value;
-    let method = document.getElementById("recMethod").value;
-    let remarks = document.getElementById("recRemarks").value;
+    let customer =
+    document.getElementById("recCustomer").value;
+
+    let number =
+    document.getElementById("recNumber").value;
+
+    let amount =
+    document.getElementById("recAmount").value;
+
+    let method =
+    document.getElementById("recMethod").value;
+
+    let remarks =
+    document.getElementById("recRemarks").value;
 
     receipts.push({
 
@@ -761,25 +803,28 @@ function saveReceipt(){
 
     closePopup("receiptPopup");
 
-    alert("Receipt Saved Successfully");
+    alert("Receipt Saved");
 
 }
 
-/* RENDER TABLE */
+/* TABLE */
 
 function renderInvoices(){
 
-    let table = document.getElementById("transactionTable");
+    let table =
+    document.getElementById("transactionTable");
 
     table.innerHTML = `
 
-        <tr>
-            <th>Invoice No.</th>
-            <th>Customer</th>
-            <th>Amount</th>
-            <th>Status</th>
-            <th>Action</th>
-        </tr>
+    <tr>
+
+        <th>Invoice No.</th>
+        <th>Customer</th>
+        <th>Amount</th>
+        <th>Status</th>
+        <th>Action</th>
+
+    </tr>
 
     `;
 
@@ -794,7 +839,8 @@ function renderInvoices(){
             <td>${inv.customer}</td>
 
             <td>
-                ₱${Number(inv.amount).toLocaleString()}
+                ₱${Number(inv.amount)
+                .toLocaleString()}
             </td>
 
             <td>
@@ -810,7 +856,7 @@ function renderInvoices(){
                 <button class="print-btn"
                 onclick="printInvoice(${index})">
 
-                    Print
+                    Preview
 
                 </button>
 
@@ -824,7 +870,7 @@ function renderInvoices(){
 
 }
 
-/* UPDATE CARDS */
+/* DASHBOARD */
 
 function updateCards(){
 
@@ -832,23 +878,34 @@ function updateCards(){
     let totalCollected = 0;
 
     invoices.forEach(inv=>{
+
         totalSales += Number(inv.amount);
+
     });
 
     receipts.forEach(rec=>{
+
         totalCollected += Number(rec.amount);
+
     });
 
-    let receivable = totalSales - totalCollected;
+    let receivable =
+    totalSales - totalCollected;
 
-    document.getElementById("totalSales").innerHTML =
-        "₱" + totalSales.toLocaleString();
+    document.getElementById("totalSales")
+    .innerHTML =
+    "₱" + totalSales.toLocaleString();
 
-    document.getElementById("collected").innerHTML =
-        "₱" + totalCollected.toLocaleString();
+    document.getElementById("collected")
+    .innerHTML =
+    "₱" + totalCollected.toLocaleString();
 
-    document.getElementById("receivables").innerHTML =
-        "₱" + receivable.toLocaleString();
+    document.getElementById("receivables")
+    .innerHTML =
+    "₱" + receivable.toLocaleString();
+
+    document.getElementById("totalCustomers")
+    .innerHTML = customers.length;
 
 }
 
@@ -858,7 +915,11 @@ function printInvoice(index){
 
     let inv = invoices[index];
 
-    let win = window.open("","","width=900,height=700");
+    let customer =
+    customers.find(c=>c.name === inv.customer);
+
+    let win =
+    window.open("","","width=1000,height=800");
 
     win.document.write(`
 
@@ -866,64 +927,133 @@ function printInvoice(index){
 
     <head>
 
-        <title>Sales Invoice</title>
+    <title>Billing Statement</title>
 
-        <style>
+    <style>
 
-            body{
-                font-family:Arial;
-                padding:40px;
-            }
+    body{
+        font-family:Arial;
+        padding:30px;
+    }
 
-            h1{
-                color:#1d4ed8;
-            }
+    .box{
+        border:2px solid black;
+        padding:20px;
+    }
 
-            .box{
-                border:1px solid #ccc;
-                border-radius:14px;
-                padding:25px;
-            }
+    table{
+        width:100%;
+        border-collapse:collapse;
+        margin-top:20px;
+    }
 
-            button{
-                padding:12px 18px;
-                border:none;
-                background:#1d4ed8;
-                color:white;
-                border-radius:10px;
-                cursor:pointer;
-            }
+    table,th,td{
+        border:1px solid black;
+    }
 
-        </style>
+    th,td{
+        padding:12px;
+    }
+
+    .right{
+        text-align:right;
+    }
+
+    button{
+        padding:12px 18px;
+        border:none;
+        background:#1d4ed8;
+        color:white;
+        margin-top:20px;
+        cursor:pointer;
+    }
+
+    </style>
 
     </head>
 
     <body>
 
-        <h1>Sales Invoice</h1>
+    <div class="box">
 
-        <div class="box">
+        <center>
 
-            <p><b>Invoice No:</b> ${inv.number}</p>
+            <h2>SAMPLE COMPANY</h2>
 
-            <p><b>Customer:</b> ${inv.customer}</p>
+            <p>621 J. Dimabiling, Cavite</p>
 
-            <p><b>Date:</b> ${inv.date}</p>
+            <h1>BILLING STATEMENT</h1>
 
-            <p><b>Details:</b> ${inv.details}</p>
-
-            <p>
-                <b>Amount:</b>
-                ₱${Number(inv.amount).toLocaleString()}
-            </p>
-
-        </div>
+        </center>
 
         <br>
 
-        <button onclick="window.print()">
-            Print Invoice
-        </button>
+        <p>
+        <b>Customer:</b>
+        ${inv.customer}
+        </p>
+
+        <p>
+        <b>Address:</b>
+        ${customer ? customer.address : ""}
+        </p>
+
+        <p>
+        <b>TIN:</b>
+        ${customer ? customer.tin : ""}
+        </p>
+
+        <p>
+        <b>Invoice No:</b>
+        ${inv.number}
+        </p>
+
+        <p>
+        <b>Date:</b>
+        ${inv.date}
+        </p>
+
+        <table>
+
+            <tr>
+
+                <th>Description</th>
+                <th>Amount</th>
+
+            </tr>
+
+            <tr>
+
+                <td>${inv.details}</td>
+
+                <td class="right">
+
+                    ₱${Number(inv.amount)
+                    .toLocaleString()}
+
+                </td>
+
+            </tr>
+
+        </table>
+
+        <br>
+
+        <h2 class="right">
+
+            TOTAL :
+            ₱${Number(inv.amount)
+            .toLocaleString()}
+
+        </h2>
+
+    </div>
+
+    <button onclick="window.print()">
+
+        Print Billing Statement
+
+    </button>
 
     </body>
 
@@ -933,33 +1063,20 @@ function printInvoice(index){
 
 }
 
-/* SALES REPORT */
+/* REPORT */
 
 function generateSalesReport(){
 
     let total = 0;
 
     invoices.forEach(inv=>{
+
         total += Number(inv.amount);
+
     });
 
-    alert(
-
-        "SALES REPORT\n\n" +
-
-        "Total Invoices: " + invoices.length +
-
-        "\nTotal Sales: ₱" + total.toLocaleString()
-
-    );
-
-}
-
-/* PRINT STATEMENT */
-
-function printStatement(){
-
-    let win = window.open("","","width=1000,height=700");
+    let win =
+    window.open("","","width=1000,height=700");
 
     let html = `
 
@@ -967,54 +1084,59 @@ function printStatement(){
 
     <head>
 
-        <title>Statement Report</title>
+    <title>Sales Report</title>
 
-        <style>
+    <style>
 
-            body{
-                font-family:Arial;
-                padding:40px;
-            }
+    body{
+        font-family:Arial;
+        padding:40px;
+    }
 
-            table{
-                width:100%;
-                border-collapse:collapse;
-            }
+    table{
+        width:100%;
+        border-collapse:collapse;
+    }
 
-            th,td{
-                border:1px solid #ccc;
-                padding:12px;
-                text-align:left;
-            }
+    table,th,td{
+        border:1px solid #ccc;
+    }
 
-            h1{
-                margin-bottom:20px;
-            }
+    th,td{
+        padding:12px;
+    }
 
-            button{
-                padding:12px 18px;
-                border:none;
-                background:#1d4ed8;
-                color:white;
-                border-radius:10px;
-                cursor:pointer;
-            }
+    button{
+        padding:12px 18px;
+        border:none;
+        background:#1d4ed8;
+        color:white;
+        margin-top:20px;
+        cursor:pointer;
+    }
 
-        </style>
+    </style>
 
     </head>
 
     <body>
 
-        <h1>Customer Statement Report</h1>
+    <h1>Sales Report</h1>
 
-        <table>
+    <h3>
+    Total Sales :
+    ₱${total.toLocaleString()}
+    </h3>
 
-            <tr>
-                <th>Invoice No.</th>
-                <th>Customer</th>
-                <th>Amount</th>
-            </tr>
+    <table>
+
+        <tr>
+
+            <th>Invoice No</th>
+            <th>Customer</th>
+            <th>Amount</th>
+
+        </tr>
 
     `;
 
@@ -1029,7 +1151,10 @@ function printStatement(){
             <td>${inv.customer}</td>
 
             <td>
-                ₱${Number(inv.amount).toLocaleString()}
+
+                ₱${Number(inv.amount)
+                .toLocaleString()}
+
             </td>
 
         </tr>
@@ -1040,13 +1165,13 @@ function printStatement(){
 
     html += `
 
-        </table>
+    </table>
 
-        <br>
+    <button onclick="window.print()">
 
-        <button onclick="window.print()">
-            Print Statement
-        </button>
+        Print Report
+
+    </button>
 
     </body>
 
@@ -1058,11 +1183,20 @@ function printStatement(){
 
 }
 
+/* STATEMENT */
+
+function printStatement(){
+
+    generateSalesReport();
+
+}
+
 /* CLOSE POPUP OUTSIDE */
 
 window.onclick = function(e){
 
-    document.querySelectorAll(".popup").forEach(function(popup){
+    document.querySelectorAll(".popup")
+    .forEach(function(popup){
 
         if(e.target === popup){
 

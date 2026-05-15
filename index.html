@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Quelou System the #1 World-wide</title>
+<title>Quelou System your #1 solution worldwide</title>
+
+<!-- PDF + EXCEL -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.0/package/dist/xlsx.full.min.js"></script>
 
 <style>
 
 :root{
     --blue:#0a84ff;
-    --green:#30d158;
-    --orange:#ff9f0a;
-    --red:#ff453a;
-    --bg:#f5f7fb;
-    --card:#ffffff;
+    --green:#22c55e;
+    --orange:#f59e0b;
+    --red:#ef4444;
+    --bg:#f4f7fb;
+    --card:#fff;
     --line:#e5e7eb;
     --text:#111827;
-    --shadow:0 10px 25px rgba(0,0,0,.06);
+    --shadow:0 10px 25px rgba(0,0,0,.07);
 }
 
 *{
@@ -31,12 +35,15 @@
 body{
     background:var(--bg);
     color:var(--text);
-    overflow-x:hidden;
+}
+
+button{
+    cursor:pointer;
 }
 
 /* LOGIN */
 
-.login-wrapper{
+.login{
     min-height:100vh;
     display:flex;
     justify-content:center;
@@ -49,55 +56,57 @@ body{
     max-width:420px;
     background:white;
     padding:35px;
-    border-radius:28px;
+    border-radius:25px;
     box-shadow:var(--shadow);
 }
 
 .login-card h1{
     color:var(--blue);
-    margin-bottom:8px;
+    margin-bottom:10px;
 }
 
-.login-input{
+.input{
     width:100%;
-    padding:16px;
+    padding:15px;
     border:none;
     border-radius:14px;
     background:#f3f4f6;
-    margin-top:14px;
-    outline:none;
+    margin-top:15px;
 }
 
-.login-btn{
-    width:100%;
-    padding:16px;
+.btn{
     border:none;
-    border-radius:14px;
-    background:var(--blue);
+    padding:13px 18px;
+    border-radius:12px;
     color:white;
     font-weight:bold;
-    cursor:pointer;
-    margin-top:18px;
+}
+
+.primary{background:var(--blue);}
+.green{background:var(--green);}
+.orange{background:var(--orange);}
+.red{background:var(--red);}
+
+.w100{
+    width:100%;
 }
 
 /* APP */
 
 .app{
     display:flex;
-    min-height:100vh;
 }
 
 .sidebar{
-    width:290px;
+    width:280px;
     background:white;
     border-right:1px solid #ddd;
     padding:20px;
-    overflow:auto;
     position:fixed;
-    left:0;
     top:0;
+    left:0;
     bottom:0;
-    z-index:999;
+    overflow:auto;
 }
 
 .sidebar h2{
@@ -105,21 +114,19 @@ body{
 }
 
 .menu{
+    margin-top:20px;
     display:flex;
     flex-direction:column;
     gap:10px;
-    margin-top:20px;
 }
 
 .menu button{
-    padding:14px;
     border:none;
-    border-radius:14px;
     background:#f3f4f6;
-    cursor:pointer;
+    padding:15px;
+    border-radius:14px;
     text-align:left;
     font-weight:bold;
-    transition:.2s;
 }
 
 .menu button:hover{
@@ -128,39 +135,22 @@ body{
 }
 
 .main{
-    margin-left:290px;
+    margin-left:280px;
     width:100%;
     padding:20px;
-    padding-top:95px;
 }
 
 .topbar{
-    position:fixed;
-    left:290px;
-    right:0;
-    top:0;
-    height:75px;
     background:white;
-    border-bottom:1px solid #ddd;
+    padding:18px;
+    border-radius:20px;
+    margin-bottom:20px;
+    box-shadow:var(--shadow);
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:0 20px;
-    z-index:998;
-}
-
-.topbar-right{
-    display:flex;
+    flex-wrap:wrap;
     gap:10px;
-    align-items:center;
-}
-
-.search-box{
-    padding:12px;
-    border:none;
-    border-radius:12px;
-    background:#f3f4f6;
-    width:240px;
 }
 
 .cards{
@@ -172,8 +162,8 @@ body{
 
 .card{
     background:white;
-    border-radius:24px;
-    padding:24px;
+    border-radius:20px;
+    padding:20px;
     box-shadow:var(--shadow);
 }
 
@@ -189,27 +179,20 @@ body{
 
 .table-box{
     background:white;
+    border-radius:20px;
     padding:20px;
-    border-radius:24px;
-    box-shadow:var(--shadow);
     margin-bottom:20px;
     overflow:auto;
+    box-shadow:var(--shadow);
 }
 
-.table-header{
+.table-head{
     display:flex;
     justify-content:space-between;
-    gap:10px;
-    flex-wrap:wrap;
+    align-items:center;
     margin-bottom:15px;
-}
-
-.table-search{
-    padding:12px;
-    border:none;
-    border-radius:12px;
-    background:#f3f4f6;
-    width:250px;
+    flex-wrap:wrap;
+    gap:10px;
 }
 
 table{
@@ -221,43 +204,14 @@ table{
 th,td{
     padding:14px;
     border-bottom:1px solid #eee;
-    font-size:14px;
     text-align:left;
-}
-
-.primary-btn,
-.success-btn,
-.danger-btn,
-.orange-btn{
-
-    padding:12px 16px;
-    border:none;
-    border-radius:12px;
-    cursor:pointer;
-    color:white;
-    font-weight:bold;
-}
-
-.primary-btn{
-    background:var(--blue);
-}
-
-.success-btn{
-    background:var(--green);
-}
-
-.danger-btn{
-    background:var(--red);
-}
-
-.orange-btn{
-    background:var(--orange);
+    font-size:14px;
 }
 
 .status-paid{
     background:#dcfce7;
     color:#166534;
-    padding:7px 12px;
+    padding:6px 12px;
     border-radius:999px;
     font-size:12px;
     font-weight:bold;
@@ -266,13 +220,11 @@ th,td{
 .status-pending{
     background:#fef3c7;
     color:#92400e;
-    padding:7px 12px;
+    padding:6px 12px;
     border-radius:999px;
     font-size:12px;
     font-weight:bold;
 }
-
-/* POPUP */
 
 .popup{
     position:fixed;
@@ -281,113 +233,78 @@ th,td{
     display:none;
     justify-content:center;
     align-items:center;
-    z-index:99999;
-    padding:15px;
+    z-index:9999;
+    padding:20px;
 }
 
 .popup-box{
     width:100%;
     max-width:900px;
+    background:white;
+    border-radius:24px;
+    padding:25px;
     max-height:90vh;
     overflow:auto;
-    background:white;
-    border-radius:28px;
-    padding:25px;
 }
 
-.popup-box h2{
-    margin-bottom:18px;
-}
-
-.form-grid{
+.grid{
     display:grid;
     grid-template-columns:repeat(2,1fr);
     gap:12px;
 }
 
-.popup-box input,
-.popup-box select,
-.popup-box textarea{
+textarea{
     width:100%;
+    min-height:100px;
     padding:14px;
     border:none;
     border-radius:14px;
     background:#f3f4f6;
-    outline:none;
+    margin-top:12px;
 }
 
-.popup-box textarea{
-    min-height:100px;
-    resize:vertical;
-}
-
-.action-row{
+.action{
     display:flex;
     gap:10px;
-    flex-wrap:wrap;
     margin-top:15px;
+    flex-wrap:wrap;
 }
 
-/* MOBILE */
+.report-card{
+    border:1px solid #ddd;
+    border-radius:16px;
+    padding:18px;
+    margin-bottom:15px;
+}
 
-.mobile-toggle{
-    display:none;
+.report-card h3{
+    margin-bottom:10px;
 }
 
 @media(max-width:900px){
 
     .sidebar{
-        left:-100%;
-        transition:.3s;
-        width:280px;
-    }
-
-    .sidebar.show{
-        left:0;
-    }
-
-    .topbar{
-        left:0;
+        position:relative;
+        width:100%;
+        height:auto;
     }
 
     .main{
         margin-left:0;
-        padding-top:90px;
     }
 
-    .mobile-toggle{
-        display:block;
+    .app{
+        flex-direction:column;
     }
 
-    .topbar{
-        flex-wrap:wrap;
-        height:auto;
-        padding:15px;
-        gap:10px;
-    }
-
-    .topbar-right{
-        width:100%;
-    }
-
-    .search-box{
-        width:100%;
-    }
-
-    .form-grid{
+    .grid{
         grid-template-columns:1fr;
-    }
-
-    table{
-        min-width:650px;
     }
 
 }
 
 </style>
-
 </head>
-
 <body>
 
 <div id="app"></div>
@@ -398,20 +315,20 @@ th,td{
 STORAGE
 ========================= */
 
-function loadData(key){
-    try{
-        return JSON.parse(localStorage.getItem(key)) || [];
-    }catch{
-        return [];
-    }
+function load(key){
+    return JSON.parse(localStorage.getItem(key) || "[]");
 }
 
-function saveData(key,data){
+function save(key,data){
     localStorage.setItem(key,JSON.stringify(data));
 }
 
-function sanitize(str){
-    return String(str)
+function money(v){
+    return "₱"+Number(v).toLocaleString();
+}
+
+function sanitize(v){
+    return String(v)
     .replace(/</g,"&lt;")
     .replace(/>/g,"&gt;");
 }
@@ -420,50 +337,44 @@ function sanitize(str){
 DEFAULT USERS
 ========================= */
 
-const defaultUsers = [
+if(!localStorage.getItem("users")){
+
+save("users",[
 
 {
-    email:"admin@quelou.com",
-    username:"jackie",
-    password:btoa("@dm1nEvo"),
+    username:"admin",
+    password:btoa("admin123"),
     role:"Super Admin"
-},
-
-{
-    email:"accounting@quelou.com",
-    username:"user1",
-    password:btoa("@dm1nEvo"),
-    role:"Accounting"
 }
 
-];
+]);
 
-if(!localStorage.getItem("systemUsers")){
-    saveData("systemUsers",defaultUsers);
 }
 
 /* =========================
 DATABASE
 ========================= */
 
-let invoices=loadData("invoices");
-let ledger=loadData("ledger");
-let inventory=loadData("inventory");
-let auditLogs=loadData("auditLogs");
-let customers=loadData("customers");
+let invoices=load("invoices");
+let inventory=load("inventory");
+let customers=load("customers");
+let ledger=load("ledger");
+let logs=load("logs");
 
 /* =========================
 AUDIT
 ========================= */
 
-function addAudit(action){
+function addLog(action){
 
-    auditLogs.push({
-        date:new Date().toLocaleString(),
-        action
-    });
+logs.push({
 
-    saveData("auditLogs",auditLogs);
+    date:new Date().toLocaleString(),
+    action
+
+});
+
+save("logs",logs);
 
 }
 
@@ -471,106 +382,69 @@ function addAudit(action){
 LOGIN
 ========================= */
 
+if(!sessionStorage.getItem("user")){
+    renderLogin();
+}else{
+    renderApp();
+}
+
 function renderLogin(){
 
 document.getElementById("app").innerHTML=`
 
-<div class="login-wrapper">
+<div class="login">
 
-    <div class="login-card">
+<div class="login-card">
 
-        <h1>Quelou ERP</h1>
+<h1>Quelou ERP</h1>
 
-        <p>AI Accounting & Business System</p>
+<p>AI Accounting System</p>
 
-        <input
-            type="text"
-            id="username"
-            class="login-input"
-            placeholder="Username or Email"
-        >
+<input class="input" id="user" placeholder="Username">
+<input class="input" id="pass" type="password" placeholder="Password">
 
-        <input
-            type="password"
-            id="password"
-            class="login-input"
-            placeholder="Password"
-        >
+<button class="btn primary w100" onclick="login()" style="margin-top:15px;">
+LOGIN
+</button>
 
-        <button class="login-btn" onclick="login()">
-            LOGIN
-        </button>
-
-    </div>
+</div>
 
 </div>
 
 `;
 
-document.getElementById("password")
-.addEventListener("keypress",function(e){
-
-    if(e.key==="Enter"){
-        login();
-    }
-
-});
-
-document.getElementById("username")
-.addEventListener("keypress",function(e){
-
-    if(e.key==="Enter"){
-        login();
-    }
-
-});
-
 }
 
 function login(){
 
-    let username=document.getElementById("username").value.trim();
-    let password=document.getElementById("password").value.trim();
+let user=document.getElementById("user").value;
+let pass=document.getElementById("pass").value;
 
-    let users=loadData("systemUsers");
+let users=load("users");
 
-    let user=users.find(u=>
+let found=users.find(x=>
 
-        (
-            u.username===username ||
-            u.email===username
-        )
+x.username===user &&
+x.password===btoa(pass)
 
-        &&
+);
 
-        u.password===btoa(password)
+if(!found){
+    alert("Invalid Login");
+    return;
+}
 
-    );
+sessionStorage.setItem("user",JSON.stringify(found));
 
-    if(!user){
-        alert("Invalid Login");
-        return;
-    }
-
-    sessionStorage.setItem("user",JSON.stringify(user));
-
-    location.reload();
+location.reload();
 
 }
 
 function logout(){
-    sessionStorage.removeItem("user");
-    location.reload();
-}
 
-/* =========================
-INIT
-========================= */
+sessionStorage.removeItem("user");
+location.reload();
 
-if(!sessionStorage.getItem("user")){
-    renderLogin();
-}else{
-    renderApp();
 }
 
 /* =========================
@@ -585,185 +459,165 @@ document.getElementById("app").innerHTML=`
 
 <div class="app">
 
-    <div class="sidebar" id="sidebar">
+<div class="sidebar">
 
-        <h2>Quelou ERP</h2>
+<h2>Quelou ERP</h2>
+<p>${user.role}</p>
 
-        <p>${user.role}</p>
+<div class="menu">
 
-        <div class="menu">
+<button onclick="invoicePopup()">➕ Create Invoice</button>
 
-            <button onclick="openInvoicePopup()">➕ Create Invoice</button>
+<button onclick="inventoryPopup()">📦 Add Inventory</button>
 
-            <button onclick="openInventoryPopup()">📦 Add Inventory</button>
+<button onclick="customerPopup()">👤 Customer Master</button>
 
-            <button onclick="openCustomerPopup()">👤 Customer Master</button>
+<button onclick="financialReports()">📑 Financial Reports</button>
 
-            <button onclick="financialReports()">📑 Financial Reports</button>
+<button onclick="showAudit()">🧾 Audit Trail</button>
 
-            <button onclick="maintenanceModule()">⚙️ Maintenance</button>
+<button onclick="backup()">⬇️ Backup</button>
 
-            <button onclick="auditTrail()">🧾 Audit Trail</button>
+<button onclick="restore()">♻️ Restore</button>
 
-            <button onclick="backupSystem()">⬇️ Backup</button>
+<button onclick="logout()">🚪 Logout</button>
 
-            <button onclick="restoreSystem()">♻️ Restore</button>
+</div>
 
-            <button onclick="logout()">🚪 Logout</button>
+</div>
 
-        </div>
+<div class="main">
 
-    </div>
+<div class="topbar">
 
-    <div class="topbar">
+<h2>Quelou ERP AI PRO</h2>
 
-        <div style="display:flex;align-items:center;gap:10px;">
+<div>
+<input class="input" id="ai" placeholder="Ask AI..." style="width:220px;">
+<button class="btn primary" onclick="askAI()">Ask</button>
+</div>
 
-            <button
-                class="primary-btn mobile-toggle"
-                onclick="toggleSidebar()"
-            >
-                ☰
-            </button>
+</div>
 
-            <h3>Quelou ERP AI PRO</h3>
+<div class="cards">
 
-        </div>
+<div class="card">
+<h3>Total Sales</h3>
+<div class="value">
+${money(invoices.reduce((a,b)=>a+b.total,0))}
+</div>
+</div>
 
-        <div class="topbar-right">
+<div class="card">
+<h3>Total Invoices</h3>
+<div class="value">${invoices.length}</div>
+</div>
 
-            <input
-                type="text"
-                id="aiQuery"
-                class="search-box"
-                placeholder="Ask AI..."
-            >
+<div class="card">
+<h3>Inventory Items</h3>
+<div class="value">${inventory.length}</div>
+</div>
 
-            <button
-                class="primary-btn"
-                onclick="runAIQuery()"
-            >
-                Ask
-            </button>
+<div class="card">
+<h3>Customers</h3>
+<div class="value">${customers.length}</div>
+</div>
 
-        </div>
+</div>
 
-    </div>
+<!-- INVOICES -->
 
-    <div class="main">
+<div class="table-box">
 
-        <div class="cards">
+<div class="table-head">
 
-            <div class="card">
-                <h3>Total Sales</h3>
-                <div class="value">
-                    ₱${invoices.reduce((a,b)=>a+b.total,0).toLocaleString()}
-                </div>
-            </div>
+<h2>Invoices</h2>
 
-            <div class="card">
-                <h3>Total Invoices</h3>
-                <div class="value">
-                    ${invoices.length}
-                </div>
-            </div>
+<div>
 
-            <div class="card">
-                <h3>Inventory Items</h3>
-                <div class="value">
-                    ${inventory.length}
-                </div>
-            </div>
+<button class="btn green" onclick="exportExcel('invoiceTable','Invoices')">
+Excel
+</button>
 
-            <div class="card">
-                <h3>Customers</h3>
-                <div class="value">
-                    ${customers.length}
-                </div>
-            </div>
+<button class="btn red" onclick="exportPDF('invoiceTable','Invoices Report')">
+PDF
+</button>
 
-        </div>
+</div>
 
-        <!-- INVOICE -->
+</div>
 
-        <div class="table-box">
+<table id="invoiceTable"></table>
 
-            <div class="table-header">
+</div>
 
-                <h2>Invoices</h2>
+<!-- INVENTORY -->
 
-                <input
-                    type="text"
-                    class="table-search"
-                    placeholder="Search Invoice..."
-                    onkeyup="searchInvoice(this.value)"
-                >
+<div class="table-box">
 
-            </div>
+<div class="table-head">
 
-            <table id="invoiceTable"></table>
+<h2>Inventory</h2>
 
-        </div>
+<div>
 
-        <!-- INVENTORY -->
+<button class="btn green" onclick="exportExcel('inventoryTable','Inventory')">
+Excel
+</button>
 
-        <div class="table-box">
+<button class="btn red" onclick="exportPDF('inventoryTable','Inventory Report')">
+PDF
+</button>
 
-            <div class="table-header">
+</div>
 
-                <h2>Inventory</h2>
+</div>
 
-                <input
-                    type="text"
-                    class="table-search"
-                    placeholder="Search Inventory..."
-                    onkeyup="searchInventory(this.value)"
-                >
+<table id="inventoryTable"></table>
 
-            </div>
+</div>
 
-            <table id="inventoryTable"></table>
+<!-- LEDGER -->
 
-        </div>
+<div class="table-box">
 
-        <!-- LEDGER -->
+<div class="table-head">
 
-        <div class="table-box">
+<h2>General Ledger</h2>
 
-            <h2>General Ledger</h2>
+<div>
 
-            <br>
+<button class="btn green" onclick="exportExcel('ledgerTable','Ledger')">
+Excel
+</button>
 
-            <table id="ledgerTable"></table>
+<button class="btn red" onclick="exportPDF('ledgerTable','General Ledger')">
+PDF
+</button>
 
-        </div>
+</div>
 
-    </div>
+</div>
+
+<table id="ledgerTable"></table>
+
+</div>
+
+</div>
 
 </div>
 
 <div class="popup" id="popup">
 
-    <div class="popup-box" id="popupBox"></div>
+<div class="popup-box" id="popupBox"></div>
 
 </div>
 
 `;
 
-renderInvoices(invoices);
-renderInventory(inventory);
+renderInvoices();
+renderInventory();
 renderLedger();
-
-}
-
-/* =========================
-MOBILE
-========================= */
-
-function toggleSidebar(){
-
-document.getElementById("sidebar")
-.classList.toggle("show");
 
 }
 
@@ -775,13 +629,10 @@ function closePopup(){
     document.getElementById("popup").style.display="none";
 }
 
-window.onclick=function(e){
+function showPopup(html){
 
-    let popup=document.getElementById("popup");
-
-    if(e.target===popup){
-        closePopup();
-    }
+document.getElementById("popup").style.display="flex";
+document.getElementById("popupBox").innerHTML=html;
 
 }
 
@@ -789,127 +640,98 @@ window.onclick=function(e){
 INVOICE
 ========================= */
 
-function openInvoicePopup(){
+function invoicePopup(){
 
-document.getElementById("popup").style.display="flex";
-
-document.getElementById("popupBox").innerHTML=`
+showPopup(`
 
 <h2>Create Invoice</h2>
 
-<div class="form-grid">
+<div class="grid">
 
-<input type="text" id="customer" placeholder="Customer Name">
+<input class="input" id="customer" placeholder="Customer Name">
 
-<input type="text" id="tin" placeholder="TIN">
+<input class="input" id="amount" type="number" placeholder="Amount">
 
-<input type="text" id="address" placeholder="Address">
+<select class="input" id="status">
 
-<input type="number" id="amount" placeholder="Amount">
-
-<select id="status">
-
-<option value="Pending">Pending</option>
-
-<option value="Paid">Paid</option>
+<option>Pending</option>
+<option>Paid</option>
 
 </select>
 
-<input type="date" id="dueDate">
+<input class="input" id="due" type="date">
 
 </div>
 
-<br>
-
 <textarea id="remarks" placeholder="Remarks"></textarea>
 
-<div class="action-row">
+<div class="action">
 
-<button class="primary-btn" onclick="saveInvoice()">
+<button class="btn primary" onclick="saveInvoice()">
 Save Invoice
 </button>
 
-<button class="danger-btn" onclick="closePopup()">
+<button class="btn red" onclick="closePopup()">
 Close
 </button>
 
 </div>
 
-`;
+`);
 
 }
 
 function saveInvoice(){
 
-    let customer=document.getElementById("customer").value;
+let customer=document.getElementById("customer").value;
+let amount=Number(document.getElementById("amount").value);
 
-    let amount=Number(document.getElementById("amount").value);
+if(customer==="" || amount<=0){
+    alert("Complete required fields");
+    return;
+}
 
-    if(customer==="" || amount<=0){
+let vat=amount*0.12;
 
-        alert("Please complete required fields");
-        return;
+let total=amount+vat;
 
-    }
+let inv={
 
-    let vatAmount=amount*0.12;
+invoice:"INV-"+Date.now(),
+customer,
+amount,
+vat,
+total,
+status:document.getElementById("status").value,
+due:document.getElementById("due").value,
+remarks:document.getElementById("remarks").value,
+date:new Date().toLocaleString()
 
-    let total=amount+vatAmount;
+};
 
-    let invoice={
+invoices.push(inv);
 
-        invoice:"INV-"+Date.now(),
+ledger.push({
 
-        customer,
+date:new Date().toLocaleString(),
+reference:inv.invoice,
+debit:inv.status==="Paid" ? "Cash" : "Accounts Receivable",
+credit:"Sales Revenue",
+amount:inv.total
 
-        tin:document.getElementById("tin").value,
+});
 
-        address:document.getElementById("address").value,
+save("invoices",invoices);
+save("ledger",ledger);
 
-        amount,
-        vatAmount,
-        total,
+addLog("Created Invoice "+inv.invoice);
 
-        status:document.getElementById("status").value,
+renderInvoices();
+renderLedger();
 
-        dueDate:document.getElementById("dueDate").value,
+closePopup();
 
-        remarks:document.getElementById("remarks").value,
-
-        date:new Date().toLocaleString()
-
-    };
-
-    invoices.push(invoice);
-
-    ledger.push({
-
-        date:new Date().toLocaleString(),
-
-        reference:invoice.invoice,
-
-        debit:
-        invoice.status==="Paid"
-        ? "Cash"
-        : "Accounts Receivable",
-
-        credit:"Sales Revenue",
-
-        amount:invoice.total
-
-    });
-
-    saveData("invoices",invoices);
-    saveData("ledger",ledger);
-
-    addAudit("Created Invoice "+invoice.invoice);
-
-    alert("Invoice Saved");
-
-    closePopup();
-
-    renderInvoices(invoices);
-    renderLedger();
+alert("Invoice Saved");
 
 }
 
@@ -917,51 +739,53 @@ function saveInvoice(){
 RENDER INVOICES
 ========================= */
 
-function renderInvoices(data){
+function renderInvoices(){
 
-let table=document.getElementById("invoiceTable");
-
-table.innerHTML=`
+let html=`
 
 <tr>
-
 <th>Invoice</th>
 <th>Customer</th>
+<th>Amount</th>
+<th>VAT</th>
 <th>Total</th>
 <th>Status</th>
 <th>Date</th>
-
 </tr>
 
 `;
 
-data.forEach(inv=>{
+invoices.forEach(i=>{
 
-table.innerHTML+=`
+html+=`
 
 <tr>
 
-<td>${sanitize(inv.invoice)}</td>
+<td>${sanitize(i.invoice)}</td>
 
-<td>${sanitize(inv.customer)}</td>
+<td>${sanitize(i.customer)}</td>
 
-<td>₱${Number(inv.total).toLocaleString()}</td>
+<td>${money(i.amount)}</td>
+
+<td>${money(i.vat)}</td>
+
+<td>${money(i.total)}</td>
 
 <td>
 
 <span class="${
-inv.status==="Paid"
+i.status==="Paid"
 ? "status-paid"
 : "status-pending"
 }">
 
-${sanitize(inv.status)}
+${i.status}
 
 </span>
 
 </td>
 
-<td>${sanitize(inv.date)}</td>
+<td>${i.date}</td>
 
 </tr>
 
@@ -969,20 +793,7 @@ ${sanitize(inv.status)}
 
 });
 
-}
-
-function searchInvoice(value){
-
-value=value.toLowerCase();
-
-let filtered=invoices.filter(i=>
-
-    i.customer.toLowerCase().includes(value) ||
-    i.invoice.toLowerCase().includes(value)
-
-);
-
-renderInvoices(filtered);
+document.getElementById("invoiceTable").innerHTML=html;
 
 }
 
@@ -990,104 +801,88 @@ renderInvoices(filtered);
 INVENTORY
 ========================= */
 
-function openInventoryPopup(){
+function inventoryPopup(){
 
-document.getElementById("popup").style.display="flex";
-
-document.getElementById("popupBox").innerHTML=`
+showPopup(`
 
 <h2>Add Inventory</h2>
 
-<div class="form-grid">
+<div class="grid">
 
-<input type="text" id="item" placeholder="Item Name">
+<input class="input" id="item" placeholder="Item">
 
-<input type="number" id="qty" placeholder="Quantity">
+<input class="input" id="qty" type="number" placeholder="Qty">
 
-<input type="text" id="warehouse" placeholder="Warehouse">
+<input class="input" id="warehouse" placeholder="Warehouse">
 
-<input type="number" id="cost" placeholder="Cost">
+<input class="input" id="cost" type="number" placeholder="Cost">
 
 </div>
 
-<div class="action-row">
+<div class="action">
 
-<button class="success-btn" onclick="saveInventory()">
-Save Inventory
+<button class="btn green" onclick="saveInventory()">
+Save
 </button>
 
-<button class="danger-btn" onclick="closePopup()">
+<button class="btn red" onclick="closePopup()">
 Close
 </button>
 
 </div>
 
-`;
+`);
 
 }
 
 function saveInventory(){
 
-let item=document.getElementById("item").value;
-
-if(item===""){
-    alert("Item Required");
-    return;
-}
-
 let data={
 
-    item,
-    qty:Number(document.getElementById("qty").value),
-    warehouse:document.getElementById("warehouse").value,
-    cost:Number(document.getElementById("cost").value)
+item:document.getElementById("item").value,
+qty:Number(document.getElementById("qty").value),
+warehouse:document.getElementById("warehouse").value,
+cost:Number(document.getElementById("cost").value)
 
 };
 
 inventory.push(data);
 
-saveData("inventory",inventory);
+save("inventory",inventory);
 
-addAudit("Added Inventory "+item);
+addLog("Added Inventory "+data.item);
 
-alert("Inventory Saved");
+renderInventory();
 
 closePopup();
 
-renderInventory(inventory);
+alert("Inventory Saved");
 
 }
 
-function renderInventory(data){
+function renderInventory(){
 
-let table=document.getElementById("inventoryTable");
-
-table.innerHTML=`
+let html=`
 
 <tr>
-
 <th>Item</th>
 <th>Qty</th>
 <th>Warehouse</th>
 <th>Cost</th>
-
 </tr>
 
 `;
 
-data.forEach(i=>{
+inventory.forEach(i=>{
 
-table.innerHTML+=`
+html+=`
 
 <tr>
 
-<td>${sanitize(i.item)}</td>
-
+<td>${i.item}</td>
 <td>${i.qty}</td>
-
-<td>${sanitize(i.warehouse)}</td>
-
-<td>₱${Number(i.cost).toLocaleString()}</td>
+<td>${i.warehouse}</td>
+<td>${money(i.cost)}</td>
 
 </tr>
 
@@ -1095,83 +890,65 @@ table.innerHTML+=`
 
 });
 
-}
-
-function searchInventory(value){
-
-value=value.toLowerCase();
-
-let filtered=inventory.filter(i=>
-
-    i.item.toLowerCase().includes(value) ||
-    i.warehouse.toLowerCase().includes(value)
-
-);
-
-renderInventory(filtered);
+document.getElementById("inventoryTable").innerHTML=html;
 
 }
 
 /* =========================
-CUSTOMER
+CUSTOMERS
 ========================= */
 
-function openCustomerPopup(){
+function customerPopup(){
 
-document.getElementById("popup").style.display="flex";
-
-document.getElementById("popupBox").innerHTML=`
+showPopup(`
 
 <h2>Customer Master</h2>
 
-<div class="form-grid">
+<div class="grid">
 
-<input type="text" id="custName" placeholder="Customer Name">
-
-<input type="text" id="custTIN" placeholder="TIN">
-
-<input type="text" id="custAddress" placeholder="Address">
-
-<input type="text" id="custContact" placeholder="Contact No">
+<input class="input" id="cname" placeholder="Customer Name">
+<input class="input" id="ccontact" placeholder="Contact">
+<input class="input" id="caddress" placeholder="Address">
+<input class="input" id="ctin" placeholder="TIN">
 
 </div>
 
-<div class="action-row">
+<div class="action">
 
-<button class="primary-btn" onclick="saveCustomer()">
+<button class="btn primary" onclick="saveCustomer()">
 Save Customer
 </button>
 
-<button class="danger-btn" onclick="closePopup()">
+<button class="btn red" onclick="closePopup()">
 Close
 </button>
 
 </div>
 
-`;
+`);
 
 }
 
 function saveCustomer(){
 
-let customer={
+let c={
 
-    name:document.getElementById("custName").value,
-    tin:document.getElementById("custTIN").value,
-    address:document.getElementById("custAddress").value,
-    contact:document.getElementById("custContact").value
+name:document.getElementById("cname").value,
+contact:document.getElementById("ccontact").value,
+address:document.getElementById("caddress").value,
+tin:document.getElementById("ctin").value
 
 };
 
-customers.push(customer);
+customers.push(c);
 
-saveData("customers",customers);
+save("customers",customers);
 
-addAudit("Added Customer "+customer.name);
-
-alert("Customer Saved");
+addLog("Added Customer "+c.name);
 
 closePopup();
+
+alert("Customer Saved");
 
 }
 
@@ -1181,37 +958,29 @@ LEDGER
 
 function renderLedger(){
 
-let table=document.getElementById("ledgerTable");
-
-table.innerHTML=`
+let html=`
 
 <tr>
-
 <th>Date</th>
 <th>Reference</th>
 <th>Debit</th>
 <th>Credit</th>
 <th>Amount</th>
-
 </tr>
 
 `;
 
-ledger.forEach(item=>{
+ledger.forEach(l=>{
 
-table.innerHTML+=`
+html+=`
 
 <tr>
 
-<td>${sanitize(item.date)}</td>
-
-<td>${sanitize(item.reference)}</td>
-
-<td>${sanitize(item.debit)}</td>
-
-<td>${sanitize(item.credit)}</td>
-
-<td>₱${Number(item.amount).toLocaleString()}</td>
+<td>${l.date}</td>
+<td>${l.reference}</td>
+<td>${l.debit}</td>
+<td>${l.credit}</td>
+<td>${money(l.amount)}</td>
 
 </tr>
 
@@ -1219,48 +988,183 @@ table.innerHTML+=`
 
 });
 
+document.getElementById("ledgerTable").innerHTML=html;
+
 }
 
 /* =========================
-REPORTS
+REAL REPORTS
 ========================= */
 
 function financialReports(){
 
-alert(
+let totalSales=invoices.reduce((a,b)=>a+b.total,0);
 
-"Financial Reports\\n\\n"+
+let paid=invoices
+.filter(i=>i.status==="Paid")
+.reduce((a,b)=>a+b.total,0);
 
-"• Income Statement\\n"+
-"• Balance Sheet\\n"+
-"• Trial Balance\\n"+
-"• General Ledger\\n"+
-"• Aging Report\\n"+
-"• VAT Summary"
+let pending=invoices
+.filter(i=>i.status==="Pending")
+.reduce((a,b)=>a+b.total,0);
 
-);
+showPopup(`
+
+<h2>Financial Reports</h2>
+
+<div class="report-card">
+
+<h3>Income Statement</h3>
+
+<p>Total Revenue: <b>${money(totalSales)}</b></p>
+
+<p>Paid Revenue: <b>${money(paid)}</b></p>
+
+<p>Pending Revenue: <b>${money(pending)}</b></p>
+
+</div>
+
+<div class="report-card">
+
+<h3>Balance Sheet</h3>
+
+<p>Accounts Receivable:
+<b>${money(pending)}</b></p>
+
+<p>Cash:
+<b>${money(paid)}</b></p>
+
+<p>Inventory Assets:
+<b>${money(
+inventory.reduce((a,b)=>a+(b.qty*b.cost),0)
+)}</b></p>
+
+</div>
+
+<div class="report-card">
+
+<h3>VAT Summary</h3>
+
+<p>Total VAT Collected:
+<b>${money(
+invoices.reduce((a,b)=>a+b.vat,0)
+)}</b></p>
+
+</div>
+
+<div class="action">
+
+<button class="btn green"
+onclick="printReports()">
+Print
+</button>
+
+<button class="btn primary"
+onclick="downloadReportsPDF()">
+Save PDF
+</button>
+
+<button class="btn orange"
+onclick="downloadReportsExcel()">
+Save Excel
+</button>
+
+<button class="btn red"
+onclick="closePopup()">
+Close
+</button>
+
+</div>
+
+`);
 
 }
 
 /* =========================
-MAINTENANCE
+REPORT EXPORT
 ========================= */
 
-function maintenanceModule(){
+function printReports(){
 
-alert(
+window.print();
 
-"Maintenance Setup\\n\\n"+
+}
 
-"• Customer Master\\n"+
-"• Supplier Master\\n"+
-"• User Access\\n"+
-"• Tax Setup\\n"+
-"• Company Profile\\n"+
-"• Chart of Accounts\\n"+
-"• Inventory Categories"
+function exportPDF(tableId,title){
 
+const { jsPDF } = window.jspdf;
+
+let doc=new jsPDF();
+
+doc.text(title,14,15);
+
+doc.autoTable({
+
+html:"#"+tableId,
+startY:25,
+theme:"grid"
+
+});
+
+doc.save(title+".pdf");
+
+}
+
+function exportExcel(tableId,file){
+
+let table=document.getElementById(tableId);
+
+let wb=XLSX.utils.table_to_book(table);
+
+XLSX.writeFile(wb,file+".xlsx");
+
+}
+
+function downloadReportsPDF(){
+
+const { jsPDF } = window.jspdf;
+
+let doc=new jsPDF();
+
+doc.text("Quelou ERP Financial Reports",14,20);
+
+doc.text(
+"Total Sales: "+
+money(invoices.reduce((a,b)=>a+b.total,0)),
+14,
+40
 );
+
+doc.text(
+"Total VAT: "+
+money(invoices.reduce((a,b)=>a+b.vat,0)),
+14,
+50
+);
+
+doc.save("FinancialReports.pdf");
+
+}
+
+function downloadReportsExcel(){
+
+let data=[
+
+["Total Sales",
+invoices.reduce((a,b)=>a+b.total,0)],
+
+["Total VAT",
+invoices.reduce((a,b)=>a+b.vat,0)]
+
+];
+
+let ws=XLSX.utils.aoa_to_sheet(data);
+
+let wb=XLSX.utils.book_new();
+
+XLSX.utils.book_append_sheet(wb,ws,"Reports");
+
+XLSX.writeFile(wb,"FinancialReports.xlsx");
 
 }
 
@@ -1268,20 +1172,48 @@ alert(
 AUDIT
 ========================= */
 
-function auditTrail(){
+function showAudit(){
 
-if(auditLogs.length===0){
-    alert("No Logs");
-    return;
-}
+let html=`
 
-let logs=auditLogs.map(l=>
+<h2>Audit Trail</h2>
 
-`${l.date} - ${l.action}`
+<table>
 
-).join("\\n");
+<tr>
+<th>Date</th>
+<th>Action</th>
+</tr>
 
-alert(logs);
+`;
+
+logs.forEach(l=>{
+
+html+=`
+
+<tr>
+
+<td>${l.date}</td>
+<td>${l.action}</td>
+
+</tr>
+
+`;
+
+});
+
+html+=`</table>
+
+<div class="action">
+
+<button class="btn red" onclick="closePopup()">
+Close
+</button>
+
+</div>
+`;
+
+showPopup(html);
 
 }
 
@@ -1289,20 +1221,20 @@ alert(logs);
 BACKUP
 ========================= */
 
-function backupSystem(){
+function backup(){
 
-let backup={
+let backupData={
 
-    invoices,
-    ledger,
-    inventory,
-    customers,
-    auditLogs
+invoices,
+inventory,
+customers,
+ledger,
+logs
 
 };
 
 let blob=new Blob(
-[JSON.stringify(backup,null,2)],
+[JSON.stringify(backupData,null,2)],
 {type:"application/json"}
 );
 
@@ -1320,7 +1252,7 @@ a.click();
 RESTORE
 ========================= */
 
-function restoreSystem(){
+function restore(){
 
 let input=document.createElement("input");
 
@@ -1338,7 +1270,7 @@ let data=JSON.parse(evt.target.result);
 
 Object.keys(data).forEach(k=>{
 
-saveData(k,data[k]);
+save(k,data[k]);
 
 });
 
@@ -1360,9 +1292,9 @@ input.click();
 AI
 ========================= */
 
-function runAIQuery(){
+function askAI(){
 
-let q=document.getElementById("aiQuery")
+let q=document.getElementById("ai")
 .value
 .toLowerCase();
 
@@ -1370,28 +1302,40 @@ if(q.includes("sales")){
 
 alert(
 
-"Total Sales: ₱"+
+"Total Sales: "+
 
-invoices
-.reduce((a,b)=>a+b.total,0)
-.toLocaleString()
+money(
+
+invoices.reduce((a,b)=>a+b.total,0)
+
+)
 
 );
 
 }
 
-else if(q.includes("invoice")){
+else if(q.includes("pending")){
 
-alert(
-"Total Invoices: "+invoices.length
-);
+let p=invoices
+.filter(i=>i.status==="Pending")
+.reduce((a,b)=>a+b.total,0);
+
+alert("Pending Receivables: "+money(p));
 
 }
 
-else if(q.includes("inventory")){
+else if(q.includes("vat")){
 
 alert(
-"Inventory Count: "+inventory.length
+
+"VAT Collected: "+
+
+money(
+
+invoices.reduce((a,b)=>a+b.vat,0)
+
+)
+
 );
 
 }
@@ -1400,12 +1344,12 @@ else{
 
 alert(
 
-"AI Analysis\\n\\n"+
+"AI Analysis\n\n"+
 
-"• Sales performance stable\\n"+
-"• Pending invoices should be monitored\\n"+
-"• Inventory levels healthy\\n"+
-"• Cashflow monitoring recommended"
+"• Revenue performance stable\n"+
+"• Monitor pending invoices\n"+
+"• Inventory levels healthy\n"+
+"• Cashflow positive"
 
 );
 
@@ -1414,6 +1358,5 @@ alert(
 }
 
 </script>
-
 </body>
 </html>

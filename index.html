@@ -2,272 +2,385 @@
 <html lang="en">
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-<title>Quelou System, Your #1 Solution</title>
+<title>Quelou System the #1 World-wide</title>
 
 <style>
 
 :root{
---blue:#0a84ff;
---green:#30d158;
---orange:#ff9f0a;
---red:#ff453a;
---bg:#f5f7fb;
---card:#ffffff;
---line:#e5e7eb;
---text:#111827;
+    --blue:#0a84ff;
+    --green:#30d158;
+    --orange:#ff9f0a;
+    --red:#ff453a;
+    --bg:#f5f7fb;
+    --card:#ffffff;
+    --line:#e5e7eb;
+    --text:#111827;
+    --shadow:0 10px 25px rgba(0,0,0,.06);
 }
 
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
 }
 
 body{
-background:var(--bg);
-color:var(--text);
-overflow-x:hidden;
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
 }
 
+/* LOGIN */
+
+.login-wrapper{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
+}
+
+.login-card{
+    width:100%;
+    max-width:420px;
+    background:white;
+    padding:35px;
+    border-radius:28px;
+    box-shadow:var(--shadow);
+}
+
+.login-card h1{
+    color:var(--blue);
+    margin-bottom:8px;
+}
+
+.login-input{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:14px;
+    background:#f3f4f6;
+    margin-top:14px;
+    outline:none;
+}
+
+.login-btn{
+    width:100%;
+    padding:16px;
+    border:none;
+    border-radius:14px;
+    background:var(--blue);
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:18px;
+}
+
+/* APP */
+
 .app{
-display:flex;
-min-height:100vh;
+    display:flex;
+    min-height:100vh;
 }
 
 .sidebar{
-width:300px;
-background:white;
-padding:25px;
-border-right:1px solid #ddd;
-overflow:auto;
+    width:290px;
+    background:white;
+    border-right:1px solid #ddd;
+    padding:20px;
+    overflow:auto;
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    z-index:999;
 }
 
-.main{
-flex:1;
-padding:25px;
-padding-top:90px;
-}
-
-.topbar{
-position:fixed;
-top:0;
-left:300px;
-right:0;
-height:70px;
-background:white;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:0 25px;
-border-bottom:1px solid #ddd;
-z-index:999;
+.sidebar h2{
+    color:var(--blue);
 }
 
 .menu{
-display:flex;
-flex-direction:column;
-gap:10px;
-margin-top:20px;
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+    margin-top:20px;
 }
 
 .menu button{
-padding:15px;
-border:none;
-border-radius:14px;
-background:#f3f4f6;
-cursor:pointer;
-font-weight:bold;
-transition:.2s;
+    padding:14px;
+    border:none;
+    border-radius:14px;
+    background:#f3f4f6;
+    cursor:pointer;
+    text-align:left;
+    font-weight:bold;
+    transition:.2s;
 }
 
 .menu button:hover{
-background:var(--blue);
-color:white;
+    background:var(--blue);
+    color:white;
+}
+
+.main{
+    margin-left:290px;
+    width:100%;
+    padding:20px;
+    padding-top:95px;
+}
+
+.topbar{
+    position:fixed;
+    left:290px;
+    right:0;
+    top:0;
+    height:75px;
+    background:white;
+    border-bottom:1px solid #ddd;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 20px;
+    z-index:998;
+}
+
+.topbar-right{
+    display:flex;
+    gap:10px;
+    align-items:center;
+}
+
+.search-box{
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    background:#f3f4f6;
+    width:240px;
 }
 
 .cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
-gap:20px;
-margin-bottom:25px;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    margin-bottom:20px;
 }
 
 .card{
-background:white;
-padding:25px;
-border-radius:24px;
-box-shadow:0 10px 25px rgba(0,0,0,.05);
-transition:.2s;
-}
-
-.card:hover{
-transform:translateY(-3px);
+    background:white;
+    border-radius:24px;
+    padding:24px;
+    box-shadow:var(--shadow);
 }
 
 .card h3{
-margin-bottom:10px;
-color:gray;
+    color:gray;
+    margin-bottom:10px;
 }
 
 .value{
-font-size:28px;
-font-weight:bold;
+    font-size:30px;
+    font-weight:bold;
 }
 
 .table-box{
-background:white;
-padding:25px;
-border-radius:24px;
-margin-bottom:25px;
-overflow:auto;
+    background:white;
+    padding:20px;
+    border-radius:24px;
+    box-shadow:var(--shadow);
+    margin-bottom:20px;
+    overflow:auto;
+}
+
+.table-header{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-bottom:15px;
+}
+
+.table-search{
+    padding:12px;
+    border:none;
+    border-radius:12px;
+    background:#f3f4f6;
+    width:250px;
 }
 
 table{
-width:100%;
-border-collapse:collapse;
+    width:100%;
+    border-collapse:collapse;
+    min-width:700px;
 }
 
 th,td{
-padding:12px;
-border-bottom:1px solid #eee;
-font-size:14px;
-text-align:left;
+    padding:14px;
+    border-bottom:1px solid #eee;
+    font-size:14px;
+    text-align:left;
 }
 
 .primary-btn,
 .success-btn,
-.danger-btn{
-padding:12px 16px;
-border:none;
-border-radius:12px;
-cursor:pointer;
-font-weight:bold;
-margin-top:5px;
+.danger-btn,
+.orange-btn{
+
+    padding:12px 16px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    color:white;
+    font-weight:bold;
 }
 
 .primary-btn{
-background:var(--blue);
-color:white;
+    background:var(--blue);
 }
 
 .success-btn{
-background:var(--green);
-color:white;
+    background:var(--green);
 }
 
 .danger-btn{
-background:var(--red);
-color:white;
+    background:var(--red);
 }
 
+.orange-btn{
+    background:var(--orange);
+}
+
+.status-paid{
+    background:#dcfce7;
+    color:#166534;
+    padding:7px 12px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.status-pending{
+    background:#fef3c7;
+    color:#92400e;
+    padding:7px 12px;
+    border-radius:999px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+/* POPUP */
+
 .popup{
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.5);
-display:none;
-justify-content:center;
-align-items:center;
-z-index:9999;
-padding:20px;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:99999;
+    padding:15px;
 }
 
 .popup-box{
-background:white;
-padding:30px;
-border-radius:28px;
-width:100%;
-max-width:1000px;
-max-height:90vh;
-overflow:auto;
+    width:100%;
+    max-width:900px;
+    max-height:90vh;
+    overflow:auto;
+    background:white;
+    border-radius:28px;
+    padding:25px;
+}
+
+.popup-box h2{
+    margin-bottom:18px;
+}
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
 }
 
 .popup-box input,
 .popup-box select,
 .popup-box textarea{
-width:100%;
-padding:14px;
-margin-bottom:12px;
-border:none;
-border-radius:14px;
-background:#f3f4f6;
+    width:100%;
+    padding:14px;
+    border:none;
+    border-radius:14px;
+    background:#f3f4f6;
+    outline:none;
 }
 
-.login-wrapper{
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
+.popup-box textarea{
+    min-height:100px;
+    resize:vertical;
 }
 
-.login-card{
-width:100%;
-max-width:420px;
-background:white;
-padding:40px;
-border-radius:30px;
-box-shadow:0 20px 40px rgba(0,0,0,.08);
+.action-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    margin-top:15px;
 }
 
-.login-input{
-width:100%;
-padding:16px;
-margin-bottom:15px;
-border:none;
-border-radius:14px;
-background:#f3f4f6;
-}
+/* MOBILE */
 
-.login-btn{
-width:100%;
-padding:16px;
-border:none;
-border-radius:14px;
-background:var(--blue);
-color:white;
-font-weight:bold;
-cursor:pointer;
-}
-
-.status-paid{
-background:#d1fadf;
-color:#027a48;
-padding:6px 12px;
-border-radius:999px;
-font-weight:bold;
-}
-
-.status-pending{
-background:#fef0c7;
-color:#b54708;
-padding:6px 12px;
-border-radius:999px;
-font-weight:bold;
+.mobile-toggle{
+    display:none;
 }
 
 @media(max-width:900px){
 
-.app{
-flex-direction:column;
-}
+    .sidebar{
+        left:-100%;
+        transition:.3s;
+        width:280px;
+    }
 
-.sidebar{
-width:100%;
-border-right:none;
-border-bottom:1px solid #ddd;
-}
+    .sidebar.show{
+        left:0;
+    }
 
-.topbar{
-left:0;
-position:relative;
-}
+    .topbar{
+        left:0;
+    }
 
-.main{
-padding-top:20px;
-}
+    .main{
+        margin-left:0;
+        padding-top:90px;
+    }
+
+    .mobile-toggle{
+        display:block;
+    }
+
+    .topbar{
+        flex-wrap:wrap;
+        height:auto;
+        padding:15px;
+        gap:10px;
+    }
+
+    .topbar-right{
+        width:100%;
+    }
+
+    .search-box{
+        width:100%;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    table{
+        min-width:650px;
+    }
 
 }
 
@@ -281,66 +394,82 @@ padding-top:20px;
 
 <script>
 
+/* =========================
+STORAGE
+========================= */
+
 function loadData(key){
-
-try{
-return JSON.parse(localStorage.getItem(key)) || [];
-}catch{
-return [];
-}
-
+    try{
+        return JSON.parse(localStorage.getItem(key)) || [];
+    }catch{
+        return [];
+    }
 }
 
 function saveData(key,data){
-localStorage.setItem(key,JSON.stringify(data));
+    localStorage.setItem(key,JSON.stringify(data));
 }
 
 function sanitize(str){
-return String(str)
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;");
+    return String(str)
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;");
 }
 
-const users = [
+/* =========================
+DEFAULT USERS
+========================= */
+
+const defaultUsers = [
 
 {
-username:"jackie",
-password:btoa("@dm1nEvo"),
-role:"Super Admin"
+    email:"admin@quelou.com",
+    username:"jackie",
+    password:btoa("@dm1nEvo"),
+    role:"Super Admin"
 },
 
 {
-username:"user1",
-password:btoa("@dm1nEvo"),
-role:"Accounting"
+    email:"accounting@quelou.com",
+    username:"user1",
+    password:btoa("@dm1nEvo"),
+    role:"Accounting"
 }
 
 ];
 
 if(!localStorage.getItem("systemUsers")){
-saveData("systemUsers",users);
+    saveData("systemUsers",defaultUsers);
 }
+
+/* =========================
+DATABASE
+========================= */
 
 let invoices=loadData("invoices");
 let ledger=loadData("ledger");
-let purchaseRequests=loadData("purchaseRequests");
-let purchaseOrders=loadData("purchaseOrders");
-let receivingReports=loadData("receivingReports");
-let accountsPayable=loadData("accountsPayable");
-let checkVouchers=loadData("checkVouchers");
 let inventory=loadData("inventory");
 let auditLogs=loadData("auditLogs");
+let customers=loadData("customers");
+
+/* =========================
+AUDIT
+========================= */
 
 function addAudit(action){
 
-auditLogs.push({
-date:new Date().toLocaleString(),
-action
-});
+    auditLogs.push({
+        date:new Date().toLocaleString(),
+        action
+    });
 
-saveData("auditLogs",auditLogs);
+    saveData("auditLogs",auditLogs);
 
 }
+
+/* =========================
+LOGIN
+========================= */
 
 function renderLogin(){
 
@@ -348,217 +477,317 @@ document.getElementById("app").innerHTML=`
 
 <div class="login-wrapper">
 
-<div class="login-card">
+    <div class="login-card">
 
-<h1 style="color:#0a84ff;">Quelou ERP</h1>
+        <h1>Quelou ERP</h1>
 
-<br>
+        <p>AI Accounting & Business System</p>
 
-<input type="text" id="username" class="login-input" placeholder="Username">
+        <input
+            type="text"
+            id="username"
+            class="login-input"
+            placeholder="Username or Email"
+        >
 
-<input type="password" id="password" class="login-input" placeholder="Password">
+        <input
+            type="password"
+            id="password"
+            class="login-input"
+            placeholder="Password"
+        >
 
-<button class="login-btn" onclick="login()">
-LOGIN
-</button>
+        <button class="login-btn" onclick="login()">
+            LOGIN
+        </button>
 
-</div>
+    </div>
 
 </div>
 
 `;
+
+document.getElementById("password")
+.addEventListener("keypress",function(e){
+
+    if(e.key==="Enter"){
+        login();
+    }
+
+});
+
+document.getElementById("username")
+.addEventListener("keypress",function(e){
+
+    if(e.key==="Enter"){
+        login();
+    }
+
+});
 
 }
 
 function login(){
 
-let username=document.getElementById("username").value;
-let password=document.getElementById("password").value;
+    let username=document.getElementById("username").value.trim();
+    let password=document.getElementById("password").value.trim();
 
-let users=loadData("systemUsers");
+    let users=loadData("systemUsers");
 
-let user=users.find(u=>
-u.username===username &&
-u.password===btoa(password)
-);
+    let user=users.find(u=>
 
-if(!user){
-alert("Invalid Login");
-return;
-}
+        (
+            u.username===username ||
+            u.email===username
+        )
 
-sessionStorage.setItem("user",JSON.stringify(user));
+        &&
 
-location.reload();
+        u.password===btoa(password)
+
+    );
+
+    if(!user){
+        alert("Invalid Login");
+        return;
+    }
+
+    sessionStorage.setItem("user",JSON.stringify(user));
+
+    location.reload();
 
 }
 
 function logout(){
-sessionStorage.removeItem("user");
-location.reload();
+    sessionStorage.removeItem("user");
+    location.reload();
 }
+
+/* =========================
+INIT
+========================= */
 
 if(!sessionStorage.getItem("user")){
-renderLogin();
+    renderLogin();
 }else{
-renderApp();
+    renderApp();
 }
 
+/* =========================
+APP
+========================= */
+
 function renderApp(){
+
+let user=JSON.parse(sessionStorage.getItem("user"));
 
 document.getElementById("app").innerHTML=`
 
 <div class="app">
 
-<div class="sidebar">
+    <div class="sidebar" id="sidebar">
 
-<h2 style="color:#0a84ff;">Quelou ERP</h2>
+        <h2>Quelou ERP</h2>
 
-<p>AI Philippine Accounting System</p>
+        <p>${user.role}</p>
 
-<div class="menu">
+        <div class="menu">
 
-<button onclick="openInvoicePopup()">➕ Create Invoice</button>
+            <button onclick="openInvoicePopup()">➕ Create Invoice</button>
 
-<button onclick="openPRForm()">🛒 Purchase Request</button>
+            <button onclick="openInventoryPopup()">📦 Add Inventory</button>
 
-<button onclick="openPOForm()">📦 Purchase Order</button>
+            <button onclick="openCustomerPopup()">👤 Customer Master</button>
 
-<button onclick="openReceivingForm()">🚚 Receiving Report</button>
+            <button onclick="financialReports()">📑 Financial Reports</button>
 
-<button onclick="openAPForm()">💳 Accounts Payable</button>
+            <button onclick="maintenanceModule()">⚙️ Maintenance</button>
 
-<button onclick="openCVForm()">🏦 Check Voucher</button>
+            <button onclick="auditTrail()">🧾 Audit Trail</button>
 
-<button onclick="openInventoryModule()">📦 Inventory</button>
+            <button onclick="backupSystem()">⬇️ Backup</button>
 
-<button onclick="financialReports()">📑 Financial Reports</button>
+            <button onclick="restoreSystem()">♻️ Restore</button>
 
-<button onclick="maintenanceModule()">⚙️ Maintenance</button>
+            <button onclick="logout()">🚪 Logout</button>
 
-<button onclick="auditTrail()">🧾 Audit Trail</button>
+        </div>
 
-<button onclick="backupSystem()">⬇️ Backup</button>
+    </div>
 
-<button onclick="restoreSystem()">♻️ Restore</button>
+    <div class="topbar">
 
-<button onclick="logout()">🚪 Logout</button>
+        <div style="display:flex;align-items:center;gap:10px;">
 
-</div>
+            <button
+                class="primary-btn mobile-toggle"
+                onclick="toggleSidebar()"
+            >
+                ☰
+            </button>
 
-</div>
+            <h3>Quelou ERP AI PRO</h3>
 
-<div class="main">
+        </div>
 
-<h1>Accounting Dashboard</h1>
+        <div class="topbar-right">
 
-<br>
+            <input
+                type="text"
+                id="aiQuery"
+                class="search-box"
+                placeholder="Ask AI..."
+            >
 
-<div class="cards">
+            <button
+                class="primary-btn"
+                onclick="runAIQuery()"
+            >
+                Ask
+            </button>
 
-<div class="card">
-<h3>Total Sales</h3>
-<div class="value">
-₱${invoices.reduce((a,b)=>a+b.total,0).toLocaleString()}
-</div>
-</div>
+        </div>
 
-<div class="card">
-<h3>Total Invoices</h3>
-<div class="value">
-${invoices.length}
-</div>
-</div>
+    </div>
 
-<div class="card">
-<h3>Purchase Orders</h3>
-<div class="value">
-${purchaseOrders.length}
-</div>
-</div>
+    <div class="main">
 
-<div class="card">
-<h3>Inventory Items</h3>
-<div class="value">
-${inventory.length}
-</div>
-</div>
+        <div class="cards">
 
-</div>
+            <div class="card">
+                <h3>Total Sales</h3>
+                <div class="value">
+                    ₱${invoices.reduce((a,b)=>a+b.total,0).toLocaleString()}
+                </div>
+            </div>
 
-<div class="table-box">
+            <div class="card">
+                <h3>Total Invoices</h3>
+                <div class="value">
+                    ${invoices.length}
+                </div>
+            </div>
 
-<h2>Invoices</h2>
+            <div class="card">
+                <h3>Inventory Items</h3>
+                <div class="value">
+                    ${inventory.length}
+                </div>
+            </div>
 
-<table id="invoiceTable"></table>
+            <div class="card">
+                <h3>Customers</h3>
+                <div class="value">
+                    ${customers.length}
+                </div>
+            </div>
 
-</div>
+        </div>
 
-<div class="table-box">
+        <!-- INVOICE -->
 
-<h2>General Ledger</h2>
+        <div class="table-box">
 
-<table id="ledgerTable"></table>
+            <div class="table-header">
 
-</div>
+                <h2>Invoices</h2>
 
-</div>
+                <input
+                    type="text"
+                    class="table-search"
+                    placeholder="Search Invoice..."
+                    onkeyup="searchInvoice(this.value)"
+                >
 
-</div>
+            </div>
 
-<div class="topbar">
+            <table id="invoiceTable"></table>
 
-<h3>Quelou ERP AI PRO</h3>
+        </div>
 
-<div>
+        <!-- INVENTORY -->
 
-<input
-type="text"
-id="aiQuery"
-placeholder="Ask AI..."
-style="
-padding:12px;
-border:none;
-border-radius:12px;
-width:250px;
-background:#f3f4f6;
-"
->
+        <div class="table-box">
 
-<button class="primary-btn" onclick="runAIQuery()">
-Ask
-</button>
+            <div class="table-header">
 
-</div>
+                <h2>Inventory</h2>
+
+                <input
+                    type="text"
+                    class="table-search"
+                    placeholder="Search Inventory..."
+                    onkeyup="searchInventory(this.value)"
+                >
+
+            </div>
+
+            <table id="inventoryTable"></table>
+
+        </div>
+
+        <!-- LEDGER -->
+
+        <div class="table-box">
+
+            <h2>General Ledger</h2>
+
+            <br>
+
+            <table id="ledgerTable"></table>
+
+        </div>
+
+    </div>
 
 </div>
 
 <div class="popup" id="popup">
 
-<div class="popup-box" id="popupBox"></div>
+    <div class="popup-box" id="popupBox"></div>
 
 </div>
 
 `;
 
-renderInvoices();
+renderInvoices(invoices);
+renderInventory(inventory);
 renderLedger();
 
 }
 
+/* =========================
+MOBILE
+========================= */
+
+function toggleSidebar(){
+
+document.getElementById("sidebar")
+.classList.toggle("show");
+
+}
+
+/* =========================
+POPUP
+========================= */
+
 function closePopup(){
-document.getElementById("popup").style.display="none";
+    document.getElementById("popup").style.display="none";
 }
 
 window.onclick=function(e){
 
-let popup=document.getElementById("popup");
+    let popup=document.getElementById("popup");
 
-if(e.target===popup){
-closePopup();
+    if(e.target===popup){
+        closePopup();
+    }
+
 }
 
-}
+/* =========================
+INVOICE
+========================= */
 
 function openInvoicePopup(){
 
@@ -567,6 +796,8 @@ document.getElementById("popup").style.display="flex";
 document.getElementById("popupBox").innerHTML=`
 
 <h2>Create Invoice</h2>
+
+<div class="form-grid">
 
 <input type="text" id="customer" placeholder="Customer Name">
 
@@ -584,7 +815,15 @@ document.getElementById("popupBox").innerHTML=`
 
 </select>
 
+<input type="date" id="dueDate">
+
+</div>
+
+<br>
+
 <textarea id="remarks" placeholder="Remarks"></textarea>
+
+<div class="action-row">
 
 <button class="primary-btn" onclick="saveInvoice()">
 Save Invoice
@@ -594,71 +833,91 @@ Save Invoice
 Close
 </button>
 
+</div>
+
 `;
 
 }
 
 function saveInvoice(){
 
-let amount=Number(document.getElementById("amount").value);
+    let customer=document.getElementById("customer").value;
 
-let vatAmount=amount*0.12;
+    let amount=Number(document.getElementById("amount").value);
 
-let total=amount+vatAmount;
+    if(customer==="" || amount<=0){
 
-let invoice={
+        alert("Please complete required fields");
+        return;
 
-invoice:"INV-"+Date.now(),
+    }
 
-customer:document.getElementById("customer").value,
+    let vatAmount=amount*0.12;
 
-tin:document.getElementById("tin").value,
+    let total=amount+vatAmount;
 
-address:document.getElementById("address").value,
+    let invoice={
 
-amount,
-vatAmount,
-total,
+        invoice:"INV-"+Date.now(),
 
-status:document.getElementById("status").value,
+        customer,
 
-remarks:document.getElementById("remarks").value,
+        tin:document.getElementById("tin").value,
 
-date:new Date().toLocaleString()
+        address:document.getElementById("address").value,
 
-};
+        amount,
+        vatAmount,
+        total,
 
-invoices.push(invoice);
+        status:document.getElementById("status").value,
 
-ledger.push({
+        dueDate:document.getElementById("dueDate").value,
 
-date:new Date().toLocaleString(),
+        remarks:document.getElementById("remarks").value,
 
-reference:invoice.invoice,
+        date:new Date().toLocaleString()
 
-debit:
-invoice.status==="Paid"
-? "Cash"
-: "Accounts Receivable",
+    };
 
-credit:"Sales Revenue",
+    invoices.push(invoice);
 
-amount:invoice.total
+    ledger.push({
 
-});
+        date:new Date().toLocaleString(),
 
-saveData("invoices",invoices);
-saveData("ledger",ledger);
+        reference:invoice.invoice,
 
-addAudit("Created Invoice");
+        debit:
+        invoice.status==="Paid"
+        ? "Cash"
+        : "Accounts Receivable",
 
-alert("Invoice Saved");
+        credit:"Sales Revenue",
 
-location.reload();
+        amount:invoice.total
+
+    });
+
+    saveData("invoices",invoices);
+    saveData("ledger",ledger);
+
+    addAudit("Created Invoice "+invoice.invoice);
+
+    alert("Invoice Saved");
+
+    closePopup();
+
+    renderInvoices(invoices);
+    renderLedger();
 
 }
 
-function renderInvoices(){
+/* =========================
+RENDER INVOICES
+========================= */
+
+function renderInvoices(data){
 
 let table=document.getElementById("invoiceTable");
 
@@ -670,12 +929,13 @@ table.innerHTML=`
 <th>Customer</th>
 <th>Total</th>
 <th>Status</th>
+<th>Date</th>
 
 </tr>
 
 `;
 
-invoices.forEach(inv=>{
+data.forEach(inv=>{
 
 table.innerHTML+=`
 
@@ -695,11 +955,13 @@ inv.status==="Paid"
 : "status-pending"
 }">
 
-${inv.status}
+${sanitize(inv.status)}
 
 </span>
 
 </td>
+
+<td>${sanitize(inv.date)}</td>
 
 </tr>
 
@@ -708,6 +970,214 @@ ${inv.status}
 });
 
 }
+
+function searchInvoice(value){
+
+value=value.toLowerCase();
+
+let filtered=invoices.filter(i=>
+
+    i.customer.toLowerCase().includes(value) ||
+    i.invoice.toLowerCase().includes(value)
+
+);
+
+renderInvoices(filtered);
+
+}
+
+/* =========================
+INVENTORY
+========================= */
+
+function openInventoryPopup(){
+
+document.getElementById("popup").style.display="flex";
+
+document.getElementById("popupBox").innerHTML=`
+
+<h2>Add Inventory</h2>
+
+<div class="form-grid">
+
+<input type="text" id="item" placeholder="Item Name">
+
+<input type="number" id="qty" placeholder="Quantity">
+
+<input type="text" id="warehouse" placeholder="Warehouse">
+
+<input type="number" id="cost" placeholder="Cost">
+
+</div>
+
+<div class="action-row">
+
+<button class="success-btn" onclick="saveInventory()">
+Save Inventory
+</button>
+
+<button class="danger-btn" onclick="closePopup()">
+Close
+</button>
+
+</div>
+
+`;
+
+}
+
+function saveInventory(){
+
+let item=document.getElementById("item").value;
+
+if(item===""){
+    alert("Item Required");
+    return;
+}
+
+let data={
+
+    item,
+    qty:Number(document.getElementById("qty").value),
+    warehouse:document.getElementById("warehouse").value,
+    cost:Number(document.getElementById("cost").value)
+
+};
+
+inventory.push(data);
+
+saveData("inventory",inventory);
+
+addAudit("Added Inventory "+item);
+
+alert("Inventory Saved");
+
+closePopup();
+
+renderInventory(inventory);
+
+}
+
+function renderInventory(data){
+
+let table=document.getElementById("inventoryTable");
+
+table.innerHTML=`
+
+<tr>
+
+<th>Item</th>
+<th>Qty</th>
+<th>Warehouse</th>
+<th>Cost</th>
+
+</tr>
+
+`;
+
+data.forEach(i=>{
+
+table.innerHTML+=`
+
+<tr>
+
+<td>${sanitize(i.item)}</td>
+
+<td>${i.qty}</td>
+
+<td>${sanitize(i.warehouse)}</td>
+
+<td>₱${Number(i.cost).toLocaleString()}</td>
+
+</tr>
+
+`;
+
+});
+
+}
+
+function searchInventory(value){
+
+value=value.toLowerCase();
+
+let filtered=inventory.filter(i=>
+
+    i.item.toLowerCase().includes(value) ||
+    i.warehouse.toLowerCase().includes(value)
+
+);
+
+renderInventory(filtered);
+
+}
+
+/* =========================
+CUSTOMER
+========================= */
+
+function openCustomerPopup(){
+
+document.getElementById("popup").style.display="flex";
+
+document.getElementById("popupBox").innerHTML=`
+
+<h2>Customer Master</h2>
+
+<div class="form-grid">
+
+<input type="text" id="custName" placeholder="Customer Name">
+
+<input type="text" id="custTIN" placeholder="TIN">
+
+<input type="text" id="custAddress" placeholder="Address">
+
+<input type="text" id="custContact" placeholder="Contact No">
+
+</div>
+
+<div class="action-row">
+
+<button class="primary-btn" onclick="saveCustomer()">
+Save Customer
+</button>
+
+<button class="danger-btn" onclick="closePopup()">
+Close
+</button>
+
+</div>
+
+`;
+
+}
+
+function saveCustomer(){
+
+let customer={
+
+    name:document.getElementById("custName").value,
+    tin:document.getElementById("custTIN").value,
+    address:document.getElementById("custAddress").value,
+    contact:document.getElementById("custContact").value
+
+};
+
+customers.push(customer);
+
+saveData("customers",customers);
+
+addAudit("Added Customer "+customer.name);
+
+alert("Customer Saved");
+
+closePopup();
+
+}
+
+/* =========================
+LEDGER
+========================= */
 
 function renderLedger(){
 
@@ -733,13 +1203,13 @@ table.innerHTML+=`
 
 <tr>
 
-<td>${item.date}</td>
+<td>${sanitize(item.date)}</td>
 
-<td>${item.reference}</td>
+<td>${sanitize(item.reference)}</td>
 
-<td>${item.debit}</td>
+<td>${sanitize(item.debit)}</td>
 
-<td>${item.credit}</td>
+<td>${sanitize(item.credit)}</td>
 
 <td>₱${Number(item.amount).toLocaleString()}</td>
 
@@ -751,104 +1221,83 @@ table.innerHTML+=`
 
 }
 
-function openPRForm(){ alert("PR Module Ready"); }
-function openPOForm(){ alert("PO Module Ready"); }
-function openReceivingForm(){ alert("Receiving Module Ready"); }
-function openAPForm(){ alert("AP Module Ready"); }
-function openCVForm(){ alert("CV Module Ready"); }
-
-function openInventoryModule(){
-
-let html=inventory.map(i=>`
-
-<tr>
-
-<td>${i.item}</td>
-<td>${i.qty}</td>
-<td>${i.warehouse}</td>
-
-</tr>
-
-`).join("");
-
-let win=window.open();
-
-win.document.write(`
-
-<h1>Inventory</h1>
-
-<table border="1" cellpadding="10">
-
-<tr>
-
-<th>Item</th>
-<th>Qty</th>
-<th>Warehouse</th>
-
-</tr>
-
-${html}
-
-</table>
-
-`);
-
-}
+/* =========================
+REPORTS
+========================= */
 
 function financialReports(){
 
 alert(
-"Financial Reports Ready\\n\\n"+
+
+"Financial Reports\\n\\n"+
+
 "• Income Statement\\n"+
 "• Balance Sheet\\n"+
 "• Trial Balance\\n"+
-"• General Ledger"
+"• General Ledger\\n"+
+"• Aging Report\\n"+
+"• VAT Summary"
+
 );
 
 }
+
+/* =========================
+MAINTENANCE
+========================= */
 
 function maintenanceModule(){
 
 alert(
 
-"Maintenance Modules\\n\\n"+
+"Maintenance Setup\\n\\n"+
 
 "• Customer Master\\n"+
-"• Vendor Master\\n"+
-"• Employee Master\\n"+
-"• User Setup\\n"+
+"• Supplier Master\\n"+
+"• User Access\\n"+
 "• Tax Setup\\n"+
-"• Chart of Accounts"
+"• Company Profile\\n"+
+"• Chart of Accounts\\n"+
+"• Inventory Categories"
 
 );
 
 }
 
+/* =========================
+AUDIT
+========================= */
+
 function auditTrail(){
+
+if(auditLogs.length===0){
+    alert("No Logs");
+    return;
+}
 
 let logs=auditLogs.map(l=>
 
-l.date+" - "+l.action
+`${l.date} - ${l.action}`
 
 ).join("\\n");
 
-alert(logs || "No Logs");
+alert(logs);
 
 }
+
+/* =========================
+BACKUP
+========================= */
 
 function backupSystem(){
 
 let backup={
 
-invoices,
-ledger,
-purchaseRequests,
-purchaseOrders,
-receivingReports,
-accountsPayable,
-checkVouchers,
-inventory,
-auditLogs
+    invoices,
+    ledger,
+    inventory,
+    customers,
+    auditLogs
 
 };
 
@@ -867,6 +1316,10 @@ a.click();
 
 }
 
+/* =========================
+RESTORE
+========================= */
+
 function restoreSystem(){
 
 let input=document.createElement("input");
@@ -884,7 +1337,9 @@ reader.onload=function(evt){
 let data=JSON.parse(evt.target.result);
 
 Object.keys(data).forEach(k=>{
+
 saveData(k,data[k]);
+
 });
 
 alert("Restore Complete");
@@ -900,6 +1355,10 @@ reader.readAsText(file);
 input.click();
 
 }
+
+/* =========================
+AI
+========================= */
 
 function runAIQuery(){
 
@@ -921,12 +1380,18 @@ invoices
 
 }
 
+else if(q.includes("invoice")){
+
+alert(
+"Total Invoices: "+invoices.length
+);
+
+}
+
 else if(q.includes("inventory")){
 
 alert(
-
-"Inventory Items: "+inventory.length
-
+"Inventory Count: "+inventory.length
 );
 
 }
@@ -935,11 +1400,12 @@ else{
 
 alert(
 
-"AI Analysis:\\n\\n"+
+"AI Analysis\\n\\n"+
 
-"• Collections healthy\\n"+
-"• Inventory stable\\n"+
-"• Monitor pending invoices"
+"• Sales performance stable\\n"+
+"• Pending invoices should be monitored\\n"+
+"• Inventory levels healthy\\n"+
+"• Cashflow monitoring recommended"
 
 );
 

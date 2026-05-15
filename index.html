@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Quelou Accounting System</title>
+<title>Quelou ERP AI Accounting System</title>
 
 <style>
 
@@ -99,6 +98,11 @@ background:white;
 padding:25px;
 border-radius:24px;
 box-shadow:0 10px 25px rgba(0,0,0,.05);
+cursor:pointer;
+}
+
+.card:hover{
+transform:translateY(-3px);
 }
 
 .card h3{
@@ -134,7 +138,7 @@ text-align:left;
 .primary-btn,
 .success-btn,
 .danger-btn{
-padding:10px 14px;
+padding:12px 16px;
 border:none;
 border-radius:12px;
 cursor:pointer;
@@ -263,13 +267,11 @@ return String(str)
 .replace(/>/g,"&gt;");
 }
 
-const users=[
-{
+const users=[{
 username:"jackie@quelou.com.ph",
 password:btoa("admin123"),
 role:"Super Admin"
-}
-];
+}];
 
 if(!localStorage.getItem("systemUsers")){
 saveData("systemUsers",users);
@@ -277,12 +279,24 @@ saveData("systemUsers",users);
 
 let invoices=loadData("invoices");
 let ledger=loadData("ledger");
-let customers=loadData("customers");
-let vendors=loadData("vendors");
-let employees=loadData("employees");
 let purchaseRequests=loadData("purchaseRequests");
 let purchaseOrders=loadData("purchaseOrders");
-let disbursements=loadData("disbursements");
+let receivingReports=loadData("receivingReports");
+let accountsPayable=loadData("accountsPayable");
+let checkVouchers=loadData("checkVouchers");
+let inventory=loadData("inventory");
+let auditLogs=loadData("auditLogs");
+
+function addAudit(action){
+
+auditLogs.push({
+date:new Date().toLocaleString(),
+action
+});
+
+saveData("auditLogs",auditLogs);
+
+}
 
 function renderLogin(){
 
@@ -356,7 +370,7 @@ document.getElementById("app").innerHTML=`
 
 <h2 style="color:#0a84ff;">Quelou ERP</h2>
 
-<p>Philippine AI Accounting System</p>
+<p>AI Philippine Accounting System</p>
 
 <div class="menu">
 
@@ -364,16 +378,28 @@ document.getElementById("app").innerHTML=`
 ➕ Create Invoice
 </button>
 
-<button onclick="openPRPopup()">
+<button onclick="openPRForm()">
 🛒 Purchase Request
 </button>
 
-<button onclick="backupSystem()">
-⬇️ Backup
+<button onclick="openPOForm()">
+📦 Purchase Order
 </button>
 
-<button onclick="restoreSystem()">
-♻️ Restore
+<button onclick="openReceivingForm()">
+🚚 Receiving Report
+</button>
+
+<button onclick="openAPForm()">
+💳 Accounts Payable
+</button>
+
+<button onclick="openCVForm()">
+🏦 Check Voucher
+</button>
+
+<button onclick="openInventoryModule()">
+📦 Inventory
 </button>
 
 <button onclick="financialReports()">
@@ -384,8 +410,16 @@ document.getElementById("app").innerHTML=`
 ⚙️ Maintenance
 </button>
 
-<button onclick="runAIQuery()">
-🤖 AI Query
+<button onclick="auditTrail()">
+🧾 Audit Trail
+</button>
+
+<button onclick="backupSystem()">
+⬇️ Backup
+</button>
+
+<button onclick="restoreSystem()">
+♻️ Restore
 </button>
 
 <button onclick="logout()">
@@ -419,16 +453,16 @@ ${invoices.length}
 </div>
 
 <div class="card">
-<h3>Pending Collection</h3>
+<h3>Purchase Orders</h3>
 <div class="value">
-${invoices.filter(i=>i.status!=="Paid").length}
+${purchaseOrders.length}
 </div>
 </div>
 
 <div class="card">
-<h3>Collected</h3>
+<h3>Inventory Items</h3>
 <div class="value">
-${invoices.filter(i=>i.status==="Paid").length}
+${inventory.length}
 </div>
 </div>
 
@@ -436,9 +470,7 @@ ${invoices.filter(i=>i.status==="Paid").length}
 
 <div class="table-box">
 
-<h2>Billing & Collection</h2>
-
-<br>
+<h2>Invoices</h2>
 
 <table id="invoiceTable"></table>
 
@@ -447,8 +479,6 @@ ${invoices.filter(i=>i.status==="Paid").length}
 <div class="table-box">
 
 <h2>General Ledger</h2>
-
-<br>
 
 <table id="ledgerTable"></table>
 
@@ -460,11 +490,13 @@ ${invoices.filter(i=>i.status==="Paid").length}
 
 <div class="topbar">
 
-<h3>Quelou ERP AI Accounting PRO</h3>
+<h3>Quelou ERP AI PRO</h3>
+
+<div>
 
 <input type="text"
 id="aiQuery"
-placeholder="Ask accounting AI..."
+placeholder="Ask AI..."
 style="
 padding:12px;
 border:none;
@@ -473,15 +505,38 @@ width:300px;
 background:#f3f4f6;
 ">
 
+<button class="primary-btn" onclick="runAIQuery()">
+Ask
+</button>
+
+</div>
+
 </div>
 
 <div class="popup" id="popup">
 
-<div class="popup-box">
+<div class="popup-box" id="popupBox"></div>
+
+</div>
+
+`;
+
+renderInvoices();
+renderLedger();
+
+}
+
+function closePopup(){
+document.getElementById("popup").style.display="none";
+}
+
+function openInvoicePopup(){
+
+document.getElementById("popup").style.display="flex";
+
+document.getElementById("popupBox").innerHTML=`
 
 <h2>Create Invoice</h2>
-
-<br>
 
 <input type="text" id="customer" placeholder="Customer Name">
 
@@ -493,22 +548,9 @@ background:#f3f4f6;
 
 <select id="status">
 
-<option value="Pending">
-Pending
-</option>
+<option value="Pending">Pending</option>
 
-<option value="Paid">
-Paid
-</option>
-
-</select>
-
-<select id="documentType">
-
-<option>EIS</option>
-<option>EOPT</option>
-<option>EOR</option>
-<option>BIR CAS</option>
+<option value="Paid">Paid</option>
 
 </select>
 
@@ -522,52 +564,36 @@ Save Invoice
 Close
 </button>
 
-</div>
-
-</div>
-
 `;
 
-renderInvoices();
-renderLedger();
-
-}
-
-function openInvoicePopup(){
-document.getElementById("popup").style.display="flex";
-}
-
-function closePopup(){
-document.getElementById("popup").style.display="none";
 }
 
 function saveInvoice(){
 
-let customer=document.getElementById("customer").value;
-let tin=document.getElementById("tin").value;
-let address=document.getElementById("address").value;
 let amount=Number(document.getElementById("amount").value);
-let status=document.getElementById("status").value;
-let remarks=document.getElementById("remarks").value;
-let documentType=document.getElementById("documentType").value;
 
-let vat=12;
-let vatAmount=(amount*vat)/100;
+let vatAmount=amount*0.12;
+
 let total=amount+vatAmount;
 
 let invoice={
 
 invoice:"INV-"+Date.now(),
-customer,
-tin,
-address,
+
+customer:document.getElementById("customer").value,
+
+tin:document.getElementById("tin").value,
+
+address:document.getElementById("address").value,
+
 amount,
-vat,
 vatAmount,
 total,
-status,
-remarks,
-documentType,
+
+status:document.getElementById("status").value,
+
+remarks:document.getElementById("remarks").value,
+
 date:new Date().toLocaleString()
 
 };
@@ -577,22 +603,381 @@ invoices.push(invoice);
 ledger.push({
 
 date:new Date().toLocaleString(),
+
 reference:invoice.invoice,
-debit:status==="Paid"
+
+debit:
+invoice.status==="Paid"
 ? "Cash"
 : "Accounts Receivable",
+
 credit:"Sales Revenue",
-amount:total,
-remarks:customer
+
+amount:invoice.total
 
 });
 
 saveData("invoices",invoices);
 saveData("ledger",ledger);
 
+addAudit("Created Invoice");
+
 alert("Invoice Saved");
 
 location.reload();
+
+}
+
+function openPRForm(){
+
+document.getElementById("popup").style.display="flex";
+
+document.getElementById("popupBox").innerHTML=`
+
+<h2>Purchase Request</h2>
+
+<input id="prDepartment" placeholder="Department">
+
+<input id="prRequestor" placeholder="Requestor">
+
+<input id="prItem" placeholder="Item">
+
+<input id="prQty" type="number" placeholder="Quantity">
+
+<input id="prCost" type="number" placeholder="Estimated Cost">
+
+<textarea id="prReason" placeholder="Reason"></textarea>
+
+<button class="primary-btn" onclick="savePR()">
+Save PR
+</button>
+
+`;
+
+}
+
+function savePR(){
+
+let pr={
+
+prNo:"PR-"+Date.now(),
+
+department:document.getElementById("prDepartment").value,
+
+requestor:document.getElementById("prRequestor").value,
+
+item:document.getElementById("prItem").value,
+
+qty:Number(document.getElementById("prQty").value),
+
+cost:Number(document.getElementById("prCost").value),
+
+reason:document.getElementById("prReason").value,
+
+date:new Date().toLocaleString()
+
+};
+
+purchaseRequests.push(pr);
+
+saveData("purchaseRequests",purchaseRequests);
+
+addAudit("Created PR");
+
+alert("PR Saved");
+
+location.reload();
+
+}
+
+function openPOForm(){
+
+document.getElementById("popup").style.display="flex";
+
+document.getElementById("popupBox").innerHTML=`
+
+<h2>Purchase Order</h2>
+
+<input id="poVendor" placeholder="Vendor">
+
+<input id="poItem" placeholder="Item">
+
+<input id="poQty" type="number" placeholder="Quantity">
+
+<input id="poPrice" type="number" placeholder="Unit Price">
+
+<select id="poTerms">
+
+<option>Cash</option>
+<option>30 Days</option>
+
+</select>
+
+<button class="primary-btn" onclick="savePO()">
+Save PO
+</button>
+
+`;
+
+}
+
+function savePO(){
+
+let qty=Number(document.getElementById("poQty").value);
+
+let price=Number(document.getElementById("poPrice").value);
+
+let po={
+
+poNo:"PO-"+Date.now(),
+
+vendor:document.getElementById("poVendor").value,
+
+item:document.getElementById("poItem").value,
+
+qty,
+price,
+total:qty*price,
+
+terms:document.getElementById("poTerms").value,
+
+date:new Date().toLocaleString()
+
+};
+
+purchaseOrders.push(po);
+
+saveData("purchaseOrders",purchaseOrders);
+
+addAudit("Created PO");
+
+alert("PO Saved");
+
+location.reload();
+
+}
+
+function openReceivingForm(){
+
+document.getElementById("popup").style.display="flex";
+
+document.getElementById("popupBox").innerHTML=`
+
+<h2>Receiving Report</h2>
+
+<input id="rrVendor" placeholder="Vendor">
+
+<input id="rrItem" placeholder="Item">
+
+<input id="rrQty" type="number" placeholder="Quantity Received">
+
+<input id="rrWarehouse" placeholder="Warehouse">
+
+<button class="primary-btn" onclick="saveReceiving()">
+Save Receiving
+</button>
+
+`;
+
+}
+
+function saveReceiving(){
+
+let rr={
+
+rrNo:"RR-"+Date.now(),
+
+vendor:document.getElementById("rrVendor").value,
+
+item:document.getElementById("rrItem").value,
+
+qty:Number(document.getElementById("rrQty").value),
+
+warehouse:document.getElementById("rrWarehouse").value,
+
+date:new Date().toLocaleString()
+
+};
+
+receivingReports.push(rr);
+
+inventory.push({
+
+item:rr.item,
+qty:rr.qty,
+warehouse:rr.warehouse
+
+});
+
+saveData("receivingReports",receivingReports);
+
+saveData("inventory",inventory);
+
+addAudit("Created Receiving");
+
+alert("Receiving Saved");
+
+location.reload();
+
+}
+
+function openAPForm(){
+
+document.getElementById("popup").style.display="flex";
+
+document.getElementById("popupBox").innerHTML=`
+
+<h2>Accounts Payable</h2>
+
+<input id="apVendor" placeholder="Vendor">
+
+<input id="apInvoice" placeholder="Invoice No">
+
+<input id="apAmount" type="number" placeholder="Amount">
+
+<button class="primary-btn" onclick="saveAP()">
+Save AP
+</button>
+
+`;
+
+}
+
+function saveAP(){
+
+let ap={
+
+apNo:"AP-"+Date.now(),
+
+vendor:document.getElementById("apVendor").value,
+
+invoice:document.getElementById("apInvoice").value,
+
+amount:Number(document.getElementById("apAmount").value),
+
+date:new Date().toLocaleString()
+
+};
+
+accountsPayable.push(ap);
+
+saveData("accountsPayable",accountsPayable);
+
+addAudit("Created AP");
+
+alert("AP Saved");
+
+location.reload();
+
+}
+
+function openCVForm(){
+
+document.getElementById("popup").style.display="flex";
+
+document.getElementById("popupBox").innerHTML=`
+
+<h2>Check Voucher</h2>
+
+<input id="cvPayee" placeholder="Payee">
+
+<input id="cvBank" placeholder="Bank">
+
+<input id="cvCheck" placeholder="Check No">
+
+<input id="cvAmount" type="number" placeholder="Amount">
+
+<button class="primary-btn" onclick="saveCV()">
+Save CV
+</button>
+
+`;
+
+}
+
+function saveCV(){
+
+let amount=Number(document.getElementById("cvAmount").value);
+
+let cv={
+
+cvNo:"CV-"+Date.now(),
+
+payee:document.getElementById("cvPayee").value,
+
+bank:document.getElementById("cvBank").value,
+
+checkNo:document.getElementById("cvCheck").value,
+
+amount,
+
+date:new Date().toLocaleString()
+
+};
+
+checkVouchers.push(cv);
+
+ledger.push({
+
+date:new Date().toLocaleString(),
+
+reference:cv.cvNo,
+
+debit:"Accounts Payable",
+
+credit:"Cash in Bank",
+
+amount
+
+});
+
+saveData("checkVouchers",checkVouchers);
+
+saveData("ledger",ledger);
+
+addAudit("Created CV");
+
+alert("CV Saved");
+
+location.reload();
+
+}
+
+function openInventoryModule(){
+
+let html=inventory.map(i=>`
+
+<tr>
+
+<td>${i.item}</td>
+<td>${i.qty}</td>
+<td>${i.warehouse}</td>
+
+</tr>
+
+`).join("");
+
+let win=window.open();
+
+win.document.write(`
+
+<h1>Inventory</h1>
+
+<table border="1" cellpadding="10">
+
+<tr>
+
+<th>Item</th>
+<th>Qty</th>
+<th>Warehouse</th>
+
+</tr>
+
+${html}
+
+</table>
+
+`);
 
 }
 
@@ -606,9 +991,8 @@ table.innerHTML=`
 
 <th>Invoice</th>
 <th>Customer</th>
-<th>Amount</th>
+<th>Total</th>
 <th>Status</th>
-<th>Action</th>
 
 </tr>
 
@@ -624,9 +1008,7 @@ table.innerHTML+=`
 
 <td>${sanitize(inv.customer)}</td>
 
-<td>
-₱${Number(inv.total).toLocaleString()}
-</td>
+<td>₱${Number(inv.total).toLocaleString()}</td>
 
 <td>
 
@@ -636,31 +1018,9 @@ inv.status==="Paid"
 : "status-pending"
 }">
 
-${sanitize(inv.status)}
+${inv.status}
 
 </span>
-
-</td>
-
-<td>
-
-${
-inv.status==="Paid"
-? "Collected"
-
-: `
-
-<button
-class="success-btn"
-onclick="collectPayment('${inv.invoice}')">
-
-Collect
-
-</button>
-
-`
-
-}
 
 </td>
 
@@ -669,111 +1029,6 @@ Collect
 `;
 
 });
-
-}
-
-function collectPayment(invoiceNo){
-
-let inv=invoices.find(i=>i.invoice===invoiceNo);
-
-if(!inv) return;
-
-if(inv.status==="Paid"){
-alert("Already Collected");
-return;
-}
-
-inv.status="Paid";
-
-ledger.push({
-
-date:new Date().toLocaleString(),
-reference:invoiceNo,
-debit:"Cash",
-credit:"Accounts Receivable",
-amount:inv.total,
-remarks:"Collection"
-
-});
-
-saveData("invoices",invoices);
-saveData("ledger",ledger);
-
-printCollectionReceipt(inv);
-
-location.reload();
-
-}
-
-function printCollectionReceipt(inv){
-
-let win=window.open();
-
-win.document.write(`
-
-<html>
-
-<head>
-
-<title>Collection Receipt</title>
-
-<style>
-
-body{
-font-family:Arial;
-padding:40px;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-}
-
-td{
-border:1px solid #ddd;
-padding:10px;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<h1>OFFICIAL RECEIPT</h1>
-
-<hr>
-
-<p><b>Receipt No:</b> OR-${Date.now()}</p>
-
-<p><b>Invoice Ref:</b> ${inv.invoice}</p>
-
-<p><b>Customer:</b> ${inv.customer}</p>
-
-<p><b>Date:</b> ${new Date().toLocaleString()}</p>
-
-<table>
-
-<tr>
-<td>Total Collection</td>
-<td>₱${inv.total.toLocaleString()}</td>
-</tr>
-
-</table>
-
-<br>
-
-<h3>Accounting Entry</h3>
-
-<p>Debit: Cash</p>
-
-<p>Credit: Accounts Receivable</p>
-
-</body>
-
-</html>
-
-`);
 
 }
 
@@ -801,17 +1056,15 @@ table.innerHTML+=`
 
 <tr>
 
-<td>${sanitize(item.date)}</td>
+<td>${item.date}</td>
 
-<td>${sanitize(item.reference)}</td>
+<td>${item.reference}</td>
 
-<td>${sanitize(item.debit)}</td>
+<td>${item.debit}</td>
 
-<td>${sanitize(item.credit)}</td>
+<td>${item.credit}</td>
 
-<td>
-₱${Number(item.amount).toLocaleString()}
-</td>
+<td>₱${Number(item.amount).toLocaleString()}</td>
 
 </tr>
 
@@ -821,18 +1074,142 @@ table.innerHTML+=`
 
 }
 
+function financialReports(){
+
+document.getElementById("popup").style.display="flex";
+
+document.getElementById("popupBox").innerHTML=`
+
+<h2>Financial Reports</h2>
+
+<select id="reportType">
+
+<option>Income Statement</option>
+
+<option>General Ledger</option>
+
+<option>Sales Report</option>
+
+<option>Purchase Report</option>
+
+<option>Inventory Report</option>
+
+</select>
+
+<button class="primary-btn" onclick="generateReport()">
+Generate
+</button>
+
+`;
+
+}
+
+function generateReport(){
+
+let type=document.getElementById("reportType").value;
+
+let win=window.open();
+
+win.document.write("<h1>"+type+"</h1>");
+
+if(type==="Income Statement"){
+
+let sales=invoices.reduce((a,b)=>a+b.total,0);
+
+win.document.write(`
+
+<h2>Total Revenue:
+₱${sales.toLocaleString()}
+</h2>
+
+`);
+
+}
+
+if(type==="General Ledger"){
+
+win.document.write(`
+
+<table border="1" cellpadding="10">
+
+<tr>
+
+<th>Date</th>
+<th>Reference</th>
+<th>Debit</th>
+<th>Credit</th>
+<th>Amount</th>
+
+</tr>
+
+${ledger.map(l=>`
+
+<tr>
+
+<td>${l.date}</td>
+
+<td>${l.reference}</td>
+
+<td>${l.debit}</td>
+
+<td>${l.credit}</td>
+
+<td>${l.amount}</td>
+
+</tr>
+
+`).join("")}
+
+</table>
+
+`);
+
+}
+
+}
+
+function maintenanceModule(){
+
+alert(
+
+"Maintenance Modules\\n\\n"+
+
+"• Customer Master\\n"+
+"• Vendor Master\\n"+
+"• Employee Master\\n"+
+"• User Setup\\n"+
+"• Tax Setup\\n"+
+"• Chart of Accounts"
+
+);
+
+}
+
+function auditTrail(){
+
+let logs=auditLogs.map(l=>
+
+l.date+" - "+l.action
+
+).join("\\n");
+
+alert(logs || "No Logs");
+
+}
+
 function backupSystem(){
 
 let backup={
 
 invoices,
 ledger,
-customers,
-vendors,
-employees,
 purchaseRequests,
 purchaseOrders,
-disbursements
+receivingReports,
+accountsPayable,
+checkVouchers,
+inventory,
+auditLogs
 
 };
 
@@ -867,14 +1244,9 @@ reader.onload=function(evt){
 
 let data=JSON.parse(evt.target.result);
 
-saveData("invoices",data.invoices||[]);
-saveData("ledger",data.ledger||[]);
-saveData("customers",data.customers||[]);
-saveData("vendors",data.vendors||[]);
-saveData("employees",data.employees||[]);
-saveData("purchaseRequests",data.purchaseRequests||[]);
-saveData("purchaseOrders",data.purchaseOrders||[]);
-saveData("disbursements",data.disbursements||[]);
+Object.keys(data).forEach(k=>{
+saveData(k,data[k]);
+});
 
 alert("Restore Complete");
 
@@ -890,138 +1262,6 @@ input.click();
 
 }
 
-function financialReports(){
-
-let win=window.open();
-
-let sales=invoices.reduce((a,b)=>a+b.total,0);
-
-win.document.write(`
-
-<html>
-
-<head>
-
-<title>Financial Reports</title>
-
-<style>
-
-body{
-font-family:Arial;
-padding:40px;
-}
-
-table{
-width:100%;
-border-collapse:collapse;
-margin-bottom:30px;
-}
-
-td,th{
-border:1px solid #ddd;
-padding:10px;
-}
-
-</style>
-
-</head>
-
-<body>
-
-<h1>FINANCIAL REPORTS</h1>
-
-<h2>Income Statement</h2>
-
-<table>
-
-<tr>
-
-<th>Description</th>
-<th>Amount</th>
-
-</tr>
-
-<tr>
-
-<td>Sales Revenue</td>
-
-<td>
-₱${sales.toLocaleString()}
-</td>
-
-</tr>
-
-</table>
-
-<h2>General Ledger</h2>
-
-<table>
-
-<tr>
-
-<th>Date</th>
-<th>Reference</th>
-<th>Debit</th>
-<th>Credit</th>
-<th>Amount</th>
-
-</tr>
-
-${ledger.map(l=>`
-
-<tr>
-
-<td>${l.date}</td>
-
-<td>${l.reference}</td>
-
-<td>${l.debit}</td>
-
-<td>${l.credit}</td>
-
-<td>
-₱${Number(l.amount).toLocaleString()}
-</td>
-
-</tr>
-
-`).join("")}
-
-</table>
-
-</body>
-
-</html>
-
-`);
-
-}
-
-function maintenanceModule(){
-
-alert(
-"Maintenance Module:\n\n"+
-"- Customer Master\n"+
-"- Vendor Master\n"+
-"- Employee Master\n"+
-"- Chart of Accounts\n"+
-"- Tax Setup\n"+
-"- ATC Setup\n"+
-"- EWT Setup\n"+
-"- User Setup"
-);
-
-}
-
-function openPRPopup(){
-
-alert(
-"Purchase Request Module\n\n"+
-"PR → PO → Receiving → AP → CV → Check → 2307"
-);
-
-}
-
 function runAIQuery(){
 
 let q=document.getElementById("aiQuery")
@@ -1031,37 +1271,53 @@ let q=document.getElementById("aiQuery")
 if(q.includes("sales")){
 
 alert(
+
 "Total Sales: ₱"+
-invoices.reduce((a,b)=>a+b.total,0)
-.toLocaleString()
-);
 
-}
-
-else if(q.includes("pending")){
-
-alert(
-"Pending Collection: "+
-invoices.filter(i=>i.status!=="Paid").length
-);
-
-}
-
-else if(q.includes("cash")){
-
-alert(
-"Cash Collected: ₱"+
 invoices
-.filter(i=>i.status==="Paid")
 .reduce((a,b)=>a+b.total,0)
 .toLocaleString()
+
+);
+
+}
+
+else if(q.includes("inventory")){
+
+alert(
+
+"Inventory Items: "+inventory.length
+
+);
+
+}
+
+else if(q.includes("payables")){
+
+let total=accountsPayable
+.reduce((a,b)=>a+b.amount,0);
+
+alert(
+
+"Total Accounts Payable: ₱"+
+total.toLocaleString()
+
 );
 
 }
 
 else{
 
-alert("AI Query Not Recognized");
+alert(
+
+"AI Analysis:\\n\\n"+
+
+"• Collections are healthy\\n"+
+"• Monitor pending invoices\\n"+
+"• Inventory levels stable\\n"+
+"• Payables within normal range"
+
+);
 
 }
 

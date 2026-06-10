@@ -1,33 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Jackielou Cadlum | VA Portfolio</title>
 
-<title>Jackielou Cadlum | Portfolio</title>
-
-<!-- Tailwind -->
 <script src="https://cdn.tailwindcss.com"></script>
 
-<!-- Font Awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
-
-<!-- AOS -->
 <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet"/>
 
-<!-- IOS Style Font -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-<link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
 <style>
-
-/* ========================= */
-/* RESET */
-/* ========================= */
-
 *{
     margin:0;
     padding:0;
@@ -42,291 +30,196 @@ html{
 body{
     background:#050816;
     color:white;
-    font-family:'SF Pro Display',Arial,sans-serif;
+    font-family:'Inter',Arial,sans-serif;
     overflow-x:hidden;
 }
 
-/* ========================= */
 /* SCROLLBAR */
-/* ========================= */
-
 ::-webkit-scrollbar{
     width:8px;
 }
 
 ::-webkit-scrollbar-thumb{
-    background:#2563eb;
+    background:linear-gradient(#60a5fa,#a855f7);
     border-radius:20px;
 }
 
-/* ========================= */
-/* BACKGROUND */
-/* ========================= */
-
+/* MAIN BACKGROUND */
 .bg-animation{
     background:
-    radial-gradient(circle at top left,#1d4ed8 0%,transparent 30%),
-    radial-gradient(circle at bottom right,#7c3aed 0%,transparent 30%),
-    linear-gradient(-45deg,#050816,#0f172a,#111827,#1e1b4b);
-
+    radial-gradient(circle at top left,rgba(37,99,235,.65) 0%,transparent 28%),
+    radial-gradient(circle at top right,rgba(168,85,247,.45) 0%,transparent 30%),
+    radial-gradient(circle at bottom,rgba(14,165,233,.25) 0%,transparent 35%),
+    linear-gradient(135deg,#020617,#0f172a,#111827,#1e1b4b);
     background-size:400% 400%;
-
     animation:gradient 12s ease infinite;
 }
 
 @keyframes gradient{
-
-    0%{
-        background-position:0% 50%;
-    }
-
-    50%{
-        background-position:100% 50%;
-    }
-
-    100%{
-        background-position:0% 50%;
-    }
-
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
 }
 
-/* ========================= */
-/* GLASS */
-/* ========================= */
-
+/* GLASS EFFECT */
 .glass{
-    background:rgba(255,255,255,.06);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    backdrop-filter:blur(18px);
-    -webkit-backdrop-filter:blur(18px);
-
-    box-shadow:
-    0 8px 32px rgba(0,0,0,.35);
+    background:rgba(255,255,255,.075);
+    border:1px solid rgba(255,255,255,.12);
+    backdrop-filter:blur(22px);
+    -webkit-backdrop-filter:blur(22px);
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
 }
 
-/* ========================= */
-/* BLUR BALLS */
-/* ========================= */
-
-.blur-ball{
-    position:absolute;
-
-    border-radius:999px;
-
-    filter:blur(100px);
-
-    opacity:.22;
-
-    z-index:-1;
-}
-
-/* ========================= */
-/* FLOAT */
-/* ========================= */
-
-.float{
-    animation:float 5s ease-in-out infinite;
-}
-
-@keyframes float{
-
-    0%,100%{
-        transform:translateY(0);
-    }
-
-    50%{
-        transform:translateY(-16px);
-    }
-
-}
-
-/* ========================= */
-/* GRADIENT TEXT */
-/* ========================= */
-
+/* TEXT */
 .gradient-text{
-
-    background:linear-gradient(to right,#60a5fa,#a855f7);
-
+    background:linear-gradient(to right,#60a5fa,#a78bfa,#f472b6);
     -webkit-background-clip:text;
     -webkit-text-fill-color:transparent;
 }
 
-/* ========================= */
-/* BUTTONS */
-/* ========================= */
-
+/* BUTTON */
 .btn-main{
-
-    padding:15px 28px;
-
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:15px 26px;
     border-radius:18px;
-
-    font-weight:600;
-
+    font-weight:800;
     transition:.35s ease;
-
-    min-width:190px;
+    min-width:180px;
+    cursor:pointer;
+    text-align:center;
 }
 
 .btn-main:hover{
-
-    transform:translateY(-5px);
-
+    transform:translateY(-5px) scale(1.03);
 }
 
 .glow{
-    box-shadow:0 0 40px rgba(59,130,246,.4);
+    box-shadow:0 0 45px rgba(59,130,246,.45);
 }
 
-/* ========================= */
-/* CARDS */
-/* ========================= */
-
+/* CARD */
 .card{
     transition:.35s ease;
 }
 
 .card:hover{
-
     transform:translateY(-10px);
-
-    box-shadow:0 0 35px rgba(59,130,246,.18);
+    box-shadow:0 0 45px rgba(59,130,246,.20);
 }
 
-/* ========================= */
+/* FLOAT */
+.float{
+    animation:float 5s ease-in-out infinite;
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0);}
+    50%{transform:translateY(-16px);}
+}
+
 /* TYPING */
-/* ========================= */
-
 .typing::after{
-
     content:"|";
-
     animation:blink .8s infinite;
 }
 
 @keyframes blink{
-
-    50%{
-        opacity:0;
-    }
-
+    50%{opacity:0;}
 }
 
-/* ========================= */
-/* MARQUEE */
-/* ========================= */
-
+/* MOVING SKILLS - FASTER */
 .marquee{
     overflow:hidden;
     white-space:nowrap;
-}
-
-.marquee-content{
-
-    display:inline-block;
-
-    animation:marquee 22s linear infinite;
-}
-
-@keyframes marquee{
-
-    0%{
-        transform:translateX(0);
-    }
-
-    100%{
-        transform:translateX(-50%);
-    }
-
-}
-
-/* ========================= */
-/* SOCIAL */
-/* ========================= */
-
-.social-icon{
-
-    width:68px;
-    height:68px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    border-radius:22px;
-
-    background:rgba(255,255,255,.06);
-
-    border:1px solid rgba(255,255,255,.08);
-
-    backdrop-filter:blur(16px);
-
     position:relative;
-
-    overflow:hidden;
-
-    transition:.35s ease;
 }
 
-.social-icon::before{
-
+.marquee:before,
+.marquee:after{
     content:"";
-
     position:absolute;
-
-    width:180%;
-    height:180%;
-
-    background:linear-gradient(
-        120deg,
-        transparent,
-        rgba(255,255,255,.18),
-        transparent
-    );
-
-    top:-120%;
-    left:-120%;
-
-    transform:rotate(25deg);
-
-    transition:.7s;
-}
-
-.social-icon:hover::before{
-
-    top:100%;
-    left:100%;
-}
-
-.social-icon:hover{
-
-    transform:translateY(-8px) scale(1.05);
-
-    background:rgba(59,130,246,.16);
-}
-
-.social-icon i{
-
-    font-size:28px;
-
-    color:white;
-
+    top:0;
+    width:90px;
+    height:100%;
     z-index:2;
 }
 
-/* ========================= */
-/* MOBILE */
-/* ========================= */
+.marquee:before{
+    left:0;
+    background:linear-gradient(to right,#050816,transparent);
+}
 
+.marquee:after{
+    right:0;
+    background:linear-gradient(to left,#050816,transparent);
+}
+
+.marquee-content{
+    display:inline-flex;
+    gap:18px;
+    animation:marquee 16s linear infinite;
+}
+
+.marquee:hover .marquee-content{
+    animation-play-state:paused;
+}
+
+@keyframes marquee{
+    0%{transform:translateX(0);}
+    100%{transform:translateX(-50%);}
+}
+
+.ios-check{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:12px 18px;
+    border-radius:999px;
+    background:rgba(255,255,255,.92);
+    color:#0f172a;
+    font-weight:800;
+    box-shadow:0 8px 24px rgba(255,255,255,.08);
+}
+
+.ios-check span{
+    color:#2563eb;
+    font-size:18px;
+}
+
+/* ICONS */
+.social-icon{
+    width:64px;
+    height:64px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border-radius:22px;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.12);
+    transition:.35s ease;
+    position:relative;
+    overflow:hidden;
+}
+
+.social-icon:hover{
+    transform:translateY(-7px) scale(1.05);
+    background:rgba(59,130,246,.18);
+}
+
+.social-icon i{
+    font-size:27px;
+    color:#fff;
+}
+
+/* MOBILE */
 .mobile-menu{
     display:none;
 }
 
 @media(max-width:768px){
-
     .desktop-menu{
         display:none;
     }
@@ -336,1126 +229,602 @@ body{
     }
 
     .hero-title{
-        font-size:48px;
+        font-size:46px;
         line-height:1.1;
     }
 
+    .btn-main{
+        width:100%;
+    }
+
     .social-icon{
-        width:60px;
-        height:60px;
+        width:58px;
+        height:58px;
     }
-
-    .social-icon i{
-        font-size:24px;
-    }
-
 }
-
 </style>
-
 </head>
 
 <body>
 
-<!-- ========================= -->
-<!-- BLUR BACKGROUND -->
-<!-- ========================= -->
-
-<div class="blur-ball bg-blue-500 w-72 h-72 top-0 left-0"></div>
-
-<div class="blur-ball bg-purple-500 w-96 h-96 bottom-0 right-0"></div>
-
-<!-- ========================= -->
 <!-- NAVBAR -->
-<!-- ========================= -->
-
 <nav class="fixed top-0 w-full z-50 glass">
-
     <div class="max-w-7xl mx-auto px-6 py-5 flex justify-between items-center">
-
-        <h1 class="text-2xl font-bold gradient-text">
+        <a href="#home" class="text-2xl font-black gradient-text">
             Jackielou A.C.
-        </h1>
+        </a>
 
-        <!-- Desktop Menu -->
-
-        <div class="desktop-menu flex gap-8 text-sm uppercase tracking-[3px]">
-
+        <div class="desktop-menu flex gap-8 text-xs uppercase tracking-[3px] font-bold">
             <a href="#about" class="hover:text-blue-400 transition">About</a>
-
             <a href="#skills" class="hover:text-blue-400 transition">Skills</a>
-
+            <a href="#bookkeeping" class="hover:text-blue-400 transition">Bookkeeping</a>
             <a href="#experience" class="hover:text-blue-400 transition">Experience</a>
-
             <a href="#services" class="hover:text-blue-400 transition">Services</a>
-
             <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
-
         </div>
-
-        <!-- Mobile -->
 
         <button id="menuBtn" class="mobile-menu text-2xl">
-
             <i class="fa-solid fa-bars"></i>
-
         </button>
-
     </div>
 
-    <!-- Mobile Nav -->
-
-    <div id="mobileNav" class="hidden px-6 pb-6 glass">
-
-        <div class="flex flex-col gap-4 text-sm uppercase tracking-[3px]">
-
+    <div id="mobileNav" class="hidden px-6 pb-6">
+        <div class="flex flex-col gap-4 text-sm uppercase tracking-[3px] font-bold">
             <a href="#about" class="hover:text-blue-400">About</a>
-
             <a href="#skills" class="hover:text-blue-400">Skills</a>
-
+            <a href="#bookkeeping" class="hover:text-blue-400">Bookkeeping</a>
             <a href="#experience" class="hover:text-blue-400">Experience</a>
-
             <a href="#services" class="hover:text-blue-400">Services</a>
-
             <a href="#contact" class="hover:text-blue-400">Contact</a>
-
         </div>
-
     </div>
-
 </nav>
 
-<!-- ========================= -->
 <!-- HERO -->
-<!-- ========================= -->
-
-<section class="min-h-screen bg-animation flex items-center px-6 pt-28">
-
+<section id="home" class="min-h-screen bg-animation flex items-center px-6 pt-32">
     <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
 
-        <!-- LEFT -->
-
         <div data-aos="fade-right">
-
-            <p class="text-blue-400 tracking-[4px] uppercase text-sm mb-4">
-                HEY THERE 👋
+            <p class="text-blue-400 tracking-[4px] uppercase text-sm mb-4 font-black">
+                Virtual Assistant Portfolio
             </p>
 
-            <h1 class="hero-title text-5xl md:text-7xl font-bold leading-tight">
-
+            <h1 class="hero-title text-5xl md:text-7xl font-black leading-tight">
                 Jackielou
-
-                <span class="gradient-text">
-                    Cadlum
-                </span>
-
+                <span class="gradient-text">Cadlum</span>
             </h1>
 
-            <h2 id="typing"
-                class="text-2xl md:text-4xl mt-5 font-semibold typing min-h-[60px]">
-            </h2>
+            <h2 id="typing" class="text-2xl md:text-4xl mt-5 font-black typing min-h-[60px]"></h2>
 
             <p class="text-gray-300 mt-8 text-lg leading-9 max-w-2xl">
-
-                Results-oriented Sales & Marketing Professional with experience in B2B appointment setting, CRM management, ERP systems, lead generation, and business coordination.
-
+                Assist. Team Leader - Sales & Marketing supporting ERP software solutions, CRM workflows, client coordination, appointment setting, lead generation, business operations, and basic bookkeeping support.
             </p>
 
-            <!-- Buttons -->
-
             <div class="flex flex-wrap gap-5 mt-10">
-
-                <a href="#contact">
-
-                    <button class="btn-main bg-blue-600 hover:bg-blue-700 glow">
-
-                        💼 Hire Me
-
-                    </button>
-
+                <a href="#contact" class="btn-main bg-blue-600 hover:bg-blue-700 glow">
+                    <i class="fa-solid fa-briefcase"></i> Hire Me
                 </a>
 
-                <a href="#services">
-
-                    <button class="btn-main bg-white text-black hover:bg-gray-200">
-
-                        ✨ View Services
-
-                    </button>
-
+                <a href="#services" class="btn-main bg-white text-black hover:bg-gray-200">
+                    <i class="fa-solid fa-layer-group"></i> View Services
                 </a>
 
+                <a href="mailto:cadlumjackielou23@gmail.com?subject=VA Portfolio Inquiry" class="btn-main bg-purple-600 hover:bg-purple-700">
+                    <i class="fa-solid fa-paper-plane"></i> Send Inquiry
+                </a>
             </div>
 
-            <!-- Social -->
-
-            <div class="flex gap-5 mt-12">
-
-                <a href="https://www.facebook.com/itsjackielou/"
-                   target="_blank"
-                   class="social-icon">
-
-                    <i class="fab fa-facebook-f"></i>
-
-                </a>
-
-                <a href="https://www.instagram.com/jackielouac"
-                   target="_blank"
-                   class="social-icon">
-
-                    <i class="fab fa-instagram"></i>
-
-                </a>
-
-                <a href="https://www.tiktok.com/"
-                   target="_blank"
-                   class="social-icon">
-
-                    <i class="fab fa-tiktok"></i>
-
-                </a>
-
-                <a href="mailto:cadlumjackielou23@gmail.com"
-                   class="social-icon">
-
-                    <i class="fa-solid fa-envelope"></i>
-
-                </a>
-
-            </div>
-
-        </div>
-
-        <!-- RIGHT -->
-
-        <div class="flex justify-center items-center relative"
-             data-aos="fade-left">
-
-            <div class="absolute w-[350px] h-[350px] bg-blue-500 rounded-full blur-[120px] opacity-30 animate-pulse"></div>
-
-            <div class="absolute w-[280px] h-[280px] bg-purple-500 rounded-full blur-[100px] opacity-20"></div>
-
-            <div class="relative">
-
-                <!-- Badge -->
-
-                <div class="absolute -top-5 -left-8 glass px-5 py-4 rounded-3xl z-30 shadow-2xl float">
-
-                    <p class="text-sm text-gray-300">
-                        Digital Marketing
-                    </p>
-
-                    <h3 class="font-bold text-blue-400 text-xl">
-                        📈 Growth Specialist
-                    </h3>
-
+            <div class="grid grid-cols-3 gap-5 mt-12 max-w-xl">
+                <div class="glass rounded-3xl p-5 text-center card">
+                    <h3 class="text-3xl font-black text-blue-400">2+</h3>
+                    <p class="text-gray-300 text-sm mt-1">Years Experience</p>
                 </div>
 
-                <!-- Image -->
+                <div class="glass rounded-3xl p-5 text-center card">
+                    <h3 class="text-3xl font-black text-purple-400">VA</h3>
+                    <p class="text-gray-300 text-sm mt-1">Admin Support</p>
+                </div>
 
+                <div class="glass rounded-3xl p-5 text-center card">
+                    <h3 class="text-3xl font-black text-pink-400">ERP</h3>
+                    <p class="text-gray-300 text-sm mt-1">Client Support</p>
+                </div>
+            </div>
+
+            <div class="flex gap-5 mt-12 flex-wrap">
+                <a href="https://www.facebook.com/itsjackielou/" target="_blank" class="social-icon">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+
+                <a href="https://www.instagram.com/jackielouac" target="_blank" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+
+                <a href="https://www.tiktok.com/" target="_blank" class="social-icon">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+
+                <a href="mailto:cadlumjackielou23@gmail.com" class="social-icon">
+                    <i class="fa-solid fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="flex justify-center items-center relative" data-aos="fade-left">
+            <div class="absolute w-[370px] h-[370px] bg-blue-500 rounded-full blur-[120px] opacity-30 animate-pulse"></div>
+            <div class="absolute w-[280px] h-[280px] bg-purple-500 rounded-full blur-[100px] opacity-25"></div>
+
+            <div class="relative">
+                <div class="absolute -top-6 -left-8 glass px-5 py-4 rounded-3xl z-30 shadow-2xl float">
+                    <p class="text-sm text-gray-300">VA Support</p>
+                    <h3 class="font-black text-blue-400 text-xl">📈 CRM & Leads</h3>
+                </div>
+
+                <!-- DO NOT CHANGE PHOTO REF -->
                 <img
                     src="me.jpg.png"
                     alt="Jackielou Cadlum"
-                    class="relative z-20 w-[340px] md:w-[440px] rounded-[40px] border border-white/10 shadow-[0_0_50px_rgba(59,130,246,0.35)] float"
+                    class="relative z-20 w-[340px] md:w-[440px] rounded-[42px] border border-white/10 shadow-[0_0_70px_rgba(59,130,246,0.38)] float"
                 >
 
-                <!-- Side -->
-
                 <div class="absolute top-1/2 -right-10 glass px-5 py-4 rounded-3xl z-30 shadow-2xl">
-
-                    <p class="text-sm text-gray-300">
-                        CRM & Leadership
-                    </p>
-
-                    <h3 class="font-bold text-purple-400 text-xl">
-                        💼 Assist. Team Leader - Sales & Marketing
+                    <p class="text-sm text-gray-300">Current Role</p>
+                    <h3 class="font-black text-purple-400 text-lg">
+                        💼 Assist. Team Leader
                     </h3>
-
                 </div>
-
-                <!-- Experience -->
 
                 <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 glass px-7 py-5 rounded-3xl z-30 shadow-2xl">
-
-                    <h3 class="font-bold text-2xl text-center">
-                        2+ Years Experience
+                    <h3 class="font-black text-2xl text-center">
+                        Sales • CRM • ERP
                     </h3>
-
                     <p class="text-gray-300 text-center mt-2">
-                        Sales • CRM • Marketing
+                        VA Ready Portfolio
                     </p>
-
                 </div>
-
             </div>
-
         </div>
 
     </div>
-
 </section>
 
-<!-- ========================= -->
-<!-- MARQUEE -->
-<!-- ========================= -->
-
-<section class="py-10 border-y border-gray-800">
-
+<!-- FAST MOVING SKILLS -->
+<section class="py-8 border-y border-white/10 bg-[#050816]">
     <div class="marquee">
+        <div class="marquee-content">
+            <div class="ios-check"><span>✓</span> Lead Generation</div>
+            <div class="ios-check"><span>✓</span> CRM Management</div>
+            <div class="ios-check"><span>✓</span> Appointment Setting</div>
+            <div class="ios-check"><span>✓</span> ERP Systems</div>
+            <div class="ios-check"><span>✓</span> Sales Coordination</div>
+            <div class="ios-check"><span>✓</span> Client Communication</div>
+            <div class="ios-check"><span>✓</span> Marketing Assistance</div>
+            <div class="ios-check"><span>✓</span> Canva & Presentations</div>
+            <div class="ios-check"><span>✓</span> Basic Bookkeeping</div>
+            <div class="ios-check"><span>✓</span> Invoice Monitoring</div>
+            <div class="ios-check"><span>✓</span> AR/AP Support</div>
+            <div class="ios-check"><span>✓</span> Business Reports</div>
 
-        <div class="marquee-content text-xl md:text-2xl font-semibold flex gap-16">
-
-            <span>✅ Lead Generation</span>
-            <span>✅ CRM Management</span>
-            <span>✅ Appointment Setting</span>
-            <span>✅ ERP Systems</span>
-            <span>✅ Sales Coordination</span>
-            <span>✅ Client Communication</span>
-            <span>✅ Marketing Assistance</span>
-            <span>✅ Canva & Presentations</span>
-
-            <span>✅ Lead Generation</span>
-            <span>✅ CRM Management</span>
-            <span>✅ Appointment Setting</span>
-            <span>✅ ERP Systems</span>
-            <span>✅ Sales Coordination</span>
-            <span>✅ Client Communication</span>
-            <span>✅ Marketing Assistance</span>
-            <span>✅ Canva & Presentations</span>
-
+            <div class="ios-check"><span>✓</span> Lead Generation</div>
+            <div class="ios-check"><span>✓</span> CRM Management</div>
+            <div class="ios-check"><span>✓</span> Appointment Setting</div>
+            <div class="ios-check"><span>✓</span> ERP Systems</div>
+            <div class="ios-check"><span>✓</span> Sales Coordination</div>
+            <div class="ios-check"><span>✓</span> Client Communication</div>
+            <div class="ios-check"><span>✓</span> Marketing Assistance</div>
+            <div class="ios-check"><span>✓</span> Canva & Presentations</div>
+            <div class="ios-check"><span>✓</span> Basic Bookkeeping</div>
+            <div class="ios-check"><span>✓</span> Invoice Monitoring</div>
+            <div class="ios-check"><span>✓</span> AR/AP Support</div>
+            <div class="ios-check"><span>✓</span> Business Reports</div>
         </div>
-
     </div>
-
 </section>
 
-<!-- ========================= -->
 <!-- ABOUT -->
-<!-- ========================= -->
-
 <section id="about" class="py-28 px-6">
-
     <div class="max-w-6xl mx-auto">
-
-        <div class="glass rounded-[40px] p-12 card"
-             data-aos="fade-up">
-
-            <p class="text-blue-400 uppercase tracking-[4px] mb-4">
+        <div class="glass rounded-[42px] p-10 md:p-14 card" data-aos="fade-up">
+            <p class="text-blue-400 uppercase tracking-[4px] mb-4 font-black">
                 About Me
             </p>
 
-            <h2 class="text-4xl md:text-5xl font-bold leading-tight">
-
+            <h2 class="text-4xl md:text-5xl font-black leading-tight">
                 Helping Businesses Grow Through
-
-                <span class="gradient-text">
-                    Smart Digital Solutions
-                </span>
-
+                <span class="gradient-text">Smart Digital Support</span>
             </h2>
 
             <p class="text-gray-300 leading-10 text-lg mt-8">
-
-                Currently working as an Assist. Team Leader - Sales & Marketing supporting ERP software solutions, CRM workflows, client coordination, appointment setting, lead generation, and business operations.
-
-                Passionate about helping businesses improve customer engagement, sales growth, and operational efficiency through modern digital tools and communication strategies.
-
+                Currently working as an Assist. Team Leader - Sales & Marketing supporting ERP software solutions, CRM workflows, client coordination, appointment setting, lead generation, and business operations. Experienced in customer engagement, sales growth, and operational efficiency through modern digital tools and communication strategies.
             </p>
 
-        </div>
-
-    </div>
-
-</section>
-<!-- ========================= -->
-<!-- EDUCATION & GENERAL INFO -->
-<!-- ========================= -->
-
-<section id="education" class="py-28 px-6">
-
-    <div class="max-w-7xl mx-auto">
-
-        <div class="text-center mb-16">
-
-            <p class="text-blue-400 uppercase tracking-[4px] mb-4">
-                Personal Background
+            <p class="text-gray-300 leading-10 text-lg mt-5">
+                Possess working knowledge of basic bookkeeping processes, including recording transactions, monitoring invoices, maintaining financial records, and supporting accounts receivable and payable activities.
             </p>
 
-            <h2 class="text-4xl md:text-5xl font-bold">
+            <div class="grid md:grid-cols-4 gap-5 mt-10">
+                <a href="#skills" class="glass rounded-3xl p-5 text-center card">
+                    <div class="text-4xl mb-3">💼</div>
+                    <h4 class="font-black">VA Skills</h4>
+                </a>
 
-                Education &
-                <span class="gradient-text">
-                    General Information
-                </span>
+                <a href="#bookkeeping" class="glass rounded-3xl p-5 text-center card">
+                    <div class="text-4xl mb-3">📊</div>
+                    <h4 class="font-black">Bookkeeping</h4>
+                </a>
 
-            </h2>
+                <a href="#services" class="glass rounded-3xl p-5 text-center card">
+                    <div class="text-4xl mb-3">🚀</div>
+                    <h4 class="font-black">Services</h4>
+                </a>
 
-        </div>
-
-        <div class="grid md:grid-cols-2 gap-10">
-
-            <!-- EDUCATION -->
-
-            <div class="glass rounded-[35px] p-10 card"
-                 data-aos="fade-right">
-
-                <div class="flex items-center gap-4 mb-8">
-
-                    <div class="w-16 h-16 rounded-2xl bg-blue-500/10 flex items-center justify-center">
-
-                        <i class="fa-solid fa-graduation-cap text-3xl text-blue-400"></i>
-
-                    </div>
-
-                    <div>
-
-                        <h3 class="text-3xl font-bold">
-                            Educational Attainment
-                        </h3>
-
-                        <p class="text-gray-400 mt-1">
-                            Academic Background
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <!-- College -->
-
-                <div class="mb-10 border-l-2 border-blue-500 pl-6 relative">
-
-                    <div class="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-blue-500"></div>
-
-                    <h4 class="text-2xl font-semibold text-blue-400">
-                        Bachelor of Science in Business Administration
-                    </h4>
-
-                    <p class="text-lg text-gray-300 mt-2">
-                        Major in Marketing Management
-                    </p>
-
-                    <a href="https://www.facebook.com/RCL1949/"
-                       target="_blank"
-                       class="inline-flex items-center gap-2 text-purple-400 hover:text-purple-300 transition mt-3">
-
-                        <i class="fa-solid fa-school"></i>
-                        Rizal College of Laguna – Calamba, Laguna
-
-                    </a>
-
-                    <div class="flex flex-wrap gap-3 mt-5">
-
-                        <span class="px-4 py-2 rounded-full bg-blue-500/10 border border-blue-400/20 text-sm text-blue-300">
-                            Marketing Management
-                        </span>
-
-                        <span class="px-4 py-2 rounded-full bg-purple-500/10 border border-purple-400/20 text-sm text-purple-300">
-                            Business Administration
-                        </span>
-
-                    </div>
-
-                </div>
-
-                <!-- Senior High -->
-
-                <div class="mb-10 border-l-2 border-purple-500 pl-6 relative">
-
-                    <div class="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-purple-500"></div>
-
-                    <h4 class="text-2xl font-semibold text-purple-400">
-                        Senior High School
-                    </h4>
-
-                    <p class="text-lg text-gray-300 mt-2">
-                        Accountancy, Business and Management (ABM)
-                    </p>
-
-                    <a href="https://www.facebook.com/ncstofficial/"
-                       target="_blank"
-                       class="inline-flex items-center gap-2 text-pink-400 hover:text-pink-300 transition mt-3">
-
-                        <i class="fa-solid fa-building-columns"></i>
-                        National College of Science and Technology
-
-                    </a>
-
-                    <p class="text-gray-400 mt-2">
-                        City of Dasmariñas, Cavite
-                    </p>
-
-                </div>
-
-                <!-- High School -->
-
-                <div class="border-l-2 border-pink-500 pl-6 relative">
-
-                    <div class="absolute -left-[9px] top-2 w-4 h-4 rounded-full bg-pink-500"></div>
-
-                    <h4 class="text-2xl font-semibold text-pink-400">
-                        High School
-                    </h4>
-
-                    <a href="https://www.facebook.com/"
-                       target="_blank"
-                       class="inline-flex items-center gap-2 text-gray-300 hover:text-white transition mt-3">
-
-                        <i class="fa-solid fa-book"></i>
-                        Pag-asa National High School
-
-                    </a>
-
-                    <p class="text-gray-400 mt-2">
-                        City of Dasmariñas, Cavite
-                    </p>
-
-                </div>
-
+                <a href="#contact" class="glass rounded-3xl p-5 text-center card">
+                    <div class="text-4xl mb-3">📩</div>
+                    <h4 class="font-black">Contact</h4>
+                </a>
             </div>
-
-            <!-- GENERAL INFORMATION -->
-
-            <div class="glass rounded-[35px] p-10 card"
-                 data-aos="fade-left">
-
-                <div class="flex items-center gap-4 mb-8">
-
-                    <div class="w-16 h-16 rounded-2xl bg-purple-500/10 flex items-center justify-center">
-
-                        <i class="fa-solid fa-circle-info text-3xl text-purple-400"></i>
-
-                    </div>
-
-                    <div>
-
-                        <h3 class="text-3xl font-bold">
-                            General Information
-                        </h3>
-
-                        <p class="text-gray-400 mt-1">
-                            Personal Details
-                        </p>
-
-                    </div>
-
-                </div>
-
-                <div class="space-y-5">
-
-                    <div class="glass rounded-2xl p-5 flex items-center gap-4">
-
-                        <div class="w-14 h-14 rounded-2xl bg-blue-500/10 flex items-center justify-center">
-
-                            <i class="fa-solid fa-cake-candles text-blue-400 text-xl"></i>
-
-                        </div>
-
-                        <div>
-
-                            <p class="text-gray-400 text-sm">
-                                Date of Birth
-                            </p>
-
-                            <h4 class="text-xl font-semibold">
-                                August 13, 2001
-                            </h4>
-
-                        </div>
-
-                    </div>
-
-                    <div class="glass rounded-2xl p-5 flex items-center gap-4">
-
-                        <div class="w-14 h-14 rounded-2xl bg-purple-500/10 flex items-center justify-center">
-
-                            <i class="fa-solid fa-user text-purple-400 text-xl"></i>
-
-                        </div>
-
-                        <div>
-
-                            <p class="text-gray-400 text-sm">
-                                Age
-                            </p>
-
-                            <h4 class="text-xl font-semibold">
-                                25 Years Old
-                            </h4>
-
-                        </div>
-
-                    </div>
-
-                    <div class="glass rounded-2xl p-5 flex items-center gap-4">
-
-                        <div class="w-14 h-14 rounded-2xl bg-pink-500/10 flex items-center justify-center">
-
-                            <i class="fa-solid fa-location-dot text-pink-400 text-xl"></i>
-
-                        </div>
-
-                        <div>
-
-                            <p class="text-gray-400 text-sm">
-                                Place of Birth
-                            </p>
-
-                            <h4 class="text-xl font-semibold">
-                                Dasmariñas, Cavite
-                            </h4>
-
-                        </div>
-
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-5">
-
-                        <div class="glass rounded-2xl p-5">
-
-                            <p class="text-gray-400 text-sm mb-2">
-                                Gender
-                            </p>
-
-                            <h4 class="text-lg font-semibold">
-                                Female
-                            </h4>
-
-                        </div>
-
-                        <div class="glass rounded-2xl p-5">
-
-                            <p class="text-gray-400 text-sm mb-2">
-                                Civil Status
-                            </p>
-
-                            <h4 class="text-lg font-semibold">
-                                Single
-                            </h4>
-
-                        </div>
-
-                        <div class="glass rounded-2xl p-5">
-
-                            <p class="text-gray-400 text-sm mb-2">
-                                Height
-                            </p>
-
-                            <h4 class="text-lg font-semibold">
-                                5'6"
-                            </h4>
-
-                        </div>
-
-                        <div class="glass rounded-2xl p-5">
-
-                            <p class="text-gray-400 text-sm mb-2">
-                                Weight
-                            </p>
-
-                            <h4 class="text-lg font-semibold">
-                                49 kg
-                            </h4>
-
-                        </div>
-
-                    </div>
-
-                    <div class="glass rounded-2xl p-5 flex items-center justify-between">
-
-                        <div>
-
-                            <p class="text-gray-400 text-sm">
-                                Nationality
-                            </p>
-
-                            <h4 class="text-xl font-semibold mt-1">
-                                Filipino
-                            </h4>
-
-                        </div>
-
-                        <div class="text-4xl">
-                            🇵🇭
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
         </div>
-
     </div>
-
 </section>
-<!-- ========================= -->
+
 <!-- SKILLS -->
-<!-- ========================= -->
-
-<section id="skills" class="py-28 px-6">
-
+<section id="skills" class="py-28 px-6 bg-black/20">
     <div class="max-w-7xl mx-auto">
-
         <div class="text-center mb-16">
-
-            <p class="text-blue-400 uppercase tracking-[4px] mb-4">
-                Expertise
+            <p class="text-blue-400 uppercase tracking-[4px] mb-4 font-black">
+                Skills
             </p>
 
-            <h2 class="text-4xl md:text-5xl font-bold">
-
+            <h2 class="text-4xl md:text-5xl font-black">
                 Skills &
-                <span class="gradient-text">
-                    Expertise
-                </span>
-
+                <span class="gradient-text">Expertise</span>
             </h2>
-
         </div>
 
         <div class="grid md:grid-cols-3 gap-8">
-
-            <!-- CARD -->
-
-            <div class="glass p-8 rounded-[35px] card"
-                 data-aos="zoom-in">
-
+            <div class="glass p-8 rounded-[35px] card" data-aos="zoom-in">
                 <div class="w-20 h-20 rounded-3xl bg-blue-500/10 flex items-center justify-center">
-
                     <i class="fa-solid fa-chart-line text-4xl text-blue-400"></i>
-
                 </div>
 
-                <h3 class="text-3xl font-bold mt-6">
-                    Sales & Marketing
-                </h3>
+                <h3 class="text-3xl font-black mt-6">Sales & Marketing</h3>
 
                 <p class="text-gray-300 mt-5 leading-8">
-
-                    B2B campaigns, appointment setting, lead generation, and client engagement.
-
+                    Lead generation, appointment setting, client communication, follow-ups, and business coordination.
                 </p>
-
             </div>
 
-            <!-- CARD -->
-
-            <div class="glass p-8 rounded-[35px] card"
-                 data-aos="zoom-in">
-
+            <div class="glass p-8 rounded-[35px] card" data-aos="zoom-in">
                 <div class="w-20 h-20 rounded-3xl bg-purple-500/10 flex items-center justify-center">
-
                     <i class="fa-solid fa-users text-4xl text-purple-400"></i>
-
                 </div>
 
-                <h3 class="text-3xl font-bold mt-6">
-                    CRM Management
-                </h3>
+                <h3 class="text-3xl font-black mt-6">CRM & ERP Support</h3>
 
                 <p class="text-gray-300 mt-5 leading-8">
-
-                    Workflow management, lead tracking, follow-ups, and customer databases.
-
+                    CRM workflow monitoring, ERP coordination, client onboarding support, and customer database updates.
                 </p>
-
             </div>
 
-            <!-- CARD -->
-
-            <div class="glass p-8 rounded-[35px] card"
-                 data-aos="zoom-in">
-
+            <div class="glass p-8 rounded-[35px] card" data-aos="zoom-in">
                 <div class="w-20 h-20 rounded-3xl bg-pink-500/10 flex items-center justify-center">
-
-                    <i class="fa-solid fa-laptop text-4xl text-pink-400"></i>
-
+                    <i class="fa-solid fa-laptop-file text-4xl text-pink-400"></i>
                 </div>
 
-                <h3 class="text-3xl font-bold mt-6">
-                    Digital Support
-                </h3>
+                <h3 class="text-3xl font-black mt-6">Admin & Digital Support</h3>
 
                 <p class="text-gray-300 mt-5 leading-8">
-
-                    Canva editing, reports, presentations, and digital marketing assistance.
-
+                    Canva presentations, business reports, data entry, documentation, and invoice monitoring.
                 </p>
-
             </div>
-
         </div>
 
-    </div>
+        <div class="glass rounded-[38px] p-8 md:p-10 mt-12" data-aos="fade-up">
+            <h3 class="text-3xl font-black mb-8 text-center">
+                Core Virtual Assistant Skills
+            </h3>
 
+            <div class="flex flex-wrap justify-center gap-4">
+                <span class="ios-check"><span>✓</span> Lead Generation</span>
+                <span class="ios-check"><span>✓</span> CRM Management</span>
+                <span class="ios-check"><span>✓</span> Appointment Setting</span>
+                <span class="ios-check"><span>✓</span> ERP Systems</span>
+                <span class="ios-check"><span>✓</span> Sales Coordination</span>
+                <span class="ios-check"><span>✓</span> Client Communication</span>
+                <span class="ios-check"><span>✓</span> Marketing Assistance</span>
+                <span class="ios-check"><span>✓</span> Canva & Presentations</span>
+                <span class="ios-check"><span>✓</span> Basic Bookkeeping</span>
+                <span class="ios-check"><span>✓</span> Recording Financial Transactions</span>
+                <span class="ios-check"><span>✓</span> Invoice & Billing Monitoring</span>
+                <span class="ios-check"><span>✓</span> Accounts Receivable & Payable Support</span>
+                <span class="ios-check"><span>✓</span> Data Entry & Financial Documentation</span>
+                <span class="ios-check"><span>✓</span> Business Report Preparation</span>
+            </div>
+        </div>
+    </div>
 </section>
 
-<!-- ========================= -->
+<!-- BOOKKEEPING -->
+<section id="bookkeeping" class="py-28 px-6">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16">
+            <p class="text-blue-400 uppercase tracking-[4px] mb-4 font-black">
+                Accounting & Bookkeeping
+            </p>
+
+            <h2 class="text-4xl md:text-5xl font-black">
+                Financial Support
+                <span class="gradient-text">Knowledge</span>
+            </h2>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-10 items-center">
+            <div class="glass rounded-[40px] p-10 card" data-aos="fade-right">
+                <div class="w-20 h-20 rounded-3xl bg-blue-500/10 flex items-center justify-center mb-8">
+                    <i class="fa-solid fa-calculator text-4xl text-blue-400"></i>
+                </div>
+
+                <h3 class="text-3xl font-black mb-5">
+                    Basic Accounting & Bookkeeping Support
+                </h3>
+
+                <p class="text-gray-300 leading-10 text-lg">
+                    Knowledge of basic accounting principles, financial record keeping, transaction entries, invoice monitoring, accounts receivable and payable support, and preparation of business reports.
+                </p>
+
+                <a href="#contact" class="btn-main bg-blue-600 hover:bg-blue-700 glow mt-8">
+                    <i class="fa-solid fa-envelope"></i> Ask for Support
+                </a>
+            </div>
+
+            <div class="grid gap-5" data-aos="fade-left">
+                <div class="glass rounded-3xl p-6 card flex gap-5 items-center">
+                    <div class="text-4xl">🧾</div>
+                    <div>
+                        <h4 class="text-xl font-black">Invoice & Billing Monitoring</h4>
+                        <p class="text-gray-400 mt-2">Track invoice status, billing records, and payment follow-ups.</p>
+                    </div>
+                </div>
+
+                <div class="glass rounded-3xl p-6 card flex gap-5 items-center">
+                    <div class="text-4xl">📒</div>
+                    <div>
+                        <h4 class="text-xl font-black">Transaction Recording</h4>
+                        <p class="text-gray-400 mt-2">Support recording of financial transactions and documentation.</p>
+                    </div>
+                </div>
+
+                <div class="glass rounded-3xl p-6 card flex gap-5 items-center">
+                    <div class="text-4xl">💳</div>
+                    <div>
+                        <h4 class="text-xl font-black">AR/AP Support</h4>
+                        <p class="text-gray-400 mt-2">Assist in accounts receivable and accounts payable monitoring.</p>
+                    </div>
+                </div>
+
+                <div class="glass rounded-3xl p-6 card flex gap-5 items-center">
+                    <div class="text-4xl">📊</div>
+                    <div>
+                        <h4 class="text-xl font-black">Business Reports</h4>
+                        <p class="text-gray-400 mt-2">Prepare organized reports for business tracking and decision-making.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- EXPERIENCE -->
-<!-- ========================= -->
-
-<section id="experience" class="py-28 px-6">
-
+<section id="experience" class="py-28 px-6 bg-black/20">
     <div class="max-w-6xl mx-auto">
-
         <div class="text-center mb-20">
-
-            <p class="text-blue-400 uppercase tracking-[4px] mb-4">
+            <p class="text-blue-400 uppercase tracking-[4px] mb-4 font-black">
                 Career Journey
             </p>
 
-            <h2 class="text-4xl md:text-5xl font-bold">
-
+            <h2 class="text-4xl md:text-5xl font-black">
                 Work
-                <span class="gradient-text">
-                    Experience
-                </span>
-
+                <span class="gradient-text">Experience</span>
             </h2>
-
         </div>
 
         <div class="space-y-10">
-
-            <!-- EXP -->
-
-            <div class="glass rounded-[35px] p-10 card"
-                 data-aos="fade-right">
-
+            <div class="glass rounded-[35px] p-10 card" data-aos="fade-right">
                 <div class="flex flex-col md:flex-row md:justify-between gap-5">
-
                     <div>
-
-                        <h3 class="text-3xl font-bold text-blue-400">
+                        <h3 class="text-3xl font-black text-blue-400">
                             Integr8 Software Solutions
                         </h3>
 
                         <p class="text-gray-400 mt-2">
                             June 2023 – Present
                         </p>
-
                     </div>
 
-                    <div class="glass px-5 py-3 rounded-2xl h-fit">
-
+                    <div class="glass px-5 py-3 rounded-2xl h-fit font-bold">
                         💼 Assist. Team Leader - Sales & Marketing
                     </div>
-
                 </div>
 
                 <ul class="mt-8 text-gray-300 leading-10 text-lg">
-
-                    <li>• Managed CRM workflows and client coordination</li>
-
-                    <li>• Supported ERP software presentations and onboarding</li>
-
-                    <li>• Assisted sales operations and follow-ups</li>
-
-                    <li>• Conducted client communication and demos</li>
-
-                    <li>• Supported lead generation and marketing efforts</li>
-
+                    <li>• Managed CRM workflows and client coordination.</li>
+                    <li>• Supported ERP software presentations, demos, and onboarding.</li>
+                    <li>• Assisted sales operations, follow-ups, and client communication.</li>
+                    <li>• Supported lead generation, quotation monitoring, and marketing tasks.</li>
+                    <li>• Coordinated business documentation, reports, and billing follow-ups.</li>
                 </ul>
-
             </div>
 
-            <!-- EXP -->
-
-            <div class="glass rounded-[35px] p-10 card"
-                 data-aos="fade-left">
-
+            <div class="glass rounded-[35px] p-10 card" data-aos="fade-left">
                 <div class="flex flex-col md:flex-row md:justify-between gap-5">
-
                     <div>
-
-                        <h3 class="text-3xl font-bold text-purple-400">
+                        <h3 class="text-3xl font-black text-purple-400">
                             IVoice Outsourcing
                         </h3>
 
                         <p class="text-gray-400 mt-2">
                             Aug 2022 – May 2023
                         </p>
-
                     </div>
 
-                    <div class="glass px-5 py-3 rounded-2xl h-fit">
-
+                    <div class="glass px-5 py-3 rounded-2xl h-fit font-bold">
                         📞 Appointment Setter
-
                     </div>
-
                 </div>
 
                 <ul class="mt-8 text-gray-300 leading-10 text-lg">
-
-                    <li>• B2B outbound appointment setting</li>
-
-                    <li>• Lead qualification and scheduling</li>
-
-                    <li>• Customer relationship building</li>
-
-                    <li>• CRM monitoring and updates</li>
-
-                    <li>• Team coordination and support</li>
-
+                    <li>• Handled B2B outbound appointment setting.</li>
+                    <li>• Assisted in lead qualification and schedule coordination.</li>
+                    <li>• Built customer relationships through professional communication.</li>
+                    <li>• Updated CRM records and monitored follow-ups.</li>
+                    <li>• Supported team coordination and daily productivity tracking.</li>
                 </ul>
-
             </div>
-
         </div>
-
     </div>
-
 </section>
 
-<!-- ========================= -->
 <!-- SERVICES -->
-<!-- ========================= -->
-
 <section id="services" class="py-28 px-6">
-
     <div class="max-w-7xl mx-auto">
-
         <div class="text-center mb-16">
-
-            <p class="text-blue-400 uppercase tracking-[4px] mb-4">
+            <p class="text-blue-400 uppercase tracking-[4px] mb-4 font-black">
                 Services
             </p>
 
-            <h2 class="text-4xl md:text-5xl font-bold">
-
+            <h2 class="text-4xl md:text-5xl font-black">
                 What I
-                <span class="gradient-text">
-                    Offer
-                </span>
-
+                <span class="gradient-text">Offer</span>
             </h2>
-
         </div>
 
         <div class="grid md:grid-cols-4 gap-8">
-
             <div class="glass p-8 rounded-[35px] text-center card">
-
                 <div class="text-5xl mb-6">📞</div>
-
-                <h3 class="text-2xl font-bold">
-                    Appointment Setting
-                </h3>
-
+                <h3 class="text-2xl font-black">Appointment Setting</h3>
+                <p class="text-gray-400 mt-4">Schedule calls, demos, and client meetings professionally.</p>
             </div>
 
             <div class="glass p-8 rounded-[35px] text-center card">
-
                 <div class="text-5xl mb-6">📈</div>
-
-                <h3 class="text-2xl font-bold">
-                    Lead Generation
-                </h3>
-
+                <h3 class="text-2xl font-black">Lead Generation</h3>
+                <p class="text-gray-400 mt-4">Support prospecting, follow-ups, and lead monitoring.</p>
             </div>
 
             <div class="glass p-8 rounded-[35px] text-center card">
-
                 <div class="text-5xl mb-6">💻</div>
-
-                <h3 class="text-2xl font-bold">
-                    CRM Support
-                </h3>
-
+                <h3 class="text-2xl font-black">CRM Support</h3>
+                <p class="text-gray-400 mt-4">Manage records, pipelines, client updates, and reports.</p>
             </div>
 
             <div class="glass p-8 rounded-[35px] text-center card">
-
-                <div class="text-5xl mb-6">🎨</div>
-
-                <h3 class="text-2xl font-bold">
-                    Marketing Assistance
-                </h3>
-
+                <div class="text-5xl mb-6">🧾</div>
+                <h3 class="text-2xl font-black">Bookkeeping Support</h3>
+                <p class="text-gray-400 mt-4">Assist in invoices, billing, AR/AP, and financial documentation.</p>
             </div>
-
         </div>
-
     </div>
-
 </section>
 
-<!-- ========================= -->
 <!-- CONTACT -->
-<!-- ========================= -->
-
-<section id="contact" class="py-28 px-6">
-
+<section id="contact" class="py-28 px-6 bg-black/20">
     <div class="max-w-5xl mx-auto">
-
-        <div class="glass rounded-[45px] p-14 text-center card"
-             data-aos="zoom-in">
-
-            <p class="text-blue-400 uppercase tracking-[4px] mb-4">
+        <div class="glass rounded-[45px] p-10 md:p-14 text-center card" data-aos="zoom-in">
+            <p class="text-blue-400 uppercase tracking-[4px] mb-4 font-black">
                 Contact Me
             </p>
 
-            <h2 class="text-4xl md:text-5xl font-bold mb-8">
-
+            <h2 class="text-4xl md:text-5xl font-black mb-8">
                 Let's Work
-                <span class="gradient-text">
-                    Together 🚀
-                </span>
-
+                <span class="gradient-text">Together 🚀</span>
             </h2>
 
             <p class="text-gray-300 text-lg leading-9 max-w-2xl mx-auto">
-
-                Open for freelance collaborations, remote work, sales support, business coordination, and marketing opportunities.
-
+                Open for freelance collaborations, remote VA support, CRM assistance, appointment setting, sales support, bookkeeping assistance, and business coordination opportunities.
             </p>
 
-            <!-- Buttons -->
-
             <div class="flex flex-wrap justify-center gap-6 mt-12">
-
-                <a href="mailto:cadlumjackielou23@gmail.com">
-
-                    <button class="btn-main bg-blue-600 hover:bg-blue-700 glow">
-
-                        📩 Email Me
-
-                    </button>
-
+                <a href="mailto:cadlumjackielou23@gmail.com?subject=VA Portfolio Inquiry" class="btn-main bg-blue-600 hover:bg-blue-700 glow">
+                    <i class="fa-solid fa-envelope"></i> Email Me
                 </a>
 
-                <a href="tel:+639999016426">
-
-                    <button class="btn-main bg-green-500 hover:bg-green-600">
-
-                        📞 Call Me
-
-                    </button>
-
+                <a href="tel:+639999016426" class="btn-main bg-green-500 hover:bg-green-600">
+                    <i class="fa-solid fa-phone"></i> Call Me
                 </a>
 
-                <a href="https://wa.me/639999016426"
-                   target="_blank">
-
-                    <button class="btn-main bg-emerald-500 hover:bg-emerald-600">
-
-                        💬 WhatsApp
-
-                    </button>
-
+                <a href="https://wa.me/639999016426" target="_blank" class="btn-main bg-emerald-500 hover:bg-emerald-600">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
                 </a>
-
             </div>
-
-            <!-- Info -->
 
             <div class="mt-12 text-gray-400 leading-10">
-
                 <p>📍 Dasmariñas, Cavite, Philippines</p>
-
                 <p>📞 +63 999 901 6426</p>
-
                 <p>✉️ cadlumjackielou23@gmail.com</p>
-
             </div>
-
         </div>
-
     </div>
-
 </section>
 
-<!-- ========================= -->
-<!-- FOOTER -->
-<!-- ========================= -->
-
-<footer class="py-10 text-center border-t border-gray-800 text-gray-500">
-
-    © 2026 Jackielou Cadlum • Portfolio
-
+<footer class="py-10 text-center border-t border-white/10 text-gray-500">
+    © 2026 Jackielou Cadlum • Virtual Assistant Portfolio
 </footer>
-
-<!-- ========================= -->
-<!-- AOS -->
-<!-- ========================= -->
 
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 
 <script>
-
-/* ========================= */
-/* AOS */
-/* ========================= */
-
 AOS.init({
-
     duration:1000,
     once:true
-
 });
 
-/* ========================= */
-/* TYPING */
-/* ========================= */
-
 const text = [
-
-    "Sales & Marketing Professional 🚀",
-    "B2B Appointment Setter 📞",
-    "CRM & Digital Support Specialist 💻",
-    "Helping Businesses Grow 📈"
-
+    "Virtual Assistant Support 💻",
+    "CRM & Lead Generation Specialist 📈",
+    "Appointment Setter & Sales Coordinator 📞",
+    "ERP Systems Support Professional 🚀",
+    "Basic Bookkeeping & Admin Support 🧾"
 ];
 
 let count = 0;
 let index = 0;
-let currentText = "";
-let letter = "";
 
-(function type(){
-
-    if(count === text.length){
-        count = 0;
-    }
-
-    currentText = text[count];
-
-    letter = currentText.slice(0, ++index);
+function type(){
+    let currentText = text[count];
+    let letter = currentText.slice(0, ++index);
 
     document.getElementById("typing").textContent = letter;
 
     if(letter.length === currentText.length){
+        setTimeout(() => {
+            index = 0;
+            count++;
 
-        count++;
-        index = 0;
+            if(count === text.length){
+                count = 0;
+            }
 
-        setTimeout(type,1500);
-
+            type();
+        }, 1300);
     }else{
-
-        setTimeout(type,70);
-
+        setTimeout(type, 55);
     }
+}
 
-})();
-
-/* ========================= */
-/* MOBILE MENU */
-/* ========================= */
+type();
 
 const menuBtn = document.getElementById("menuBtn");
-
 const mobileNav = document.getElementById("mobileNav");
 
 menuBtn.addEventListener("click", () => {
-
     mobileNav.classList.toggle("hidden");
-
 });
 
+document.querySelectorAll("#mobileNav a").forEach(link => {
+    link.addEventListener("click", () => {
+        mobileNav.classList.add("hidden");
+    });
+});
 </script>
 
 </body>
